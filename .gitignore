@@ -1,0 +1,49 @@
+# Python
+venv/
+env/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# Data files (generados por el scraper)
+data/output/*.csv
+data/output/*.json
+data/images/*.jpg
+data/images/*.jpeg
+data/images/*.png
+data/images/*.gif
+data/images/*.webp
+
+# Legacy files (mantener por compatibilidad)
+imagenes/
+rosario_central_jugadores.csv
+rosario_central_jugadores.json
+rosario_central_jugadores_backup.json
+
+# Archivos temporales
+*.html
+*.log
+*.txt
+*.tmp
+*.json.tmp
+test_*.py
+*_backup.py
+*_old.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS
+Thumbs.db
