@@ -13,9 +13,11 @@ dist/
 build/
 .pytest_cache/
 
-# Data files (generados por el scraper)
+# Data files (generados por los scrapers)
 data/output/*.csv
 data/output/*.json
+data/output/rosario_central_jugadores.json
+data/output/rosario_central_goles_detallados.json
 data/images/*.jpg
 data/images/*.jpeg
 data/images/*.png

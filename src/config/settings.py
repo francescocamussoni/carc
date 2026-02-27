@@ -66,6 +66,7 @@ class Settings:
         # Archivos de salida
         self.JSON_OUTPUT = self.OUTPUT_DIR / 'rosario_central_jugadores.json'
         self.CSV_OUTPUT = self.OUTPUT_DIR / 'rosario_central_jugadores.csv'
+        self.GOLES_DETALLADOS_OUTPUT = self.OUTPUT_DIR / 'rosario_central_goles_detallados.json'
     
     def update(self, **kwargs):
         """

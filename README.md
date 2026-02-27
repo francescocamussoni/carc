@@ -1,6 +1,9 @@
-# 🔵⚪ Rosario Central - Scraper de Jugadores
+# 🔵⚪ Rosario Central - Scrapers de Datos
 
-Scraper **optimizado y paralelo** para obtener información completa de todos los jugadores de Rosario Central desde Transfermarkt.
+Suite de scrapers **optimizados y paralelos** para obtener información completa de Rosario Central desde Transfermarkt:
+
+1. **Scraper de Jugadores:** Información completa de jugadores históricos
+2. **Scraper de Goles Detallados:** Todos los goles con información detallada (rival, competición, fecha, tipo, etc.)
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![Performance](https://img.shields.io/badge/Performance-4x%20faster-green.svg)](OPTIMIZACIONES.md)
