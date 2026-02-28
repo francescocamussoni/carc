@@ -4,6 +4,7 @@ Suite de scrapers **optimizados y paralelos** para obtener información completa
 
 1. **Scraper de Jugadores:** Información completa de jugadores históricos
 2. **Scraper de Goles Detallados:** Todos los goles con información detallada (rival, competición, fecha, tipo, etc.)
+3. **Scraper de Técnicos:** Todos los entrenadores que dirigieron el club con estadísticas completas
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![Performance](https://img.shields.io/badge/Performance-4x%20faster-green.svg)](OPTIMIZACIONES.md)
@@ -81,14 +82,30 @@ pip install -r requirements.txt
 
 ## 🎯 Uso
 
-### Ejecutar el scraper
+### Ejecutar los scrapers
+
+#### Scraper de Jugadores
 ```bash
 # Activar entorno virtual
 source venv/bin/activate
 
-# Ejecutar scraper
+# Ejecutar scraper de jugadores
 python scripts/run_scraper.py
 ```
+
+#### Scraper de Goles Detallados
+```bash
+# Ejecutar scraper de goles detallados
+python scripts/run_goles_detallados.py
+```
+
+#### Scraper de Técnicos
+```bash
+# Ejecutar scraper de técnicos
+python scripts/run_tecnicos.py
+```
+
+Ver documentación específica en [docs/TECNICOS.md](docs/TECNICOS.md)
 
 ### Configuración (opcional)
 Editar `src/config/settings.py`:
@@ -207,6 +224,44 @@ carc/
 
 ### CSV (`data/output/rosario_central_jugadores.csv`)
 Versión simplificada sin arrays anidados, ideal para Excel/análisis básico.
+
+### 👔 Técnicos (`data/output/rosario_central_tecnicos.json`)
+
+```json
+{
+  "fecha_scraping": "2026-02-27T20:00:00",
+  "total_tecnicos": 65,
+  "tecnicos": {
+    "Eduardo Coudet": {
+      "url_perfil": "/eduardo-coudet/profil/trainer/38808",
+      "nacionalidad": "",
+      "image_profile": "data/images/tecnicos/eduardo_coudet.jpg",
+      "periodo_rosario": "01/01/2015 - 31/12/2016",
+      "partidos_dirigidos": 81,
+      "clubes_historia": [
+        {
+          "club": "Deportivo Alavés",
+          "pais": "España",
+          "periodo": "24/25 (02/12/2024)"
+        },
+        {
+          "club": "Clube Atlético Mineiro",
+          "pais": "Brasil",
+          "periodo": "22/23 (01/01/2023)"
+        },
+        {
+          "club": "RC Celta de Vigo",
+          "pais": "España",
+          "periodo": "20/21 (12/11/2020)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    }
+  }
+}
+```
+
+**Nota**: `estadisticas_por_torneo` está vacío porque Transfermarkt no proporciona este desglose para técnicos (solo muestra total de partidos).
 
 ---
 

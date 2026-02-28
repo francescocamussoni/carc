@@ -28,10 +28,12 @@ class Settings:
         self.DATA_DIR = self.BASE_DIR / 'data'
         self.OUTPUT_DIR = self.DATA_DIR / 'output'
         self.IMAGES_DIR = self.DATA_DIR / 'images'
+        self.TECNICOS_IMAGES_DIR = self.IMAGES_DIR / 'tecnicos'
         
         # Crear directorios si no existen
         self.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         self.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+        self.TECNICOS_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
         
         # Configuración de scraping
         self.MIN_PARTIDOS = 2
@@ -62,11 +64,14 @@ class Settings:
         self.TRANSFERMARKT_BASE_URL = 'https://www.transfermarkt.es'
         self.TRANSFERMARKT_CLUB_ID = '1418'  # Rosario Central
         self.TRANSFERMARKT_REKORDSPIELER_URL = f'{self.TRANSFERMARKT_BASE_URL}/club-atletico-rosario-central/rekordspieler/verein/{self.TRANSFERMARKT_CLUB_ID}'
+        self.TRANSFERMARKT_MITARBEITER_URL = f'{self.TRANSFERMARKT_BASE_URL}/club-atletico-rosario-central/mitarbeiterhistorie/verein/{self.TRANSFERMARKT_CLUB_ID}'
         
         # Archivos de salida
         self.JSON_OUTPUT = self.OUTPUT_DIR / 'rosario_central_jugadores.json'
         self.CSV_OUTPUT = self.OUTPUT_DIR / 'rosario_central_jugadores.csv'
         self.GOLES_DETALLADOS_OUTPUT = self.OUTPUT_DIR / 'rosario_central_goles_detallados.json'
+        self.TECNICOS_OUTPUT = self.OUTPUT_DIR / 'rosario_central_tecnicos.json'
+        self.TECNICOS_JUGADORES_OUTPUT = self.OUTPUT_DIR / 'rosario_central_tecnicos_jugadores.json'
     
     def update(self, **kwargs):
         """
