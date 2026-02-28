@@ -28,12 +28,16 @@ class Settings:
         self.DATA_DIR = self.BASE_DIR / 'data'
         self.OUTPUT_DIR = self.DATA_DIR / 'output'
         self.IMAGES_DIR = self.DATA_DIR / 'images'
+        self.JUGADORES_IMAGES_DIR = self.IMAGES_DIR / 'jugadores'
         self.TECNICOS_IMAGES_DIR = self.IMAGES_DIR / 'tecnicos'
+        self.CLUBES_IMAGES_DIR = self.IMAGES_DIR / 'clubes'
         
         # Crear directorios si no existen
         self.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         self.IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+        self.JUGADORES_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
         self.TECNICOS_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+        self.CLUBES_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
         
         # Configuración de scraping
         self.MIN_PARTIDOS = 2

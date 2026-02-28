@@ -9,6 +9,8 @@ from .tecnico_service import TecnicoService
 from .tecnico_clubes_service import TecnicoClubesService
 from .tecnico_stats_service import TecnicoStatsService
 from .tecnico_image_service import TecnicoImageService
+from .tecnico_jugadores_service import TecnicoJugadoresService
+from .club_image_service import ClubImageService
 
 __all__ = [
     'ImageService', 
@@ -19,5 +21,7 @@ __all__ = [
     'TecnicoService',
     'TecnicoClubesService',
     'TecnicoStatsService',
-    'TecnicoImageService'
+    'TecnicoImageService',
+    'TecnicoJugadoresService',
+    'ClubImageService'
 ]

@@ -5,6 +5,7 @@ Suite de scrapers **optimizados y paralelos** para obtener información completa
 1. **Scraper de Jugadores:** Información completa de jugadores históricos
 2. **Scraper de Goles Detallados:** Todos los goles con información detallada (rival, competición, fecha, tipo, etc.)
 3. **Scraper de Técnicos:** Todos los entrenadores que dirigieron el club con estadísticas completas
+4. **Scraper de Jugadores bajo Técnicos:** Jugadores dirigidos por cada técnico con estadísticas detalladas por temporada
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![Performance](https://img.shields.io/badge/Performance-4x%20faster-green.svg)](OPTIMIZACIONES.md)
@@ -40,6 +41,16 @@ Para cada torneo jugado en Rosario Central:
 - **Tarjetas amarillas**
 - **Dobles amarillas**
 - **Tarjetas rojas**
+
+### ✅ Técnicos
+Para cada técnico que dirigió Rosario Central:
+- **Nombre y nacionalidad**
+- **Foto de perfil**
+- **Períodos en Rosario Central** (con partidos dirigidos)
+- **Historia de clubes dirigidos** (con país y período)
+- **Jugadores dirigidos por torneo** (Copa Libertadores, Liga Profesional, etc.)
+  - Apariciones, goles y asistencias por jugador
+  - Resumen general de jugadores más dirigidos
 
 ---
 
@@ -106,6 +117,14 @@ python scripts/run_tecnicos.py
 ```
 
 Ver documentación específica en [docs/TECNICOS.md](docs/TECNICOS.md)
+
+#### Scraper de Jugadores bajo Técnicos
+```bash
+# Ejecutar scraper de jugadores dirigidos por cada técnico
+python scripts/run_tecnicos_jugadores.py
+```
+
+Ver documentación específica en [docs/TECNICOS_JUGADORES.md](docs/TECNICOS_JUGADORES.md)
 
 ### Configuración (opcional)
 Editar `src/config/settings.py`:

@@ -48,8 +48,8 @@ class ImageService:
             extension = self._extraer_extension(url_imagen)
             
             # Ruta completa y relativa
-            ruta_completa = self.settings.IMAGES_DIR / f"{nombre_archivo}{extension}"
-            ruta_relativa = f"data/images/{nombre_archivo}{extension}"
+            ruta_completa = self.settings.JUGADORES_IMAGES_DIR / f"{nombre_archivo}{extension}"
+            ruta_relativa = f"data/images/jugadores/{nombre_archivo}{extension}"
             
             # Si ya existe la imagen, no descargar de nuevo
             if ruta_completa.exists():
@@ -98,6 +98,6 @@ class ImageService:
         nombre_archivo = TextUtils.limpiar_nombre_archivo(nombre_jugador)
         # Buscar con cualquier extensión
         for ext in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
-            if (self.settings.IMAGES_DIR / f"{nombre_archivo}{ext}").exists():
+            if (self.settings.JUGADORES_IMAGES_DIR / f"{nombre_archivo}{ext}").exists():
                 return True
         return False
