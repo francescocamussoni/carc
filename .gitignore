@@ -1,51 +1,57 @@
 # Python
-venv/
-env/
-*.pyc
 __pycache__/
-*.pyo
-*.pyd
-.Python
+*.py[cod]
+*$py.class
 *.so
-*.egg
+.Python
+venv/
+.venv/
+ENV/
+env/
 *.egg-info/
 dist/
 build/
-.pytest_cache/
 
-# Data files (generados por los scrapers)
-data/output/*.csv
-data/output/*.json
-data/output/rosario_central_jugadores.json
-data/output/rosario_central_goles_detallados.json
-data/images/*.jpg
-data/images/*.jpeg
-data/images/*.png
-data/images/*.gif
-data/images/*.webp
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+dist/
+*.local
 
-# Legacy files (mantener por compatibilidad)
-imagenes/
-rosario_central_jugadores.csv
-rosario_central_jugadores.json
-rosario_central_jugadores_backup.json
+# Environment
+.env
+.env.local
+.env.*.local
 
-# Archivos temporales
-*.html
-*.log
-*.txt
-*.tmp
-*.json.tmp
-test_*.py
-*_backup.py
-*_old.py
-
-# IDE
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
-.DS_Store
+*~
 
 # OS
+.DS_Store
 Thumbs.db
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/

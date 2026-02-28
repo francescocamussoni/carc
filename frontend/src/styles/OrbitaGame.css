@@ -1,0 +1,328 @@
+.orbita-game {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Timer with danger state */
+.timer.danger {
+  color: var(--error-color);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.progress-container {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-container .label {
+  font-weight: 600;
+}
+
+.progress {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* Orbita Container */
+.orbita-container {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  min-height: 500px;
+}
+
+/* Protagonista (Técnico) */
+.protagonista-container {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 30px;
+  background: linear-gradient(135deg, var(--rc-blue) 0%, var(--rc-light-blue) 100%);
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 5px 20px rgba(0, 63, 127, 0.3);
+}
+
+.protagonista-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--rc-yellow);
+  margin-bottom: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.protagonista-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.protagonista-role {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  color: var(--rc-yellow);
+  font-weight: 600;
+}
+
+/* Elementos Orbitales Grid */
+.elementos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 25px;
+  perspective: 1000px;
+}
+
+.elemento-orbital {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  animation: fadeInScale 0.5s ease;
+  border: 2px solid transparent;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.elemento-orbital.revealed {
+  background: white;
+  border-color: var(--rc-yellow);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  animation: revealPulse 0.6s ease;
+}
+
+@keyframes revealPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.elemento-orbital.hidden {
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+}
+
+.elemento-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px solid var(--rc-blue);
+}
+
+.elemento-name {
+  font-weight: 600;
+  color: var(--rc-blue);
+  font-size: 0.95rem;
+  margin-top: 10px;
+  word-wrap: break-word;
+}
+
+.elemento-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #adb5bd 0%, #6c757d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  border: 3px solid #495057;
+}
+
+.elemento-placeholder .question-mark {
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;
+}
+
+.elemento-name-hidden {
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Hover effect for unrevealed elements */
+.elemento-orbital.hidden:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Timer Container */
+.timer-container {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timer-container .label {
+  font-weight: 600;
+}
+
+.timer {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .orbita-container {
+    padding: 25px 15px;
+  }
+
+  .protagonista-container {
+    padding: 20px 15px;
+  }
+
+  .protagonista-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .protagonista-name {
+    font-size: 1.5rem;
+  }
+
+  .elementos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 15px;
+  }
+
+  .elemento-orbital {
+    padding: 15px 10px;
+  }
+
+  .elemento-image,
+  .elemento-placeholder {
+    width: 80px;
+    height: 80px;
+  }
+
+  .elemento-placeholder .question-mark {
+    font-size: 2.5rem;
+  }
+
+  .elemento-name {
+    font-size: 0.85rem;
+  }
+
+  .game-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .timer-container,
+  .progress-container {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .orbita-game {
+    padding: 10px;
+  }
+
+  .game-header {
+    padding: 20px 15px;
+  }
+
+  .game-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .game-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .protagonista-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .protagonista-name {
+    font-size: 1.3rem;
+  }
+
+  .elementos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .elemento-image,
+  .elemento-placeholder {
+    width: 70px;
+    height: 70px;
+  }
+
+  .elemento-placeholder .question-mark {
+    font-size: 2rem;
+  }
+
+  .elemento-name {
+    font-size: 0.8rem;
+  }
+
+  .timer {
+    font-size: 1.2rem;
+  }
+
+  .progress {
+    font-size: 1.1rem;
+  }
+}
+
+/* Animations for orbital elements */
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(200px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(200px) rotate(-360deg);
+  }
+}
+
+/* Victory/Defeat overlay */
+.game-result {
+  position: relative;
+  z-index: 10;
+}

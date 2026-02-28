@@ -1,0 +1,382 @@
+.equipo-game {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Game Header */
+.game-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 25px;
+  background: linear-gradient(135deg, var(--rc-blue) 0%, var(--rc-light-blue) 100%);
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 5px 20px rgba(0, 63, 127, 0.3);
+}
+
+.game-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.game-subtitle {
+  font-size: 1.05rem;
+  opacity: 0.95;
+  margin-bottom: 15px;
+}
+
+.game-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 15px;
+}
+
+.progreso-container,
+.pistas-container {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progreso-container .label,
+.pistas-container .label {
+  font-weight: 600;
+}
+
+.progreso,
+.pistas {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* Campo de Fútbol */
+.campo-futbol {
+  background: linear-gradient(180deg, #2d5016 0%, #3a6b1e 50%, #2d5016 100%);
+  border-radius: 15px;
+  padding: 40px 20px;
+  margin: 30px auto;
+  max-width: 900px;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 4px solid #fff;
+}
+
+.esquema-titulo {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--rc-blue);
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Líneas del Campo */
+.linea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 30px 0;
+  position: relative;
+}
+
+.linea-delanteros {
+  margin-bottom: 50px;
+}
+
+.linea-portero {
+  margin-top: 50px;
+}
+
+/* Jugador Slot */
+.jugador-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.jugador-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #fff;
+  background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.jugador-circle.oculto {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.jugador-circle.revelado {
+  background: #fff;
+  border-color: var(--rc-yellow);
+  box-shadow: 0 0 20px rgba(255, 209, 0, 0.6);
+  animation: revelarJugador 0.5s ease;
+}
+
+@keyframes revelarJugador {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.jugador-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.jugador-silhouette {
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Jugador Info */
+.jugador-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.jugador-info .posicion {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--rc-blue);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.jugador-info .nombre {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  max-width: 100px;
+}
+
+/* DT Container */
+.dt-container {
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.dt-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid var(--rc-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dt-label {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Game Controls */
+.game-controls {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.guess-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.guess-input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.guess-input:focus {
+  outline: none;
+  border-color: var(--rc-blue);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Game Result */
+.game-result {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 25px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 4px solid var(--success-color);
+}
+
+.game-result h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+/* Messages */
+.mensaje {
+  margin-top: 20px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 500;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.info-message {
+  background-color: #d1ecf1;
+  border: 1px solid #bee5eb;
+  color: #0c5460;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .campo-futbol {
+    padding: 30px 10px;
+  }
+
+  .linea {
+    gap: 25px;
+  }
+
+  .jugador-circle {
+    width: 65px;
+    height: 65px;
+  }
+
+  .jugador-silhouette {
+    font-size: 2.5rem;
+  }
+
+  .game-stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dt-container {
+    right: -60px;
+  }
+
+  .dt-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .guess-form {
+    flex-direction: column;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .campo-futbol {
+    padding: 25px 5px;
+  }
+
+  .linea {
+    gap: 15px;
+  }
+
+  .jugador-circle {
+    width: 55px;
+    height: 55px;
+    border-width: 3px;
+  }
+
+  .jugador-silhouette {
+    font-size: 2rem;
+  }
+
+  .jugador-info .posicion {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+
+  .jugador-info .nombre {
+    font-size: 0.85rem;
+  }
+
+  .esquema-titulo {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .dt-container {
+    display: none; /* Hide DT on very small screens */
+  }
+
+  .game-header h1 {
+    font-size: 1.6rem;
+  }
+}

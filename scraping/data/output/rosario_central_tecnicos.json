@@ -1,0 +1,3521 @@
+{
+  "fecha_scraping": "2026-02-28T14:54:11.563282",
+  "total_tecnicos": 43,
+  "descripcion": "Técnicos que dirigieron Rosario Central con información completa",
+  "tecnicos": {
+    "Germán Rivarola": {
+      "url_perfil": "/german-rivarola/profil/trainer/102347",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/germ_n_rivarola.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "15/06/2022 - 21/06/2022",
+            "partidos_dirigidos": 2
+          },
+          {
+            "periodo": "22/03/2022 - 27/03/2022",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 2
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Ros. Central II",
+          "pais": "Argentina",
+          "periodo": "20/21 (01/01/2021) - 22/23 (31/12/2023)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Paulo Ferrari": {
+      "url_perfil": "/paulo-ferrari/profil/trainer/68006",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/paulo_ferrari.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "24/02/2019 - 17/03/2019",
+            "partidos_dirigidos": 6
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 6
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "San Martín (SJ)",
+          "pais": "Argentina",
+          "periodo": "San Martín (SJ)Entrenador - 19/20 (11/03/2020)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "José Chamot": {
+      "url_perfil": "/jose-chamot/profil/trainer/22248",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/jos_chamot.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "29/04/2018 - 16/05/2018",
+            "partidos_dirigidos": 3
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 3
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Libertad",
+          "pais": "Paraguay",
+          "periodo": "18/19 (07/03/2019) - 19/20 (31/12/2019)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Leandro Somoza": {
+      "url_perfil": "/leandro-somoza/profil/trainer/85644",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/leandro_somoza.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "28/03/2022 - 14/06/2022",
+            "partidos_dirigidos": 10
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 10
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Rampla Jrs",
+          "pais": "Uruguay",
+          "periodo": "24/25 (06/02/2025) - 24/25 (05/06/2025)"
+        },
+        {
+          "club": "Aldosivi",
+          "pais": "Argentina",
+          "periodo": "22/23 (01/07/2022) - 22/23 (22/09/2022)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "21/22 (28/03/2022) - 21/22 (14/06/2022)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Carlos Tevez": {
+      "url_perfil": "/carlos-tevez/profil/trainer/104899",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/carlos_tevez.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "22/06/2022 - 03/11/2022",
+            "partidos_dirigidos": 24
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 24
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "25/26 (09/07/2025) - hasta 31/12/2026"
+        },
+        {
+          "club": "Independiente",
+          "pais": "Argentina",
+          "periodo": "23/24 (22/08/2023) - 23/24 (19/05/2024)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "21/22 (22/06/2022) - 22/23 (03/11/2022)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Kily González": {
+      "url_perfil": "/kily-gonzalez/profil/trainer/81288",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/kily_gonz_lez.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/2020 - 21/03/2022",
+            "partidos_dirigidos": 68
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 68
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Platense",
+          "pais": "Argentina",
+          "periodo": "24/25 (17/06/2025) - 25/26 (27/10/2025)"
+        },
+        {
+          "club": "Unión",
+          "pais": "Argentina",
+          "periodo": "22/23 (26/06/2023) - 24/25 (14/04/2025)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "20/21 (01/07/2020) - 21/22 (21/03/2022)"
+        },
+        {
+          "club": "Ros. Central II",
+          "pais": "Argentina",
+          "periodo": "18/19 (01/07/2018) - 19/20 (30/06/2020)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Matías Lequi": {
+      "url_perfil": "/matias-lequi/profil/trainer/126784",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/mat_as_lequi.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "27/08/2024 - 10/11/2024",
+            "partidos_dirigidos": 10
+          },
+          {
+            "periodo": "03/08/2024 - 27/08/2024",
+            "partidos_dirigidos": 6
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 16
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "24/25 (27/08/2024) - 24/25 (10/11/2024)"
+        },
+        {
+          "club": "Ro. Central U20",
+          "pais": "Argentina",
+          "periodo": "23/24 (01/03/2024) - 23/24 (31/03/2024)"
+        },
+        {
+          "club": "Ros. Central II",
+          "pais": "Argentina",
+          "periodo": "22/23 (01/01/2023) - 24/25 (02/08/2024)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Hugo Galloni": {
+      "url_perfil": "/hugo-galloni/profil/trainer/5494",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/hugo_galloni.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "29/11/2014 - 31/12/2014",
+            "partidos_dirigidos": 2
+          },
+          {
+            "periodo": "24/10/2007 - 25/11/2007",
+            "partidos_dirigidos": 2
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 4
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Ros. Central II",
+          "pais": "Argentina",
+          "periodo": "14/15 (01/01/2015) - 15/16 (08/06/2016)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Omar Palma": {
+      "url_perfil": "/omar-palma/profil/trainer/19406",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/omar_palma.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "29/03/2011 - 30/06/2011",
+            "partidos_dirigidos": 11
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 11
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Central Córdoba",
+          "pais": "Argentina",
+          "periodo": "11/12 (21/11/2011) - 11/12 (06/04/2012)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "10/11 (29/03/2011) - 10/11 (30/06/2011)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Leonardo Fernández": {
+      "url_perfil": "/leonardo-fernandez/profil/trainer/57583",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/leonardo_fern_ndez.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "13/11/2017 - 28/04/2018",
+            "partidos_dirigidos": 18
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 18
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Colegiales",
+          "pais": "Argentina",
+          "periodo": "23/24 (01/07/2023)"
+        },
+        {
+          "club": "Sarmiento (R)",
+          "pais": "Argentina",
+          "periodo": "Sarmiento (R)Entrenador - 21/22 (01/01/2022)"
+        },
+        {
+          "club": "Sp. Las Parejas",
+          "pais": "Argentina",
+          "periodo": "19/20 (03/08/2019) - 21/22 (18/11/2021)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "17/18 (13/11/2017) - 17/18 (28/04/2018)"
+        },
+        {
+          "club": "Ros. Central II",
+          "pais": "Argentina",
+          "periodo": "12/13 (01/01/2013) - 17/18 (12/11/2017)"
+        },
+        {
+          "club": "Club Atlético Pujato",
+          "pais": "",
+          "periodo": "09/10 (01/01/2010) - 11/12 (31/12/2011)"
+        },
+        {
+          "club": "Tiro Federal R",
+          "pais": "Brasil",
+          "periodo": "08/09 (09/04/2009) - 09/10 (10/11/2009)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Ariel Holan": {
+      "url_perfil": "/ariel-holan/profil/trainer/41113",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/ariel_holan.jpeg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "11/11/2024 - 31/12/2025",
+            "partidos_dirigidos": 42
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 42
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "24/25 (11/11/2024) - 25/26 (31/12/2025)"
+        },
+        {
+          "club": "Barcelona SC",
+          "pais": "Ecuador",
+          "periodo": "23/24 (22/04/2024) - 24/25 (10/10/2024)"
+        },
+        {
+          "club": "U. Católica",
+          "pais": "Chile",
+          "periodo": "21/22 (10/05/2022) - 22/23 (18/07/2023)"
+        },
+        {
+          "club": "León",
+          "pais": "México",
+          "periodo": "20/21 (11/05/2021) - 21/22 (21/04/2022)"
+        },
+        {
+          "club": "Santos",
+          "pais": "Brasil",
+          "periodo": "20/21 (27/02/2021) - 20/21 (26/04/2021)"
+        },
+        {
+          "club": "U. Católica",
+          "pais": "Chile",
+          "periodo": "19/20 (01/01/2020) - 20/21 (18/02/2021)"
+        },
+        {
+          "club": "Independiente",
+          "pais": "Argentina",
+          "periodo": "16/17 (01/01/2017) - 18/19 (30/05/2019)"
+        },
+        {
+          "club": "Def. y Justicia",
+          "pais": "Argentina",
+          "periodo": "15/16 (01/07/2015) - 16/17 (15/11/2016)"
+        },
+        {
+          "club": "Argentinos II",
+          "pais": "Argentina",
+          "periodo": "10/11 (01/01/2011) - 10/11 (30/06/2011)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Eduardo Coudet": {
+      "url_perfil": "/eduardo-coudet/profil/trainer/38808",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/eduardo_coudet.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/01/2015 - 31/12/2016",
+            "partidos_dirigidos": 81
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 81
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Alavés",
+          "pais": "España",
+          "periodo": "24/25 (02/12/2024) - hasta 30/06/2026"
+        },
+        {
+          "club": "Atl. Mineiro",
+          "pais": "Brasil",
+          "periodo": "22/23 (01/01/2023) - 22/23 (16/06/2023)"
+        },
+        {
+          "club": "RC Celta",
+          "pais": "España",
+          "periodo": "20/21 (12/11/2020) - 22/23 (02/11/2022)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "17/18 (01/01/2018) - 19/20 (31/12/2019)"
+        },
+        {
+          "club": "Club Tijuana",
+          "pais": "México",
+          "periodo": "17/18 (01/07/2017) - 17/18 (30/11/2017)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "14/15 (01/01/2015) - 16/17 (31/12/2016)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Paolo Montero": {
+      "url_perfil": "/paolo-montero/profil/trainer/32593",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/paolo_montero.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "03/01/2017 - 10/11/2017",
+            "partidos_dirigidos": 28
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 28
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Al-Ittifaq",
+          "pais": "Emiratos Árabes Unidos",
+          "periodo": "25/26 (26/02/2026) - hasta 30/06/2028"
+        },
+        {
+          "club": "Juve Next Gen",
+          "pais": "Italia",
+          "periodo": "24/25 (04/07/2024) - 24/25 (12/11/2024)"
+        },
+        {
+          "club": "Juventus U19",
+          "pais": "Italia",
+          "periodo": "22/23 (28/06/2022) - 23/24 (18/05/2024)"
+        },
+        {
+          "club": "Juventus YL",
+          "pais": "Italia",
+          "periodo": "22/23 (28/06/2022) - 23/24 (30/06/2024)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "21/22 (01/07/2021) - 21/22 (21/10/2021)"
+        },
+        {
+          "club": "Sambenedettese",
+          "pais": "Italia",
+          "periodo": "20/21 (11/02/2021) - 20/21 (30/06/2021)"
+        },
+        {
+          "club": "Sambenedettese",
+          "pais": "Italia",
+          "periodo": "19/20 (01/07/2019) - 20/21 (27/10/2020)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "16/17 (03/01/2017) - 17/18 (10/11/2017)"
+        },
+        {
+          "club": "Colón",
+          "pais": "Argentina",
+          "periodo": "16/17 (01/07/2016) - 16/17 (22/12/2016)"
+        },
+        {
+          "club": "Boca Unidos",
+          "pais": "Argentina",
+          "periodo": "15/16 (10/03/2016) - 15/16 (30/06/2016)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Edgardo Bauza": {
+      "url_perfil": "/edgardo-bauza/profil/trainer/7625",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/edgardo_bauza.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "17/05/2018 - 23/02/2019",
+            "partidos_dirigidos": 26
+          },
+          {
+            "periodo": "01/07/1998 - 18/06/2001",
+            "partidos_dirigidos": 139
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 165
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "17/18 (17/05/2018) - 18/19 (23/02/2019)"
+        },
+        {
+          "club": "Arabia Saudita",
+          "pais": "Arabia Saudita",
+          "periodo": "17/18 (21/09/2017) - 17/18 (22/11/2017)"
+        },
+        {
+          "club": "EAU",
+          "pais": "Emiratos Árabes Unidos",
+          "periodo": "16/17 (11/05/2017) - 17/18 (15/09/2017)"
+        },
+        {
+          "club": "Argentina",
+          "pais": "Argentina",
+          "periodo": "16/17 (01/08/2016) - 16/17 (10/04/2017)"
+        },
+        {
+          "club": "São Paulo",
+          "pais": "Brasil",
+          "periodo": "15/16 (01/01/2016) - 16/17 (31/07/2016)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "13/14 (01/01/2014) - 15/16 (13/11/2015)"
+        },
+        {
+          "club": "LDU Quito",
+          "pais": "Ecuador",
+          "periodo": "09/10 (01/01/2010) - 13/14 (31/12/2013)"
+        },
+        {
+          "club": "Al-Nassr",
+          "pais": "Arabia Saudita",
+          "periodo": "08/09 (01/01/2009) - 08/09 (30/06/2009)"
+        },
+        {
+          "club": "LDU Quito",
+          "pais": "Ecuador",
+          "periodo": "06/07 (01/08/2006) - 08/09 (31/12/2008)"
+        },
+        {
+          "club": "Colón",
+          "pais": "Argentina",
+          "periodo": "05/06 (19/09/2005) - 05/06 (04/05/2006)"
+        },
+        {
+          "club": "Sport. Cristal",
+          "pais": "Perú",
+          "periodo": "04/05 (10/07/2004) - 04/05 (17/05/2005)"
+        },
+        {
+          "club": "Colón",
+          "pais": "Argentina",
+          "periodo": "02/03 (09/09/2002) - 03/04 (10/11/2003)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "01/02 (01/09/2001) - 01/02 (30/04/2002)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "98/99 (01/07/1998) - 00/01 (18/06/2001)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Diego Cocca": {
+      "url_perfil": "/diego-cocca/profil/trainer/9585",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/diego_cocca.jpeg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "19/03/2019 - 30/06/2020",
+            "partidos_dirigidos": 33
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 33
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Atlas",
+          "pais": "México",
+          "periodo": "25/26 (12/08/2025)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "24/25 (29/05/2025) - 25/26 (08/07/2025)"
+        },
+        {
+          "club": "Real Valladolid",
+          "pais": "España",
+          "periodo": "24/25 (14/12/2024) - 24/25 (17/02/2025)"
+        },
+        {
+          "club": "México",
+          "pais": "México",
+          "periodo": "22/23 (10/02/2023) - 22/23 (19/06/2023)"
+        },
+        {
+          "club": "Tigres UANL",
+          "pais": "México",
+          "periodo": "22/23 (01/01/2023) - 22/23 (09/02/2023)"
+        },
+        {
+          "club": "Atlas",
+          "pais": "México",
+          "periodo": "20/21 (11/08/2020) - 22/23 (04/10/2022)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "18/19 (19/03/2019) - 19/20 (30/06/2020)"
+        },
+        {
+          "club": "Club Tijuana",
+          "pais": "México",
+          "periodo": "17/18 (01/01/2018) - 18/19 (30/10/2018)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "16/17 (01/01/2017) - 17/18 (27/11/2017)"
+        },
+        {
+          "club": "Millonarios",
+          "pais": "Colombia",
+          "periodo": "16/17 (17/08/2016) - 16/17 (31/12/2016)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "14/15 (01/07/2014) - 15/16 (31/12/2015)"
+        },
+        {
+          "club": "Def. y Justicia",
+          "pais": "Argentina",
+          "periodo": "13/14 (01/07/2013) - 13/14 (30/06/2014)"
+        },
+        {
+          "club": "Huracán",
+          "pais": "Argentina",
+          "periodo": "11/12 (02/10/2011) - 11/12 (27/02/2012)"
+        },
+        {
+          "club": "Santos Laguna",
+          "pais": "México",
+          "periodo": "10/11 (21/02/2011) - 11/12 (03/09/2011)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "09/10 (01/01/2010) - 10/11 (30/09/2010)"
+        },
+        {
+          "club": "Godoy Cruz",
+          "pais": "Argentina",
+          "periodo": "08/09 (30/10/2008) - 09/10 (02/11/2009)"
+        },
+        {
+          "club": "CAI",
+          "pais": "Argentina",
+          "periodo": "07/08 (15/10/2007) - 07/08 (05/06/2008)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Ariel Cuffaro Russo": {
+      "url_perfil": "/ariel-cuffaro-russo/profil/trainer/12317",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/ariel_cuffaro_russo.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "21/07/2009 - 27/03/2010",
+            "partidos_dirigidos": 14
+          },
+          {
+            "periodo": "04/07/2005 - 18/11/2005",
+            "partidos_dirigidos": 19
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 33
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Dep. Armenio",
+          "pais": "Argentina",
+          "periodo": "18/19 (01/07/2018) - 18/19 (31/12/2018)"
+        },
+        {
+          "club": "Central Córdoba",
+          "pais": "",
+          "periodo": "16/17 (27/03/2017) - 17/18 (30/06/2018)"
+        },
+        {
+          "club": "Oriente P.",
+          "pais": "Bolivia",
+          "periodo": "10/11 (01/01/2011) - 10/11 (25/05/2011)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "09/10 (21/07/2009) - 09/10 (27/03/2010)"
+        },
+        {
+          "club": "Instituto ACC",
+          "pais": "Argentina",
+          "periodo": "05/06 (01/01/2006) - 05/06 (03/04/2006)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "05/06 (04/07/2005) - 05/06 (18/11/2005)"
+        },
+        {
+          "club": "Gimnasia (J)",
+          "pais": "Argentina",
+          "periodo": "Gimnasia (J)Entrenador - 98/99 (21/04/1999)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Jorge Almirón": {
+      "url_perfil": "/jorge-almiron/profil/trainer/10227",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/jorge_almir_n.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/01/2026 - Actualidad",
+            "partidos_dirigidos": 8
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 8
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "25/26 (01/01/2026)"
+        },
+        {
+          "club": "Colo-Colo",
+          "pais": "Chile",
+          "periodo": "23/24 (04/01/2024) - 25/26 (19/08/2025)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "22/23 (10/04/2023) - 23/24 (05/11/2023)"
+        },
+        {
+          "club": "Elche CF",
+          "pais": "España",
+          "periodo": "22/23 (12/10/2022) - 22/23 (07/11/2022)"
+        },
+        {
+          "club": "Lanús",
+          "pais": "Argentina",
+          "periodo": "21/22 (01/01/2022) - 22/23 (07/07/2022)"
+        },
+        {
+          "club": "Elche CF",
+          "pais": "España",
+          "periodo": "20/21 (26/08/2020) - 20/21 (12/02/2021)"
+        },
+        {
+          "club": "Al-Shabab",
+          "pais": "Arabia Saudita",
+          "periodo": "19/20 (01/07/2019) - 19/20 (05/12/2019)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "18/19 (05/11/2018) - 18/19 (13/05/2019)"
+        },
+        {
+          "club": "Lanús",
+          "pais": "Argentina",
+          "periodo": "15/16 (01/01/2016) - 17/18 (31/12/2017)"
+        },
+        {
+          "club": "Independiente",
+          "pais": "Argentina",
+          "periodo": "14/15 (19/07/2014) - 14/15 (25/05/2015)"
+        },
+        {
+          "club": "Godoy Cruz",
+          "pais": "Argentina",
+          "periodo": "13/14 (01/01/2014) - 14/15 (18/07/2014)"
+        },
+        {
+          "club": "Club Tijuana",
+          "pais": "México",
+          "periodo": "13/14 (01/07/2013) - 13/14 (11/11/2013)"
+        },
+        {
+          "club": "Def. y Justicia",
+          "pais": "Argentina",
+          "periodo": "12/13 (23/10/2012) - 12/13 (30/06/2013)"
+        },
+        {
+          "club": "Correcaminos",
+          "pais": "México",
+          "periodo": "10/11 (17/09/2010) - 11/12 (23/08/2011)"
+        },
+        {
+          "club": "Tiburones Rojos",
+          "pais": "México",
+          "periodo": "09/10 (17/02/2010) - 09/10 (29/03/2010)"
+        },
+        {
+          "club": "Def. y Justicia",
+          "pais": "Argentina",
+          "periodo": "09/10 (06/07/2009) - 09/10 (17/02/2010)"
+        },
+        {
+          "club": "Dorados Sinaloa",
+          "pais": "México",
+          "periodo": "08/09 (16/10/2008) - 08/09 (30/06/2009)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Juan Antonio Pizzi": {
+      "url_perfil": "/juan-antonio-pizzi/profil/trainer/10838",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/juan_antonio_pizzi.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/2011 - 05/07/2012",
+            "partidos_dirigidos": 44
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 44
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Kuwait",
+          "pais": "Kuwait",
+          "periodo": "24/25 (16/07/2024) - 24/25 (30/06/2025)"
+        },
+        {
+          "club": "Baréin",
+          "pais": "Baréin",
+          "periodo": "23/24 (12/07/2023) - 23/24 (16/02/2024)"
+        },
+        {
+          "club": "Al-Wasl",
+          "pais": "Emiratos Árabes Unidos",
+          "periodo": "22/23 (01/07/2022) - 22/23 (30/06/2023)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "20/21 (21/01/2021) - 21/22 (10/08/2021)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "19/20 (01/07/2019) - 19/20 (31/10/2019)"
+        },
+        {
+          "club": "Arabia Saudita",
+          "pais": "Arabia Saudita",
+          "periodo": "17/18 (28/11/2017) - 18/19 (25/01/2019)"
+        },
+        {
+          "club": "Chile",
+          "pais": "Chile",
+          "periodo": "15/16 (01/02/2016) - 17/18 (31/10/2017)"
+        },
+        {
+          "club": "León",
+          "pais": "México",
+          "periodo": "14/15 (01/01/2015) - 15/16 (31/01/2016)"
+        },
+        {
+          "club": "Valencia CF",
+          "pais": "España",
+          "periodo": "13/14 (01/01/2014) - 14/15 (02/07/2014)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "12/13 (09/10/2012) - 13/14 (31/12/2013)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "11/12 (01/07/2011) - 11/12 (05/07/2012)"
+        },
+        {
+          "club": "U. Católica",
+          "pais": "Chile",
+          "periodo": "10/11 (09/07/2010) - 10/11 (30/06/2011)"
+        },
+        {
+          "club": "Stgo. Morning",
+          "pais": "Chile",
+          "periodo": "09/10 (15/07/2009) - 09/10 (30/06/2010)"
+        },
+        {
+          "club": "U. San Martín",
+          "pais": "Perú",
+          "periodo": "05/06 (13/04/2006) - 06/07 (27/11/2006)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Héctor Rivoira": {
+      "url_perfil": "/hector-rivoira/profil/trainer/11404",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/h_ctor_rivoira.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "24/10/2010 - 28/03/2011",
+            "partidos_dirigidos": 15
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 15
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Crucero",
+          "pais": "Argentina",
+          "periodo": "16/17 (04/08/2017) - 17/18 (08/05/2018)"
+        },
+        {
+          "club": "Crucero",
+          "pais": "Argentina",
+          "periodo": "16/17 (24/11/2016) - 16/17 (22/05/2017)"
+        },
+        {
+          "club": "Instituto ACC",
+          "pais": "Argentina",
+          "periodo": "14/15 (11/11/2014) - 15/16 (23/05/2016)"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "pais": "Argentina",
+          "periodo": "13/14 (26/03/2014) - 14/15 (10/11/2014)"
+        },
+        {
+          "club": "Almirante Brown",
+          "pais": "Argentina",
+          "periodo": "13/14 (24/09/2013) - 13/14 (25/03/2014)"
+        },
+        {
+          "club": "Huracán",
+          "pais": "Argentina",
+          "periodo": "11/12 (22/04/2012) - 12/13 (12/09/2012)"
+        },
+        {
+          "club": "Olimpo",
+          "pais": "Argentina",
+          "periodo": "11/12 (01/01/2012) - 11/12 (01/04/2012)"
+        },
+        {
+          "club": "Chacarita Jrs.",
+          "pais": "Argentina",
+          "periodo": "10/11 (09/05/2011) - 11/12 (15/10/2011)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "10/11 (24/10/2010) - 10/11 (28/03/2011)"
+        },
+        {
+          "club": "Huracán",
+          "pais": "Argentina",
+          "periodo": "09/10 (03/12/2009) - 10/11 (20/09/2010)"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "pais": "Argentina",
+          "periodo": "08/09 (01/07/2008) - 09/10 (02/11/2009)"
+        },
+        {
+          "club": "Instituto ACC",
+          "pais": "Argentina",
+          "periodo": "03/04 (07/04/2004) - 04/05 (04/10/2004)"
+        },
+        {
+          "club": "Instituto ACC",
+          "pais": "Argentina",
+          "periodo": "02/03 (26/02/2003) - 03/04 (31/12/2003)"
+        },
+        {
+          "club": "LDU Quito",
+          "pais": "Ecuador",
+          "periodo": "01/02 (01/07/2001) - 02/03 (30/06/2003)"
+        },
+        {
+          "club": "Quilmes",
+          "pais": "Argentina",
+          "periodo": "00/01 (26/07/2000) - 00/01 (30/06/2001)"
+        },
+        {
+          "club": "Chacarita Jrs.",
+          "pais": "Argentina",
+          "periodo": "96/97 (01/01/1997) - 99/00 (30/06/2000)"
+        },
+        {
+          "club": "Nueva Chicago",
+          "pais": "Argentina",
+          "periodo": "95/96 (01/07/1995) - 96/97 (31/12/1996)"
+        },
+        {
+          "club": "Almirante Brown",
+          "pais": "Argentina",
+          "periodo": "94/95 (01/01/1995) - 94/95 (30/06/1995)"
+        },
+        {
+          "club": "Ituzaingó",
+          "pais": "Argentina",
+          "periodo": "92/93 (01/07/1992) - 94/95 (31/12/1994)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Miguel Ángel Russo": {
+      "url_perfil": "/miguel-angel-russo/profil/trainer/2738",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/miguel_ngel_russo.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/01/2023 - 02/08/2024",
+            "partidos_dirigidos": 79
+          },
+          {
+            "periodo": "06/07/2012 - 29/11/2014",
+            "partidos_dirigidos": 97
+          },
+          {
+            "periodo": "16/04/2009 - 14/07/2009",
+            "partidos_dirigidos": 11
+          },
+          {
+            "periodo": "07/11/2002 - 30/06/2004",
+            "partidos_dirigidos": 70
+          },
+          {
+            "periodo": "01/07/1997 - 30/06/1998",
+            "partidos_dirigidos": 32
+          }
+        ],
+        "total": {
+          "periodos": 5,
+          "partidos": 289
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "24/25 (02/06/2025) - 25/26 (08/10/2025)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "24/25 (17/10/2024) - 24/25 (27/05/2025)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "22/23 (01/01/2023) - 24/25 (02/08/2024)"
+        },
+        {
+          "club": "Al-Nassr",
+          "pais": "Arabia Saudita",
+          "periodo": "21/22 (11/12/2021) - 21/22 (30/06/2022)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "19/20 (01/01/2020) - 21/22 (16/08/2021)"
+        },
+        {
+          "club": "Cerro Porteño",
+          "pais": "Paraguay",
+          "periodo": "19/20 (07/06/2019) - 19/20 (08/10/2019)"
+        },
+        {
+          "club": "Alianza Lima",
+          "pais": "Perú",
+          "periodo": "18/19 (01/01/2019) - 18/19 (26/04/2019)"
+        },
+        {
+          "club": "Millonarios",
+          "pais": "Colombia",
+          "periodo": "16/17 (01/01/2017) - 18/19 (13/11/2018)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "14/15 (01/01/2015) - 15/16 (31/12/2015)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "12/13 (06/07/2012) - 14/15 (29/11/2014)"
+        },
+        {
+          "club": "Estudiantes LP",
+          "pais": "Argentina",
+          "periodo": "11/12 (01/07/2011) - 11/12 (06/11/2011)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "09/10 (17/02/2010) - 10/11 (30/06/2011)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "08/09 (16/04/2009) - 09/10 (14/07/2009)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "08/09 (01/07/2008) - 08/09 (08/04/2009)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "06/07 (01/01/2007) - 07/08 (31/12/2007)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "04/05 (01/01/2005) - 06/07 (31/12/2006)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "02/03 (07/11/2002) - 03/04 (30/06/2004)"
+        },
+        {
+          "club": "Monarcas Morelia",
+          "pais": "México",
+          "periodo": "01/02 (27/10/2001) - 01/02 (16/02/2002)"
+        },
+        {
+          "club": "Los Andes",
+          "pais": "Argentina",
+          "periodo": "00/01 (23/10/2000) - 00/01 (30/06/2001)"
+        },
+        {
+          "club": "Lanús",
+          "pais": "Argentina",
+          "periodo": "99/00 (17/11/1999) - 99/00 (16/10/2000)"
+        },
+        {
+          "club": "Colón",
+          "pais": "Argentina",
+          "periodo": "99/00 (01/07/1999) - 99/00 (31/10/1999)"
+        },
+        {
+          "club": "UD Salamanca",
+          "pais": "España",
+          "periodo": "98/99 (06/12/1998) - 98/99 (30/01/1999)"
+        },
+        {
+          "club": "UD Salamanca",
+          "pais": "España",
+          "periodo": "98/99 (01/08/1998) - 98/99 (22/11/1998)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "97/98 (01/07/1997) - 97/98 (30/06/1998)"
+        },
+        {
+          "club": "U. de Chile",
+          "pais": "Chile",
+          "periodo": "95/96 (01/01/1996) - 96/97 (31/12/1996)"
+        },
+        {
+          "club": "Estudiantes LP",
+          "pais": "Argentina",
+          "periodo": "92/93 (01/07/1992) - 95/96 (30/09/1995)"
+        },
+        {
+          "club": "Lanús",
+          "pais": "Argentina",
+          "periodo": "89/90 (01/07/1989) - 91/92 (30/06/1992)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Víctor Púa": {
+      "url_perfil": "/victor-pua/profil/trainer/18798",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/v_ctor_p_a.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/2004 - 23/08/2004",
+            "partidos_dirigidos": 2
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 2
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "04/05 (01/07/2004) - 04/05 (23/08/2004)"
+        },
+        {
+          "club": "Uruguay",
+          "pais": "Uruguay",
+          "periodo": "00/01 (21/02/2001) - 02/03 (31/12/2002)"
+        },
+        {
+          "club": "Uruguay S17",
+          "pais": "Uruguay Sub-17",
+          "periodo": "99/00 (01/07/1999) - 99/00 (30/06/2000)"
+        },
+        {
+          "club": "Uruguay",
+          "pais": "Uruguay",
+          "periodo": "97/98 (01/12/1997) - 99/00 (31/07/1999)"
+        },
+        {
+          "club": "Uruguay S23",
+          "pais": "Uruguay Sub-23",
+          "periodo": "93/94 (01/01/1994) - 97/98 (30/11/1997)"
+        },
+        {
+          "club": "Uruguay S20",
+          "pais": "Uruguay Sub-20",
+          "periodo": "93/94 (01/01/1994) - 98/99 (30/06/1999)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Uruguay",
+          "periodo": "89/90 (01/01/1990) - 93/94 (31/12/1993)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Carlos Ischia": {
+      "url_perfil": "/carlos-ischia/profil/trainer/4879",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/carlos_ischia.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "26/03/2007 - 23/10/2007",
+            "partidos_dirigidos": 26
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 26
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Dep. Cuenca",
+          "pais": "Ecuador",
+          "periodo": "22/23 (12/05/2023) - 23/24 (31/12/2023)"
+        },
+        {
+          "club": "Delfín SC",
+          "pais": "Ecuador",
+          "periodo": "19/20 (01/03/2020) - 20/21 (04/09/2020)"
+        },
+        {
+          "club": "The Strongest",
+          "pais": "Bolivia",
+          "periodo": "17/18 (01/01/2018) - 17/18 (26/03/2018)"
+        },
+        {
+          "club": "SD Aucas",
+          "pais": "Ecuador",
+          "periodo": "14/15 (02/06/2015) - 15/16 (06/05/2016)"
+        },
+        {
+          "club": "Barcelona SC",
+          "pais": "Ecuador",
+          "periodo": "13/14 (01/01/2014) - 13/14 (28/05/2014)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "13/14 (02/09/2013) - 13/14 (08/10/2013)"
+        },
+        {
+          "club": "Deportivo Quito",
+          "pais": "Ecuador",
+          "periodo": "10/11 (06/05/2011) - 11/12 (15/05/2012)"
+        },
+        {
+          "club": "Atlas",
+          "pais": "México",
+          "periodo": "09/10 (01/01/2010) - 10/11 (23/08/2010)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "07/08 (01/01/2008) - 08/09 (16/06/2009)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "06/07 (26/03/2007) - 07/08 (23/10/2007)"
+        },
+        {
+          "club": "Barranquilla FC",
+          "pais": "Colombia",
+          "periodo": "04/05 (07/06/2005) - 05/06 (31/12/2005)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "04/05 (03/07/2004) - 04/05 (13/03/2005)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "01/02 (02/05/2002) - 03/04 (30/06/2004)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Ángel Zof": {
+      "url_perfil": "/angel-zof/profil/trainer/58231",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/ngel_zof.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "19/11/2005 - 02/03/2006",
+            "partidos_dirigidos": 13
+          },
+          {
+            "periodo": "25/08/2004 - 03/07/2005",
+            "partidos_dirigidos": 36
+          },
+          {
+            "periodo": "01/01/1995 - 30/06/1997",
+            "partidos_dirigidos": 6
+          },
+          {
+            "periodo": "01/01/1986 - 31/12/1991",
+            "partidos_dirigidos": 8
+          },
+          {
+            "periodo": "01/01/1980 - 31/12/1982",
+            "partidos_dirigidos": 6
+          },
+          {
+            "periodo": "01/01/1979 - 30/06/1979",
+            "partidos_dirigidos": 0
+          },
+          {
+            "periodo": "01/01/1972 - 30/06/1973",
+            "partidos_dirigidos": 0
+          },
+          {
+            "periodo": "01/07/1970 - 30/06/1971",
+            "partidos_dirigidos": 5
+          }
+        ],
+        "total": {
+          "periodos": 8,
+          "partidos": 74
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "05/06 (19/11/2005) - 05/06 (02/03/2006)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "04/05 (25/08/2004) - 04/05 (03/07/2005)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "94/95 (01/01/1995) - 96/97 (30/06/1997)"
+        },
+        {
+          "club": "San Martín (T)",
+          "pais": "Argentina",
+          "periodo": "San Martín (T)Entrenador - 92/93 (01/07/1992)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "85/86 (01/01/1986) - 91/92 (31/12/1991)"
+        },
+        {
+          "club": "Platense",
+          "pais": "Argentina",
+          "periodo": "82/83 (01/01/1983) - 83/84 (31/12/1983)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "79/80 (01/01/1980) - 82/83 (31/12/1982)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "78/79 (01/01/1979) - 78/79 (30/06/1979)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "71/72 (01/01/1972) - 72/73 (30/06/1973)"
+        },
+        {
+          "club": "Atlanta",
+          "pais": "Argentina",
+          "periodo": "71/72 (01/07/1971) - 71/72 (31/12/1971)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "70/71 (01/07/1970) - 70/71 (30/06/1971)"
+        },
+        {
+          "club": "Los Andes",
+          "pais": "Argentina",
+          "periodo": "69/70 (01/07/1969) - 69/70 (30/06/1970)"
+        },
+        {
+          "club": "Newell's",
+          "pais": "Argentina",
+          "periodo": "68/69 (01/01/1969) - 68/69 (30/06/1969)"
+        },
+        {
+          "club": "Los Andes",
+          "pais": "Argentina",
+          "periodo": "67/68 (01/01/1968) - 68/69 (31/12/1968)"
+        },
+        {
+          "club": "Newell's",
+          "pais": "Argentina",
+          "periodo": "64/65 (01/01/1965) - 67/68 (31/12/1967)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Reinaldo Merlo": {
+      "url_perfil": "/reinaldo-merlo/profil/trainer/9430",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/reinaldo_merlo.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "05/07/2010 - 24/10/2010",
+            "partidos_dirigidos": 11
+          },
+          {
+            "periodo": "02/03/2009 - 14/04/2009",
+            "partidos_dirigidos": 5
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 16
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "CADU (Zárate)",
+          "pais": "Argentina",
+          "periodo": "CADU (Zárate)Entrenador - 21/22 (06/12/2021)"
+        },
+        {
+          "club": "Racing (Cba)",
+          "pais": "Argentina",
+          "periodo": "Racing (Cba)Entrenador - 18/19 (24/10/2018)"
+        },
+        {
+          "club": "Fuerza Amarilla",
+          "pais": "Ecuador",
+          "periodo": "17/18 (19/07/2017) - 17/18 (15/08/2017)"
+        },
+        {
+          "club": "Colón",
+          "pais": "Argentina",
+          "periodo": "14/15 (14/11/2014) - 14/15 (16/02/2015)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "13/14 (14/10/2013) - 13/14 (07/05/2014)"
+        },
+        {
+          "club": "Aldosivi",
+          "pais": "Argentina",
+          "periodo": "13/14 (24/09/2013) - 13/14 (27/09/2013)"
+        },
+        {
+          "club": "Douglas Haig",
+          "pais": "Argentina",
+          "periodo": "12/13 (13/02/2013) - 13/14 (18/09/2013)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "10/11 (05/07/2010) - 10/11 (24/10/2010)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "08/09 (02/03/2009) - 08/09 (14/04/2009)"
+        },
+        {
+          "club": "Barcelona SC",
+          "pais": "Ecuador",
+          "periodo": "07/08 (12/06/2008) - 08/09 (07/12/2008)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "05/06 (18/05/2006) - 06/07 (15/04/2007)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "05/06 (29/08/2005) - 05/06 (09/01/2006)"
+        },
+        {
+          "club": "Estudiantes LP",
+          "pais": "Argentina",
+          "periodo": "04/05 (01/07/2004) - 05/06 (07/08/2005)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "00/01 (03/01/2001) - 02/03 (24/07/2002)"
+        },
+        {
+          "club": "Belgrano",
+          "pais": "Argentina",
+          "periodo": "99/00 (28/01/2000) - 99/00 (14/06/2000)"
+        },
+        {
+          "club": "Chacarita Jrs.",
+          "pais": "Argentina",
+          "periodo": "98/99 (01/07/1998) - 98/99 (31/12/1998)"
+        },
+        {
+          "club": "Deportes Temuco",
+          "pais": "Chile",
+          "periodo": "97/98 (05/01/1998) - 97/98 (30/04/1998)"
+        },
+        {
+          "club": "Bolívar",
+          "pais": "Bolivia",
+          "periodo": "95/96 (24/07/1995) - 95/96 (31/12/1995)"
+        },
+        {
+          "club": "Argentina S20",
+          "pais": "Argentina Sub-20",
+          "periodo": "90/91 (01/01/1991) - 94/95 (07/07/1994)"
+        },
+        {
+          "club": "Argentina S17",
+          "pais": "Argentina Sub-17",
+          "periodo": "90/91 (01/01/1991) - 94/95 (07/07/1994)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "89/90 (01/07/1989) - 89/90 (31/12/1989)"
+        },
+        {
+          "club": "Los Andes",
+          "pais": "Argentina",
+          "periodo": "86/87 (01/07/1986) - 86/87 (30/06/1987)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Pablo Sánchez": {
+      "url_perfil": "/pablo-sanchez/profil/trainer/6729",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/pablo_s_nchez.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/2008 - 05/10/2008",
+            "partidos_dirigidos": 9
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 9
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Olimpia",
+          "pais": "Paraguay",
+          "periodo": "25/26 (28/11/2025)"
+        },
+        {
+          "club": "LDU Quito",
+          "pais": "Ecuador",
+          "periodo": "23/24 (20/06/2024) - 24/25 (26/05/2025)"
+        },
+        {
+          "club": "Palestino",
+          "pais": "Chile",
+          "periodo": "22/23 (01/01/2023) - 23/24 (19/06/2024)"
+        },
+        {
+          "club": "Audax Italiano",
+          "pais": "Chile",
+          "periodo": "20/21 (22/12/2020) - 21/22 (31/12/2021)"
+        },
+        {
+          "club": "Oriente P.",
+          "pais": "Bolivia",
+          "periodo": "19/20 (27/09/2019) - 20/21 (13/11/2020)"
+        },
+        {
+          "club": "Iquique",
+          "pais": "Chile",
+          "periodo": "18/19 (01/01/2019) - 19/20 (29/07/2019)"
+        },
+        {
+          "club": "Everton",
+          "pais": "Chile",
+          "periodo": "16/17 (16/09/2016) - 17/18 (27/05/2018)"
+        },
+        {
+          "club": "O'Higgins",
+          "pais": "Chile",
+          "periodo": "14/15 (23/01/2015) - 15/16 (09/12/2015)"
+        },
+        {
+          "club": "U. Concepción",
+          "pais": "Chile",
+          "periodo": "12/13 (01/01/2013) - 14/15 (15/12/2014)"
+        },
+        {
+          "club": "Oriente P.",
+          "pais": "Bolivia",
+          "periodo": "08/09 (13/02/2009) - 09/10 (03/10/2009)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "08/09 (01/07/2008) - 08/09 (05/10/2008)"
+        },
+        {
+          "club": "Banfield",
+          "pais": "Argentina",
+          "periodo": "06/07 (19/03/2007) - 06/07 (30/06/2007)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Gustavo Alfaro": {
+      "url_perfil": "/gustavo-alfaro/profil/trainer/4871",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/gustavo_alfaro.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "10/10/2008 - 02/03/2009",
+            "partidos_dirigidos": 13
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 13
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Paraguay",
+          "pais": "Paraguay",
+          "periodo": "24/25 (16/08/2024) - hasta 31/12/2026"
+        },
+        {
+          "club": "Costa Rica",
+          "pais": "Costa Rica",
+          "periodo": "23/24 (02/11/2023) - 24/25 (09/08/2024)"
+        },
+        {
+          "club": "Ecuador",
+          "pais": "Ecuador",
+          "periodo": "20/21 (26/08/2020) - 22/23 (12/01/2023)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "18/19 (01/01/2019) - 19/20 (31/12/2019)"
+        },
+        {
+          "club": "Huracán",
+          "pais": "Argentina",
+          "periodo": "17/18 (14/07/2017) - 18/19 (31/12/2018)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "15/16 (21/03/2016) - 16/17 (14/05/2017)"
+        },
+        {
+          "club": "Tigre",
+          "pais": "Argentina",
+          "periodo": "14/15 (08/09/2014) - 15/16 (27/11/2015)"
+        },
+        {
+          "club": "Arsenal",
+          "pais": "Argentina",
+          "periodo": "10/11 (01/07/2010) - 13/14 (15/04/2014)"
+        },
+        {
+          "club": "Al-Ahli",
+          "pais": "Arabia Saudita",
+          "periodo": "09/10 (01/07/2009) - 09/10 (22/12/2009)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "08/09 (10/10/2008) - 08/09 (02/03/2009)"
+        },
+        {
+          "club": "Arsenal",
+          "pais": "Argentina",
+          "periodo": "05/06 (05/06/2006) - 07/08 (30/06/2008)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "05/06 (01/07/2005) - 05/06 (06/02/2006)"
+        },
+        {
+          "club": "Quilmes",
+          "pais": "Argentina",
+          "periodo": "02/03 (01/01/2003) - 04/05 (23/05/2005)"
+        },
+        {
+          "club": "Olimpo",
+          "pais": "Argentina",
+          "periodo": "01/02 (01/07/2001) - 01/02 (30/06/2002)"
+        },
+        {
+          "club": "Belgrano",
+          "pais": "Argentina",
+          "periodo": "00/01 (01/01/2001) - 00/01 (29/04/2001)"
+        },
+        {
+          "club": "Atl. Rafaela",
+          "pais": "Argentina",
+          "periodo": "98/99 (01/07/1998) - 99/00 (30/06/2000)"
+        },
+        {
+          "club": "Patronato",
+          "pais": "Argentina",
+          "periodo": "97/98 (01/07/1997) - 97/98 (30/06/1998)"
+        },
+        {
+          "club": "Quilmes",
+          "pais": "Argentina",
+          "periodo": "96/97 (01/07/1996) - 96/97 (30/06/1997)"
+        },
+        {
+          "club": "Atl. Rafaela",
+          "pais": "Argentina",
+          "periodo": "92/93 (01/07/1992) - 95/96 (30/06/1996)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Leonardo Astrada": {
+      "url_perfil": "/leonardo-astrada/profil/trainer/1758",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/leonardo_astrada.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "06/03/2006 - 25/07/2006",
+            "partidos_dirigidos": 15
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 15
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Atl. Rafaela",
+          "pais": "Argentina",
+          "periodo": "14/15 (14/04/2015) - 15/16 (08/11/2015)"
+        },
+        {
+          "club": "Cerro Porteño",
+          "pais": "Paraguay",
+          "periodo": "14/15 (28/08/2014) - 14/15 (05/03/2015)"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "pais": "Argentina",
+          "periodo": "11/12 (05/03/2012) - 12/13 (04/11/2012)"
+        },
+        {
+          "club": "Cerro Porteño",
+          "pais": "Paraguay",
+          "periodo": "10/11 (03/03/2011) - 11/12 (26/09/2011)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "09/10 (07/10/2009) - 09/10 (12/04/2010)"
+        },
+        {
+          "club": "Estudiantes LP",
+          "pais": "Argentina",
+          "periodo": "08/09 (22/09/2008) - 08/09 (11/03/2009)"
+        },
+        {
+          "club": "Colón",
+          "pais": "Argentina",
+          "periodo": "06/07 (07/05/2007) - 07/08 (16/03/2008)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "05/06 (06/03/2006) - 06/07 (25/07/2006)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "03/04 (01/01/2004) - 05/06 (28/08/2005)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Leonardo Madelón": {
+      "url_perfil": "/leonardo-madelon/profil/trainer/7837",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/leonardo_madel_n.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "28/03/2010 - 30/06/2010",
+            "partidos_dirigidos": 10
+          },
+          {
+            "periodo": "26/11/2007 - 30/06/2008",
+            "partidos_dirigidos": 20
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 30
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Unión",
+          "pais": "Argentina",
+          "periodo": "24/25 (29/04/2025)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "23/24 (06/09/2023) - 23/24 (18/04/2024)"
+        },
+        {
+          "club": "Central Córdoba",
+          "pais": "Argentina",
+          "periodo": "22/23 (22/11/2022) - 23/24 (30/07/2023)"
+        },
+        {
+          "club": "Arsenal",
+          "pais": "Argentina",
+          "periodo": "21/22 (01/01/2022) - 22/23 (31/12/2022)"
+        },
+        {
+          "club": "Platense",
+          "pais": "Argentina",
+          "periodo": "20/21 (21/05/2021) - 21/22 (22/09/2021)"
+        },
+        {
+          "club": "Unión",
+          "pais": "Argentina",
+          "periodo": "17/18 (10/08/2017) - 19/20 (12/03/2020)"
+        },
+        {
+          "club": "Belgrano",
+          "pais": "Argentina",
+          "periodo": "16/17 (23/11/2016) - 16/17 (02/04/2017)"
+        },
+        {
+          "club": "Unión",
+          "pais": "Argentina",
+          "periodo": "13/14 (01/01/2014) - 16/17 (01/11/2016)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "11/12 (22/11/2011) - 11/12 (01/04/2012)"
+        },
+        {
+          "club": "Quilmes",
+          "pais": "Argentina",
+          "periodo": "10/11 (17/10/2010) - 10/11 (06/03/2011)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "09/10 (28/03/2010) - 09/10 (30/06/2010)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "08/09 (01/10/2008) - 09/10 (02/12/2009)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "07/08 (26/11/2007) - 07/08 (30/06/2008)"
+        },
+        {
+          "club": "Olimpo",
+          "pais": "Argentina",
+          "periodo": "06/07 (01/07/2006) - 06/07 (30/06/2007)"
+        },
+        {
+          "club": "Nueva Chicago",
+          "pais": "Argentina",
+          "periodo": "03/04 (01/01/2004) - 03/04 (30/06/2004)"
+        },
+        {
+          "club": "Unión",
+          "pais": "Argentina",
+          "periodo": "01/02 (01/07/2001) - 01/02 (31/12/2001)"
+        },
+        {
+          "club": "El Porvenir",
+          "pais": "",
+          "periodo": "98/99 (01/07/1998) - 99/00 (30/06/2000)"
+        },
+        {
+          "club": "Colegiales",
+          "pais": "Argentina",
+          "periodo": "97/98 (01/07/1997) - 97/98 (30/06/1998)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Daniel Teglia": {
+      "url_perfil": "/daniel-teglia/profil/trainer/57429",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/daniel_teglia.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "17/11/2001 - 13/03/2002",
+            "partidos_dirigidos": 8
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 8
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Costa Brava",
+          "pais": "Argentina",
+          "periodo": "22/23 (13/03/2023) - 22/23 (30/06/2023)"
+        },
+        {
+          "club": "San Jorge",
+          "pais": "",
+          "periodo": "21/22 (12/02/2021) - 22/23 (21/12/2022)"
+        },
+        {
+          "club": "Boca Unidos",
+          "pais": "Argentina",
+          "periodo": "19/20 (01/07/2019) - 19/20 (02/12/2019)"
+        },
+        {
+          "club": "Central Córdoba",
+          "pais": "Argentina",
+          "periodo": "18/19 (01/01/2019) - 18/19 (30/06/2019)"
+        },
+        {
+          "club": "Arabia S. S23",
+          "pais": "Arabia Saudita Sub-23",
+          "periodo": "16/17 (01/01/2017) - 18/19 (31/12/2018)"
+        },
+        {
+          "club": "Guaraní A. F.",
+          "pais": "",
+          "periodo": "11/12 (01/01/2012) - 12/13 (18/11/2012)"
+        },
+        {
+          "club": "Douglas Haig",
+          "pais": "Argentina",
+          "periodo": ""
+        },
+        {
+          "club": "Racing (Cba)",
+          "pais": "Argentina",
+          "periodo": "Racing (Cba)Entrenador"
+        },
+        {
+          "club": "Tiro Federal R",
+          "pais": "",
+          "periodo": ""
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "01/02 (17/11/2001) - 01/02 (13/03/2002)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Eduardo Solari": {
+      "url_perfil": "/eduardo-solari/profil/trainer/102143",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/eduardo_solari.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/01/1992 - 30/06/1992",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Atlas",
+          "pais": "México",
+          "periodo": "01/02 (01/07/2001) - 01/02 (09/09/2001)"
+        },
+        {
+          "club": "Estudiantes LP",
+          "pais": "Argentina",
+          "periodo": "99/00 (22/02/2000) - 00/01 (16/08/2000)"
+        },
+        {
+          "club": "Monterrey",
+          "pais": "México",
+          "periodo": "99/00 (01/07/1999) - 99/00 (10/10/1999)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "98/99 (01/07/1998) - 98/99 (16/11/1998)"
+        },
+        {
+          "club": "Morelia",
+          "pais": "México",
+          "periodo": "97/98 (01/07/1997) - 97/98 (30/06/1998)"
+        },
+        {
+          "club": "Atlético Celaya",
+          "pais": "México",
+          "periodo": "96/97 (01/01/1997) - 96/97 (16/03/1997)"
+        },
+        {
+          "club": "Atlas",
+          "pais": "México",
+          "periodo": "95/96 (01/07/1995) - 95/96 (30/06/1996)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "91/92 (01/01/1992) - 91/92 (30/06/1992)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Juan José López": {
+      "url_perfil": "/juan-jose-lopez/profil/trainer/13549",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/juan_jos_l_pez.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/2001 - 16/11/2001",
+            "partidos_dirigidos": 13
+          },
+          {
+            "periodo": "01/07/1995 - 30/06/1996",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 13
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Juv. Antoniana",
+          "pais": "Argentina",
+          "periodo": "15/16 (26/02/2016) - 16/17 (11/11/2016)"
+        },
+        {
+          "club": "San Martín (T)",
+          "pais": "Argentina",
+          "periodo": "San Martín (T)Entrenador - 14/15 (30/09/2014)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "10/11 (14/12/2010) - 10/11 (27/06/2011)"
+        },
+        {
+          "club": "Libertad",
+          "pais": "Paraguay",
+          "periodo": "04/05 (24/02/2005) - 04/05 (30/06/2005)"
+        },
+        {
+          "club": "Olimpo",
+          "pais": "Argentina",
+          "periodo": "04/05 (14/07/2004) - 04/05 (06/10/2004)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "03/04 (01/01/2004) - 04/05 (05/07/2004)"
+        },
+        {
+          "club": "Instituto ACC",
+          "pais": "Argentina",
+          "periodo": "02/03 (09/04/2003) - 02/03 (07/07/2003)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "01/02 (01/07/2001) - 01/02 (16/11/2001)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "00/01 (01/07/2000) - 00/01 (30/06/2001)"
+        },
+        {
+          "club": "Instituto ACC",
+          "pais": "Argentina",
+          "periodo": "99/00 (15/12/1999) - 00/01 (15/07/2000)"
+        },
+        {
+          "club": "Unión",
+          "pais": "Argentina",
+          "periodo": "99/00 (06/05/1999) - 99/00 (21/06/1999)"
+        },
+        {
+          "club": "Instituto ACC",
+          "pais": "Argentina",
+          "periodo": ""
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Néstor Gorosito": {
+      "url_perfil": "/nestor-gorosito/profil/trainer/3264",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/n_stor_gorosito.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "27/07/2006 - 10/03/2007",
+            "partidos_dirigidos": 24
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 24
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Alianza Lima",
+          "pais": "Perú",
+          "periodo": "24/25 (06/12/2024) - 25/26 (07/12/2025)"
+        },
+        {
+          "club": "Tigre",
+          "pais": "Argentina",
+          "periodo": "23/24 (01/01/2024) - 23/24 (19/03/2024)"
+        },
+        {
+          "club": "Colón",
+          "pais": "Argentina",
+          "periodo": "22/23 (20/02/2023) - 23/24 (26/10/2023)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "21/22 (31/08/2021) - 22/23 (31/12/2022)"
+        },
+        {
+          "club": "Olimpia",
+          "pais": "Paraguay",
+          "periodo": "20/21 (16/11/2020) - 20/21 (15/03/2021)"
+        },
+        {
+          "club": "Tigre",
+          "pais": "Argentina",
+          "periodo": "18/19 (13/02/2019) - 20/21 (25/10/2020)"
+        },
+        {
+          "club": "San Martín (SJ)",
+          "pais": "Argentina",
+          "periodo": "San Martín (SJ)Entrenador - 16/17 (01/01/2017)"
+        },
+        {
+          "club": "UD Almería",
+          "pais": "España",
+          "periodo": "15/16 (23/12/2015) - 15/16 (17/05/2016)"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "pais": "Argentina",
+          "periodo": "14/15 (27/10/2014) - 15/16 (22/12/2015)"
+        },
+        {
+          "club": "Tigre",
+          "pais": "Argentina",
+          "periodo": "12/13 (23/10/2012) - 12/13 (30/06/2013)"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "pais": "Argentina",
+          "periodo": "11/12 (20/09/2011) - 11/12 (28/02/2012)"
+        },
+        {
+          "club": "Xerez CD",
+          "pais": "España",
+          "periodo": "09/10 (19/01/2010) - 09/10 (30/06/2010)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "08/09 (01/01/2009) - 09/10 (04/10/2009)"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "pais": "Argentina",
+          "periodo": "07/08 (02/09/2007) - 08/09 (31/12/2008)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "06/07 (27/07/2006) - 06/07 (10/03/2007)"
+        },
+        {
+          "club": "Lanús",
+          "pais": "Argentina",
+          "periodo": "04/05 (01/01/2005) - 05/06 (10/11/2005)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "03/04 (16/07/2003) - 04/05 (25/08/2004)"
+        },
+        {
+          "club": "Nueva Chicago",
+          "pais": "Argentina",
+          "periodo": "02/03 (10/10/2002) - 02/03 (30/06/2003)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Carlos Griguol": {
+      "url_perfil": "/carlos-griguol/profil/trainer/32653",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/carlos_griguol.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/1977 - 30/06/1978",
+            "partidos_dirigidos": 0
+          },
+          {
+            "periodo": "01/07/1973 - 30/06/1975",
+            "partidos_dirigidos": 18
+          },
+          {
+            "periodo": "01/01/1971 - 31/12/1971",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 3,
+          "partidos": 18
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "03/04 (13/10/2003) - 03/04 (30/06/2004)"
+        },
+        {
+          "club": "Unión",
+          "pais": "Argentina",
+          "periodo": "01/02 (11/01/2002) - 01/02 (04/04/2002)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "00/01 (11/07/2000) - 01/02 (31/12/2001)"
+        },
+        {
+          "club": "Real Betis",
+          "pais": "España",
+          "periodo": "99/00 (01/07/1999) - 99/00 (31/01/2000)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "94/95 (26/10/1994) - 98/99 (30/06/1999)"
+        },
+        {
+          "club": "Ferro",
+          "pais": "Argentina",
+          "periodo": ""
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "87/88 (01/07/1987) - 87/88 (30/06/1988)"
+        },
+        {
+          "club": "Ferro",
+          "pais": "Argentina",
+          "periodo": "79/80 (01/01/1980) - 86/87 (30/06/1987)"
+        },
+        {
+          "club": "Kimberley",
+          "pais": "Argentina",
+          "periodo": "78/79 (01/01/1979) - 78/79 (30/06/1979)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": ""
+        },
+        {
+          "club": "UAG Tecos",
+          "pais": "",
+          "periodo": ""
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "70/71 (01/01/1971) - 71/72 (31/12/1971)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Ángel Labruna": {
+      "url_perfil": "/angel-labruna/profil/trainer/75786",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/ngel_labruna.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/1971 - 30/06/1972",
+            "partidos_dirigidos": 6
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 6
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "81/82 (01/07/1981) - 82/83 (31/12/1982)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "74/75 (01/01/1975) - 80/81 (30/06/1981)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "71/72 (01/07/1971) - 71/72 (30/06/1972)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "67/68 (01/01/1968) - 70/71 (31/12/1970)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "63/64 (01/09/1963) - 63/64 (31/12/1963)"
+        },
+        {
+          "club": "Platense",
+          "pais": "Argentina",
+          "periodo": "60/61 (01/01/1961) - 61/62 (31/12/1961)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Carlos Aimar": {
+      "url_perfil": "/carlos-aimar/profil/trainer/27769",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/carlos_aimar.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/01/1991 - 30/06/1992",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Quilmes",
+          "pais": "Argentina",
+          "periodo": "05/06 (04/07/2005) - 05/06 (31/12/2005)"
+        },
+        {
+          "club": "CD Leganés",
+          "pais": "España",
+          "periodo": "03/04 (01/07/2003) - 03/04 (18/01/2004)"
+        },
+        {
+          "club": "Lanús",
+          "pais": "Argentina",
+          "periodo": "00/01 (04/06/2001) - 01/02 (30/04/2002)"
+        },
+        {
+          "club": "CD Tenerife",
+          "pais": "España",
+          "periodo": "98/99 (22/12/1998) - 98/99 (04/05/1999)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "96/97 (01/07/1996) - 96/97 (31/12/1996)"
+        },
+        {
+          "club": "CD Logroñés",
+          "pais": "España",
+          "periodo": "96/97 (01/07/1996) - 96/97 (10/02/1997)"
+        },
+        {
+          "club": "RC Celta",
+          "pais": "España",
+          "periodo": "94/95 (01/07/1994) - 95/96 (16/10/1995)"
+        },
+        {
+          "club": "CD Logroñés",
+          "pais": "España",
+          "periodo": "92/93 (18/12/1992) - 93/94 (30/06/1994)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "90/91 (01/01/1991) - 91/92 (30/06/1992)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "89/90 (01/07/1989) - 90/91 (31/12/1990)"
+        },
+        {
+          "club": "CD Logroñés",
+          "pais": "España",
+          "periodo": "88/89 (01/02/1989) - 88/89 (14/03/1989)"
+        },
+        {
+          "club": "Dep. Español",
+          "pais": "",
+          "periodo": "87/88 (01/01/1988) - 88/89 (30/06/1989)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Omar Sívori": {
+      "url_perfil": "/omar-sivori/profil/trainer/31920",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/omar_s_vori.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/1969 - 30/06/1970",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": ""
+        },
+        {
+          "club": "Argentina",
+          "pais": "Argentina",
+          "periodo": "72/73 (01/09/1972)"
+        },
+        {
+          "club": "Estudiantes LP",
+          "pais": "Argentina",
+          "periodo": ""
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": ""
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Pedro Marchetta": {
+      "url_perfil": "/pedro-marchetta/profil/trainer/102801",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/pedro_marchetta.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/1994 - 30/06/1995",
+            "partidos_dirigidos": 0
+          },
+          {
+            "periodo": "01/01/1985 - 31/12/1985",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 2,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Barcelona SC",
+          "pais": "Ecuador",
+          "periodo": "04/05 (14/04/2005) - 04/05 (18/06/2005)"
+        },
+        {
+          "club": "Barcelona SC",
+          "pais": "Ecuador",
+          "periodo": "04/05 (01/07/2004) - 04/05 (02/09/2004)"
+        },
+        {
+          "club": "Belgrano",
+          "pais": "Argentina",
+          "periodo": "03/04 (04/01/2004) - 03/04 (30/06/2004)"
+        },
+        {
+          "club": "Deportivo Quito",
+          "pais": "",
+          "periodo": "02/03 (01/08/2002) - 02/03 (15/04/2003)"
+        },
+        {
+          "club": "Racing (Cba)",
+          "pais": "Argentina",
+          "periodo": "Racing (Cba)Entrenador - 01/02 (01/01/2002)"
+        },
+        {
+          "club": "Ind. Rivadavia",
+          "pais": "Argentina",
+          "periodo": "00/01 (01/01/2001) - 01/02 (31/12/2001)"
+        },
+        {
+          "club": "Platense",
+          "pais": "Argentina",
+          "periodo": "98/99 (01/01/1999) - 98/99 (22/04/1999)"
+        },
+        {
+          "club": "Belgrano",
+          "pais": "Argentina",
+          "periodo": "95/96 (08/04/1996) - 96/97 (25/02/1997)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "95/96 (01/07/1995) - 95/96 (31/12/1995)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "94/95 (01/07/1994) - 94/95 (30/06/1995)"
+        },
+        {
+          "club": "Independiente",
+          "pais": "Argentina",
+          "periodo": "92/93 (01/07/1992) - 92/93 (30/06/1993)"
+        },
+        {
+          "club": "Platense",
+          "pais": "Argentina",
+          "periodo": "91/92 (01/07/1991) - 91/92 (30/06/1992)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "88/89 (01/07/1988) - 88/89 (30/06/1989)"
+        },
+        {
+          "club": "Racing (Cba)",
+          "pais": "Argentina",
+          "periodo": "Racing (Cba)Entrenador - 87/88 (01/07/1987)"
+        },
+        {
+          "club": "Belgrano",
+          "pais": "Argentina",
+          "periodo": "86/87 (01/01/1987) - 86/87 (30/06/1987)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "86/87 (01/07/1986) - 86/87 (31/12/1986)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "85/86 (01/01/1986) - 85/86 (30/06/1986)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "84/85 (01/01/1985) - 85/86 (31/12/1985)"
+        },
+        {
+          "club": "Racing (Cba)",
+          "pais": "Argentina",
+          "periodo": "Racing (Cba)Entrenador - 83/84 (01/01/1984)"
+        },
+        {
+          "club": "Los Andes",
+          "pais": "Argentina",
+          "periodo": "82/83 (01/01/1983) - 83/84 (31/12/1983)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Vicente Cantatore": {
+      "url_perfil": "/vicente-cantatore/profil/trainer/27051",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/vicente_cantatore.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/01/1993 - 31/12/1993",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Real Sporting",
+          "pais": "España",
+          "periodo": "00/01 (01/07/2000) - 00/01 (15/01/2001)"
+        },
+        {
+          "club": "Real Betis",
+          "pais": "España",
+          "periodo": "98/99 (26/08/1998) - 98/99 (26/10/1998)"
+        },
+        {
+          "club": "Sporting CP",
+          "pais": "Portugal",
+          "periodo": "97/98 (07/12/1997) - 97/98 (21/12/1997)"
+        },
+        {
+          "club": "Real Valladolid",
+          "pais": "España",
+          "periodo": "95/96 (03/02/1996) - 97/98 (14/09/1997)"
+        },
+        {
+          "club": "CD Tenerife",
+          "pais": "España",
+          "periodo": "94/95 (01/07/1994) - 94/95 (30/06/1995)"
+        },
+        {
+          "club": "Colo-Colo",
+          "pais": "Chile",
+          "periodo": "93/94 (01/01/1994) - 93/94 (15/04/1994)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "92/93 (01/01/1993) - 93/94 (31/12/1993)"
+        },
+        {
+          "club": "U. Católica",
+          "pais": "Chile",
+          "periodo": "91/92 (01/07/1991) - 91/92 (30/06/1992)"
+        },
+        {
+          "club": "Sevilla FC",
+          "pais": "España",
+          "periodo": "89/90 (01/07/1989) - 90/91 (30/06/1991)"
+        },
+        {
+          "club": "Real Valladolid",
+          "pais": "España",
+          "periodo": "87/88 (01/07/1987) - 88/89 (30/06/1989)"
+        },
+        {
+          "club": "Real Valladolid",
+          "pais": "España",
+          "periodo": "85/86 (01/07/1985) - 86/87 (01/09/1986)"
+        },
+        {
+          "club": "Chile",
+          "pais": "Chile",
+          "periodo": "83/84 (01/01/1984) - 84/85 (31/12/1984)"
+        },
+        {
+          "club": "Cobreloa",
+          "pais": "Chile",
+          "periodo": "79/80 (01/01/1980) - 84/85 (31/12/1984)"
+        },
+        {
+          "club": "Audax Italiano",
+          "pais": "Chile",
+          "periodo": "78/79 (01/01/1979) - 79/80 (31/12/1979)"
+        },
+        {
+          "club": "Lota Schwager",
+          "pais": "",
+          "periodo": "76/77 (01/07/1976) - 78/79 (31/12/1978)"
+        },
+        {
+          "club": "D. Concepción",
+          "pais": "Chile",
+          "periodo": "74/75 (01/01/1975) - 75/76 (30/06/1976)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "César Menotti": {
+      "url_perfil": "/cesar-menotti/profil/trainer/2923",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/c_sar_menotti.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "14/03/2002 - 06/11/2002",
+            "partidos_dirigidos": 23
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 23
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "UAG Tecos",
+          "pais": "México",
+          "periodo": "07/08 (28/08/2007) - 07/08 (09/01/2008)"
+        },
+        {
+          "club": "Club Puebla",
+          "pais": "México",
+          "periodo": "05/06 (19/04/2006) - 05/06 (30/06/2006)"
+        },
+        {
+          "club": "Independiente",
+          "pais": "Argentina",
+          "periodo": "04/05 (01/01/2005) - 04/05 (19/04/2005)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "01/02 (14/03/2002) - 02/03 (06/11/2002)"
+        },
+        {
+          "club": "Independiente",
+          "pais": "Argentina",
+          "periodo": "97/98 (01/01/1998) - 99/00 (23/08/1999)"
+        },
+        {
+          "club": "Sampdoria",
+          "pais": "Italia",
+          "periodo": "97/98 (01/07/1997) - 97/98 (20/11/1997)"
+        },
+        {
+          "club": "Independiente",
+          "pais": "Argentina",
+          "periodo": "96/97 (01/07/1996) - 96/97 (02/06/1997)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "93/94 (24/11/1993) - 94/95 (11/12/1994)"
+        },
+        {
+          "club": "México",
+          "pais": "México",
+          "periodo": "91/92 (01/07/1991) - 92/93 (31/12/1992)"
+        },
+        {
+          "club": "Peñarol",
+          "pais": "Uruguay",
+          "periodo": "90/91 (01/07/1990) - 90/91 (30/06/1991)"
+        },
+        {
+          "club": "River Plate",
+          "pais": "Argentina",
+          "periodo": "88/89 (01/07/1988) - 88/89 (30/06/1989)"
+        },
+        {
+          "club": "Atlético",
+          "pais": "España",
+          "periodo": "87/88 (01/07/1987) - 87/88 (20/03/1988)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "86/87 (01/01/1987) - 86/87 (30/06/1987)"
+        },
+        {
+          "club": "Peñarol",
+          "pais": "Uruguay",
+          "periodo": "84/85 (01/07/1984) - 84/85 (30/06/1985)"
+        },
+        {
+          "club": "FC Barcelona",
+          "pais": "España",
+          "periodo": "82/83 (08/03/1983) - 83/84 (31/05/1984)"
+        },
+        {
+          "club": "Argentina S20",
+          "pais": "Argentina Sub-20",
+          "periodo": "78/79 (01/07/1978) - 79/80 (30/06/1980)"
+        },
+        {
+          "club": "Argentina",
+          "pais": "Argentina",
+          "periodo": "74/75 (01/08/1974) - 82/83 (31/07/1982)"
+        },
+        {
+          "club": "Huracán",
+          "pais": "Argentina",
+          "periodo": "69/70 (01/01/1970) - 73/74 (30/06/1974)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Roberto Saporiti": {
+      "url_perfil": "/roberto-saporiti/profil/trainer/5497",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/roberto_saporiti.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/01/1980 - 31/12/1980",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "UAI Urquiza",
+          "pais": "Argentina",
+          "periodo": "15/16 (28/03/2016) - 16/17 (30/06/2017)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "08/09 (19/05/2009) - 09/10 (04/12/2009)"
+        },
+        {
+          "club": "Def. y Justicia",
+          "pais": "Argentina",
+          "periodo": "08/09 (01/01/2009) - 08/09 (17/05/2009)"
+        },
+        {
+          "club": "Olimpo",
+          "pais": "Argentina",
+          "periodo": "07/08 (01/01/2008) - 07/08 (30/06/2008)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "05/06 (01/01/2006) - 06/07 (31/12/2006)"
+        },
+        {
+          "club": "Club Puebla",
+          "pais": "México",
+          "periodo": "04/05 (18/03/2005) - 04/05 (30/06/2005)"
+        },
+        {
+          "club": "Olimpo",
+          "pais": "Argentina",
+          "periodo": "03/04 (23/10/2003) - 03/04 (20/04/2004)"
+        },
+        {
+          "club": "Atlante",
+          "pais": "México",
+          "periodo": "00/01 (21/09/2000) - 00/01 (31/12/2000)"
+        },
+        {
+          "club": "UAG Tecos",
+          "pais": "México",
+          "periodo": "99/00 (01/07/1999) - 99/00 (31/12/1999)"
+        },
+        {
+          "club": "Pumas UNAM",
+          "pais": "México",
+          "periodo": "98/99 (01/07/1998) - 98/99 (08/03/1999)"
+        },
+        {
+          "club": "Atlético Celaya",
+          "pais": "México",
+          "periodo": "97/98 (01/03/1998) - 97/98 (30/06/1998)"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "pais": "Argentina",
+          "periodo": "95/96 (01/07/1995) - 95/96 (30/06/1996)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "94/95 (01/01/1995) - 94/95 (30/06/1995)"
+        },
+        {
+          "club": "León",
+          "pais": "México",
+          "periodo": "94/95 (01/07/1994) - 94/95 (21/11/1994)"
+        },
+        {
+          "club": "Necaxa",
+          "pais": "México",
+          "periodo": "93/94 (01/07/1993) - 93/94 (30/06/1994)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "89/90 (01/01/1990) - 90/91 (22/10/1990)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "87/88 (01/01/1988) - 89/90 (30/06/1990)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "87/88 (01/07/1987) - 87/88 (29/09/1987)"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "pais": "Argentina",
+          "periodo": "85/86 (01/01/1986) - 86/87 (31/12/1986)"
+        },
+        {
+          "club": "Argentinos Jrs.",
+          "pais": "Argentina",
+          "periodo": "83/84 (01/01/1984) - 84/85 (31/12/1984)"
+        },
+        {
+          "club": "CSD Loma Negra",
+          "pais": "",
+          "periodo": "82/83 (01/07/1982) - 82/83 (30/06/1983)"
+        },
+        {
+          "club": "Argentina S20",
+          "pais": "Argentina Sub-20",
+          "periodo": "81/82 (01/07/1981) - 81/82 (30/06/1982)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "79/80 (01/01/1980) - 80/81 (31/12/1980)"
+        },
+        {
+          "club": "Talleres",
+          "pais": "Argentina",
+          "periodo": "77/78 (01/07/1977) - 79/80 (31/12/1979)"
+        },
+        {
+          "club": "Estudiantes",
+          "pais": "Argentina",
+          "periodo": "74/75 (01/01/1975) - 75/76 (31/12/1975)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Miguel Ignomiriello": {
+      "url_perfil": "/miguel-ignomiriello/profil/trainer/76178",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/miguel_ignomiriello.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/1967 - 30/06/1969",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Chacarita Jrs.",
+          "pais": "Argentina",
+          "periodo": "04/05 (01/07/2004) - 04/05 (31/12/2004)"
+        },
+        {
+          "club": "Sp. Italiano",
+          "pais": "Argentina",
+          "periodo": "01/02 (01/01/2002) - 02/03 (31/12/2002)"
+        },
+        {
+          "club": "Arsenal",
+          "pais": "Argentina",
+          "periodo": "00/01 (01/01/2001) - 01/02 (31/12/2001)"
+        },
+        {
+          "club": "Platense",
+          "pais": "Argentina",
+          "periodo": "98/99 (01/01/1999) - 99/00 (31/12/1999)"
+        },
+        {
+          "club": "La Plata FC",
+          "pais": "",
+          "periodo": "95/96 (01/01/1996) - 98/99 (31/12/1998)"
+        },
+        {
+          "club": "Douglas Haig",
+          "pais": "Argentina",
+          "periodo": "93/94 (01/01/1994) - 94/95 (31/12/1994)"
+        },
+        {
+          "club": "Def. Cambaceres",
+          "pais": "",
+          "periodo": "91/92 (01/01/1992) - 92/93 (31/12/1992)"
+        },
+        {
+          "club": "Talleres RE",
+          "pais": "Argentina",
+          "periodo": "87/88 (01/07/1987) - 87/88 (30/06/1988)"
+        },
+        {
+          "club": "Def. Cambaceres",
+          "pais": "",
+          "periodo": "85/86 (01/07/1985) - 86/87 (30/06/1987)"
+        },
+        {
+          "club": "Ecuador",
+          "pais": "Ecuador",
+          "periodo": "80/81 (01/01/1981) - 81/82 (31/12/1981)"
+        },
+        {
+          "club": "Deportivo Quito",
+          "pais": "",
+          "periodo": "78/79 (01/01/1979) - 79/80 (31/12/1979)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "78/79 (01/07/1978) - 78/79 (31/12/1978)"
+        },
+        {
+          "club": "Unión",
+          "pais": "Argentina",
+          "periodo": "77/78 (01/01/1978) - 77/78 (30/06/1978)"
+        },
+        {
+          "club": "Bolívar",
+          "pais": "Bolivia",
+          "periodo": "76/77 (01/01/1977) - 77/78 (31/12/1977)"
+        },
+        {
+          "club": "Atl. Tucumán",
+          "pais": "Argentina",
+          "periodo": "75/76 (01/07/1976) - 76/77 (31/12/1976)"
+        },
+        {
+          "club": "Independiente",
+          "pais": "Argentina",
+          "periodo": "75/76 (01/01/1976) - 75/76 (30/06/1976)"
+        },
+        {
+          "club": "Argentina S20",
+          "pais": "Argentina Sub-20",
+          "periodo": "72/73 (01/01/1973) - 73/74 (31/12/1973)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "71/72 (01/01/1972) - 72/73 (31/12/1972)"
+        },
+        {
+          "club": "Estudiantes LP",
+          "pais": "Argentina",
+          "periodo": "70/71 (01/01/1971) - 71/72 (31/12/1971)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "67/68 (01/07/1967) - 68/69 (30/06/1969)"
+        },
+        {
+          "club": "Gimnasia",
+          "pais": "Argentina",
+          "periodo": "56/57 (01/01/1957) - 57/58 (31/12/1957)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Alfio Basile": {
+      "url_perfil": "/alfio-basile/profil/trainer/3586",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/alfio_basile.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/1976 - 31/12/1976",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "11/12 (01/01/2012) - 11/12 (15/04/2012)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "09/10 (06/07/2009) - 09/10 (22/01/2010)"
+        },
+        {
+          "club": "Argentina",
+          "pais": "Argentina",
+          "periodo": "06/07 (01/09/2006) - 08/09 (16/10/2008)"
+        },
+        {
+          "club": "Boca Juniors",
+          "pais": "Argentina",
+          "periodo": "05/06 (04/07/2005) - 06/07 (14/09/2006)"
+        },
+        {
+          "club": "Colón",
+          "pais": "Argentina",
+          "periodo": "04/05 (01/07/2004) - 04/05 (25/12/2004)"
+        },
+        {
+          "club": "CF América",
+          "pais": "México",
+          "periodo": "00/01 (15/09/2000) - 01/02 (13/09/2001)"
+        },
+        {
+          "club": "San Lorenzo",
+          "pais": "Argentina",
+          "periodo": "97/98 (05/03/1998) - 98/99 (03/12/1998)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "96/97 (01/09/1996) - 97/98 (31/08/1997)"
+        },
+        {
+          "club": "Atlético",
+          "pais": "España",
+          "periodo": "94/95 (26/02/1995) - 94/95 (30/06/1995)"
+        },
+        {
+          "club": "Argentina",
+          "pais": "Argentina",
+          "periodo": "90/91 (01/01/1991) - 94/95 (07/07/1994)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "89/90 (01/07/1989) - 90/91 (31/12/1990)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "85/86 (01/07/1985) - 88/89 (30/06/1989)"
+        },
+        {
+          "club": "Vélez Sarsfield",
+          "pais": "Argentina",
+          "periodo": "84/85 (01/07/1984) - 84/85 (30/06/1985)"
+        },
+        {
+          "club": "Racing (Cba)",
+          "pais": "Argentina",
+          "periodo": "Racing (Cba)Entrenador - 82/83 (01/01/1983)"
+        },
+        {
+          "club": "Huracán",
+          "pais": "Argentina",
+          "periodo": "81/82 (01/01/1982) - 81/82 (30/06/1982)"
+        },
+        {
+          "club": "Instituto ACC",
+          "pais": "Argentina",
+          "periodo": "78/79 (01/01/1979) - 79/80 (31/12/1979)"
+        },
+        {
+          "club": "Racing (Cba)",
+          "pais": "Argentina",
+          "periodo": "Racing (Cba)Entrenador - 77/78 (01/01/1978)"
+        },
+        {
+          "club": "Racing",
+          "pais": "Argentina",
+          "periodo": "76/77 (01/01/1977) - 77/78 (31/12/1977)"
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": "76/77 (01/07/1976) - 76/77 (31/12/1976)"
+        },
+        {
+          "club": "Chacarita Jrs.",
+          "pais": "Argentina",
+          "periodo": "75/76 (01/01/1976) - 75/76 (30/06/1976)"
+        }
+      ],
+      "estadisticas_por_torneo": []
+    },
+    "Hugo Bagnulo": {
+      "url_perfil": "/hugo-bagnulo/profil/trainer/57236",
+      "nacionalidad": "",
+      "fecha_nacimiento": "",
+      "edad": "",
+      "image_profile": "data/images/tecnicos/hugo_bagnulo.jpg",
+      "info_rosario": {
+        "periodos": [
+          {
+            "periodo": "01/07/1964 - 30/06/1965",
+            "partidos_dirigidos": 0
+          }
+        ],
+        "total": {
+          "periodos": 1,
+          "partidos": 0
+        }
+      },
+      "clubes_historia": [
+        {
+          "club": "Peñarol",
+          "pais": "Uruguay",
+          "periodo": ""
+        },
+        {
+          "club": "Uruguay",
+          "pais": "Uruguay",
+          "periodo": ""
+        },
+        {
+          "club": "CS Emelec",
+          "pais": "Ecuador",
+          "periodo": ""
+        },
+        {
+          "club": "Liverpool FC",
+          "pais": "Uruguay",
+          "periodo": ""
+        },
+        {
+          "club": "Huracán Buceo",
+          "pais": "",
+          "periodo": ""
+        },
+        {
+          "club": "Bella Vista",
+          "pais": "",
+          "periodo": ""
+        },
+        {
+          "club": "Alianza Lima",
+          "pais": "Perú",
+          "periodo": ""
+        },
+        {
+          "club": "Central Español",
+          "pais": "Uruguay",
+          "periodo": ""
+        },
+        {
+          "club": "Rampla Jrs",
+          "pais": "",
+          "periodo": ""
+        },
+        {
+          "club": "Wanderers",
+          "pais": "Uruguay",
+          "periodo": ""
+        },
+        {
+          "club": "Rosario Central",
+          "pais": "Argentina",
+          "periodo": ""
+        },
+        {
+          "club": "Defensor SC",
+          "pais": "Uruguay",
+          "periodo": ""
+        },
+        {
+          "club": "Danubio FC",
+          "pais": "Uruguay",
+          "periodo": ""
+        }
+      ],
+      "estadisticas_por_torneo": []
+    }
+  }
+}
