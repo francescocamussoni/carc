@@ -95,7 +95,7 @@ class ClubImageService:
                 return None
             
             # Descargar escudo
-            return self._descargar_escudo(escudo_url, nombre_club)
+            return self._descargar_escudo(escudo_url, nombre_club, pais)
         
         except Exception as e:
             print(f"      ⚠️  Error con {nombre_club}: {e}")
@@ -285,13 +285,14 @@ class ClubImageService:
             print(f"      ⚠️  Error extrayendo escudo: {e}")
             return None
     
-    def _descargar_escudo(self, escudo_url: str, nombre_club: str) -> Optional[str]:
+    def _descargar_escudo(self, escudo_url: str, nombre_club: str, pais: str = "") -> Optional[str]:
         """
-        Descarga el escudo del club.
+        Descarga el escudo del club en una subcarpeta por país.
         
         Args:
             escudo_url: URL del escudo
             nombre_club: Nombre del club
+            pais: País del club (para organizar en subcarpetas)
         
         Returns:
             Ruta relativa del escudo guardado o None
@@ -300,12 +301,19 @@ class ClubImageService:
             # Limpiar nombre para archivo
             nombre_archivo = TextUtils.limpiar_nombre_archivo(nombre_club)
             
+            # Normalizar país para nombre de carpeta
+            pais_carpeta = TextUtils.limpiar_nombre_archivo(pais) if pais else "sin_clasificar"
+            
             # Obtener extensión
             extension = self._extraer_extension(escudo_url)
             
+            # Crear subcarpeta del país si no existe
+            carpeta_pais = self.settings.CLUBES_IMAGES_DIR / pais_carpeta
+            carpeta_pais.mkdir(parents=True, exist_ok=True)
+            
             # Rutas
-            ruta_completa = self.settings.CLUBES_IMAGES_DIR / f"{nombre_archivo}{extension}"
-            ruta_relativa = f"data/images/clubes/{nombre_archivo}{extension}"
+            ruta_completa = carpeta_pais / f"{nombre_archivo}{extension}"
+            ruta_relativa = f"data/images/clubes/{pais_carpeta}/{nombre_archivo}{extension}"
             
             # Si ya existe, no descargar
             if ruta_completa.exists():

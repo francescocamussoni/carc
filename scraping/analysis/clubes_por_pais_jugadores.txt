@@ -1,0 +1,1329 @@
+================================================================================
+CLUBES POR PAÍS - JUGADORES DE ROSARIO CENTRAL
+================================================================================
+Fecha: 2026-02-28 20:42:09
+Total de países: 66
+Total de clubes únicos: 922
+================================================================================
+
+
+1. ARGENTINA
+   Total de clubes: 189
+   Menciones totales: 2044
+--------------------------------------------------------------------------------
+   • 9 de Julio (M)
+   • 9 de Julio (R)
+   • AC Montes de Oca
+   • Acassuso
+   • Agropecuario
+   • Aldosivi
+   • Aldosivi II
+   • All Boys
+   • Almagro
+   • Almirante Brown
+   • Alumni
+   • Alvarado
+   • Arg. de Quilmes
+   • Argentino (R)
+   • Argentino MJ
+   • Argentinos II
+   • Argentinos Jrs.
+   • Arsenal
+   • Atenas
+   • Atl. Policial
+   • Atl. Rafaela
+   • Atl. Tucumán
+   • Atlanta
+   • Atletico Concepcion
+   • B. Argentina
+   • Banfield
+   • Banfield II
+   • Barracas
+   • Belgrano
+   • Belgrano (P)
+   • Belgrano II
+   • Ben Hur
+   • Berazategui
+   • Boca Juniors
+   • Boca Juniors II
+   • Boca Unidos
+   • Bragado
+   • Brown (Adrogué)
+   • C.A.I. U19
+   • CA Carcarañá
+   • CAA Mendoza
+   • CADU (Zárate)
+   • CAI
+   • CSD Guaymallen
+   • CSD La Emilia
+   • CSD Loma Negra
+   • Central Córdoba
+   • Central Norte
+   • Chacarita Jrs.
+   • Chaco For Ever
+   • Circulo Dep.
+   • Ciudad Bolívar
+   • Club Atlético Pujato
+   • Club de Regatas
+   • Colegiales
+   • Colón
+   • Comunicaciones
+   • Cor. Aguirre
+   • Crucero
+   • Def. Belgrano
+   • Def. y Justicia
+   • Defensa U19
+   • Defensores (VR)
+   • Dep. Armenio
+   • Dep. Madryn
+   • Dep. Maipú
+   • Dep. Merlo
+   • Dep. Morón
+   • Dep. Riestra
+   • Desamparados
+   • Dock Sud
+   • Dock Sud U19
+   • Douglas Haig
+   • El Linqueño
+   • El Porvenir
+   • Estudiantes
+   • Estudiantes II
+   • Estudiantes LP
+   • Estudiantes RC
+   • Estudiantes SL
+   • Excursionistas
+   • FADEP
+   • Ferro
+   • Ferro (GP)
+   • Ferro Olavarría
+   • Flandria
+   • Fénix
+   • General Paz Jrs
+   • General Rojo
+   • Gimnasia
+   • Gimnasia (CdU)
+   • Gimnasia (J)
+   • Gimnasia (M)
+   • Gimnasia II
+   • Gimnasia y Tiro
+   • Godoy Cruz
+   • Godoy Cruz II
+   • Guaraní A. F.
+   • Guillermo Brown
+   • Gutiérrez SC
+   • GyE Mendoza II
+   • Güemes
+   • Huracán
+   • Huracán LH
+   • Huracán TA
+   • Ind. Rivadavia
+   • Indep'te II
+   • Independiente
+   • Instituto ACC
+   • Instituto U19
+   • J. Antoniana II
+   • Juv. Antoniana
+   • Juv. Unida (G)
+   • Juv. Unida (SL)
+   • Juventud Alianza de San Juan
+   • Laferrere
+   • Lanús
+   • Lanús II
+   • Libertad (S)
+   • Los Andes
+   • Luján
+   • Mitre (SdE)
+   • Newell's
+   • Nueva Chicago
+   • Olimpo
+   • PSM Fútbol
+   • Patronato
+   • Penya Deportiva
+   • Peñarol (SJ)
+   • Platense
+   • Platense II
+   • Quilmes
+   • Racing
+   • Racing (Cba)
+   • Racing Club II
+   • Racing Olava
+   • Rafaela II
+   • Rafaela U19
+   • Real Pilar
+   • River Plate
+   • River Plate II
+   • Ro. Central U17
+   • Ros. Central II
+   • Rosario Central
+   • S. Lorenzo Alem
+   • San Jorge
+   • San Lorenzo
+   • San Lorenzo II
+   • San Martín (F)
+   • San Martín (M)
+   • San Martín (SJ)
+   • San Martín (T)
+   • San Miguel
+   • Sansinena
+   • Santamarina
+   • Sarmiento
+   • Sarmiento (L)
+   • Sarmiento (LB)
+   • Sarmiento (R)
+   • Sol de América
+   • Sol de Mayo
+   • Sp. Belgrano
+   • Sp. Italiano
+   • Sp. Las Parejas
+   • Sp. Rivadavia
+   • Talleres
+   • Talleres II
+   • Talleres Perico
+   • Talleres RE
+   • Temperley
+   • Temperley II
+   • Tigre
+   • Tigre II
+   • Tiro Federal
+   • Tristán Suárez
+   • Unión
+   • Unión (MdP)
+   • Unión (S)
+   • Unión II
+   • V. Ramallo II
+   • V.Dálmine II
+   • Vict. Arenas
+   • Vil. San Carlos
+   • Villa Dálmine
+   • Villa Mitre
+   • Vélez II
+   • Vélez Sarsfield
+   • Western Mass
+   • Zapla
+
+
+2. DESCONOCIDO
+   Total de clubes: 102
+   Menciones totales: 152
+--------------------------------------------------------------------------------
+   • 3 Febrero Juv.
+   • ASA Tg. Mures
+   • Al. Lima Sub-20
+   • Almopos
+   • Aprilia
+   • Atl. Venezuela
+   • Atlético-PR B
+   • Barnechea
+   • Barueri
+   • Beerschot VAV
+   • Belgrano (CV)
+   • Besa Dobri Dol
+   • Boca Unidos U19
+   • Bold FC
+   • Bom Sucesso
+   • Brown Arrecifes
+   • CA Huracán
+   • CD Coreano
+   • CD Logroñés
+   • CD Rosamonte
+   • CD Tabacal
+   • CE Tecnofutbol
+   • CSD Lasallano
+   • Cerro de Reyes
+   • Chivas USA
+   • Città Messina
+   • Club Renato Cesarini
+   • Club San José
+   • Club Somisa
+   • Coatzacoalcos
+   • Cobresol
+   • Colorado Foxes
+   • DL Yifang
+   • Danubio B
+   • Dep. Anzoátegui
+   • Deportivo Azogues
+   • El Porvenir U19
+   • Ever Ready
+   • FC Basel U18
+   • FC Messina
+   • FC Moscú
+   • FC Timisoara
+   • FeC Benevento
+   • Fort Lauderdale
+   • GYE City FC B
+   • GZ Evergrande
+   • Gaz Metan
+   • Germ. Beerschot
+   • Gloria Buzau
+   • Guaratinguetá
+   • GyT (Salta) U19
+   • Hamilton Steel
+   • Islanders
+   • Italchacao
+   • Jaguar Tapachula
+   • Karpaty Lviv
+   • Khimki
+   • Liberty Bari
+   • Lobos BUAP
+   • Lori Vanadzor
+   • Marítimo B
+   • Metalist Kharkiv
+   • Minerven
+   • Olimpia Minas
+   • Paniliakos
+   • Patria
+   • Pelita Jaya
+   • Petacciato
+   • Piamonte
+   • Polideportivo
+   • Porto Moniz
+   • Portosantense
+   • Racing U19
+   • Rotonda
+   • SPAL
+   • SY Dongjin
+   • San Isidro
+   • San Luis
+   • San Marino
+   • Sanfeliciana
+   • Sarmiento
+   • Serrato
+   • Socio Águila
+   • Sport Boys
+   • Textil Mandiyú
+   • Tiburones Rojos
+   • Tigres Mochis
+   • Tiro Federal R
+   • Toronto Bliz.
+   • Total Chalaco
+   • Trinidad
+   • Turris
+   • U. Madeira B
+   • UD Salamanca
+   • UE Lleida
+   • Uniautónoma
+   • Union (Maipu)
+   • Unión Rosario
+   • Varese
+   • Veracruz
+   • Willy Serrato
+   • Xamax II
+
+
+3. ITALIA
+   Total de clubes: 67
+   Menciones totales: 92
+--------------------------------------------------------------------------------
+   • AC Milan
+   • AC Pisa
+   • AC Siena
+   • AS Avellino
+   • AS Livorno
+   • AS Roma
+   • Ariano Irpino
+   • Ascoli
+   • Atalanta
+   • Avellino
+   • Barletta
+   • Bassano
+   • Bisceglie
+   • Cannara
+   • Carrarese
+   • Casarano
+   • Casertana
+   • Castiadas
+   • Catania
+   • Civitanovese
+   • Cosenza
+   • Crotone
+   • Cuneo
+   • Cynthia
+   • Fiorentina
+   • Florentia
+   • Foggia
+   • Francavilla
+   • Ghivizzano
+   • Génova
+   • Inter
+   • Inter U19
+   • Juventus
+   • LR Vicenza
+   • Lazio
+   • Lucchese
+   • Luparense
+   • Manfredonia
+   • Mantova
+   • Martina
+   • Martina Franca
+   • Milan
+   • Nardò
+   • Novara
+   • Padova
+   • Pescara
+   • Pomigliano
+   • Pro Patria
+   • Puteolana
+   • Ragusa
+   • Ravenna
+   • Reggina
+   • Renato Curi Ang
+   • Sampdoria
+   • Sangiovannese
+   • Scandicci
+   • Sestri Levante
+   • Spezia
+   • Taranto
+   • Torino
+   • Trodica
+   • Tuttocuoio
+   • US Palermo
+   • Udinese
+   • VF Colligiana
+   • Vicenza
+   • Viterbese
+
+
+4. ESPAÑA
+   Total de clubes: 62
+   Menciones totales: 144
+--------------------------------------------------------------------------------
+   • AD Alcorcón
+   • Alavés
+   • Alzira
+   • Atl. Madrileño
+   • Atlético
+   • CA Malagueño
+   • CA Osasuna
+   • CD Badajoz
+   • CD Izarra
+   • CD Leganés
+   • CD Lugo
+   • CD Mirandés
+   • CD Móstoles
+   • CD Numancia
+   • CD Tenerife
+   • CD Tudelano
+   • CE Sabadell
+   • CF Fuenlabrada
+   • CP Villarrobledo
+   • Cádiz CF
+   • Elche CF
+   • FC Barcelona
+   • FC Cartagena
+   • Gallipoli
+   • Getafe CF
+   • Girona FC
+   • Granada CF
+   • Hércules CF
+   • Levante UD
+   • Molfetta
+   • Málaga CF
+   • Ponferradina
+   • RC Celta
+   • RC Deportivo
+   • RCD Espanyol
+   • RCD Mallorca
+   • Racing
+   • Rayo Vallecano
+   • Real Betis
+   • Real Jaén CF
+   • Real Madrid
+   • Real Murcia
+   • Real Oviedo
+   • Real Sociedad
+   • Real Sporting
+   • Real Valladolid
+   • Real Zaragoza
+   • Recreativo
+   • SD Eibar
+   • SD Huesca
+   • Sant Andreu
+   • Sevilla Atl.
+   • Sevilla FC
+   • UB Conquense
+   • UD Almería
+   • UD Las Palmas
+   • UD Melilla
+   • UD Sanse
+   • Valencia CF
+   • Villarreal
+   • Villarreal CF B
+   • Zamora CF
+
+
+5. MÉXICO
+   Total de clubes: 42
+   Menciones totales: 179
+--------------------------------------------------------------------------------
+   • Alacranes
+   • Atlante
+   • Atlas
+   • Atlético Celaya
+   • CF América
+   • CSD Zacatepec
+   • Cafetaleros
+   • Celaya
+   • Chiapas FC
+   • Cimarrones
+   • Club Puebla
+   • Club Tijuana
+   • Correcaminos
+   • Cruz Azul
+   • Dorados Sinaloa
+   • FC Juárez
+   • Irapuato
+   • Jaguares
+   • La Piedad
+   • León
+   • Mazatlán FC
+   • Min. Zacatecas
+   • Monarcas Morelia
+   • Monterrey
+   • Morelia
+   • Morelia A
+   • Necaxa
+   • Oaxaca
+   • Pachuca
+   • Pumas UNAM
+   • Querétaro FC
+   • Saltillo SFC
+   • San Luis
+   • Santos Laguna
+   • Tampico Madero
+   • Tecos
+   • Tigres UANL
+   • Toluca
+   • Toros Neza
+   • UAG Tecos
+   • Venados FC
+   • Zacatepec
+
+
+6. URUGUAY
+   Total de clubes: 41
+   Menciones totales: 138
+--------------------------------------------------------------------------------
+   • Albion FC
+   • Bella Vista
+   • Bella Vista U19
+   • Boston River
+   • CA Atenas
+   • CA Cerro
+   • CA Fénix
+   • CA Libertad
+   • CA Peñarol U19
+   • CA Progreso
+   • CA Terremoto
+   • CA Torque
+   • CD Maldonado
+   • Central Español
+   • Central U19
+   • Cerrito
+   • Colón FC
+   • Danubio FC
+   • Danubio U19
+   • Defensor SC
+   • Defensor SC U19
+   • Juventud
+   • La Luz
+   • Liverpool FC
+   • Liverpool U19
+   • Miramar
+   • Mvd City Torque
+   • Nacional
+   • Nacional U19
+   • Peñarol
+   • Plaza Colonia
+   • Racing Club
+   • Rampla Jrs
+   • Rentistas
+   • River Plate
+   • Sud América
+   • Tacuarembó
+   • Tanque Sisley
+   • Uruguay FC
+   • Villa Española
+   • Wanderers
+
+
+7. CHILE
+   Total de clubes: 36
+   Menciones totales: 151
+--------------------------------------------------------------------------------
+   • Antofagasta
+   • Audax Italiano
+   • Cobreloa
+   • Cobresal
+   • Colo-Colo
+   • Coquimbo
+   • Curicó Unido
+   • D. Concepción
+   • D. Recoleta
+   • Deportes Colina
+   • Deportes Temuco
+   • Everton
+   • Fernández Vial
+   • Huachipato
+   • Iberia
+   • Iquique
+   • La Calera
+   • La Serena
+   • Limache
+   • Magallanes
+   • Melipilla
+   • O'Higgins
+   • Palestino
+   • Puerto Montt
+   • Rangers
+   • San Felipe
+   • San Luis
+   • San Marcos
+   • Santa Cruz
+   • Stgo. Morning
+   • U. Católica
+   • U. Concepción
+   • U. de Chile
+   • Unión Española
+   • Wanderers
+   • Ñublense
+
+
+8. COLOMBIA
+   Total de clubes: 32
+   Menciones totales: 112
+--------------------------------------------------------------------------------
+   • A. Bucaramanga
+   • Alianza FC
+   • Atl. Nacional
+   • Barranquilla FC
+   • Boyacá Chicó
+   • CD América
+   • Cúcuta Dep.
+   • Dep. Español
+   • Deportes Tolima
+   • Deportivo Cali
+   • Deportivo Pasto
+   • Envigado
+   • Gramenet
+   • Ind. Yumbo
+   • Indep. Medellín
+   • Indep. Santa Fe
+   • Inter Bogotá
+   • Jaguares FC
+   • Junior FC
+   • Llaneros FC
+   • Millonarios
+   • Once Caldas
+   • Patriotas
+   • Pereira
+   • Quindío
+   • Racing U19
+   • Real C.
+   • Real Cartagena
+   • Soacha
+   • Tigres FC
+   • Unión Magdalena
+   • Águilas Doradas
+
+
+9. PERÚ
+   Total de clubes: 31
+   Menciones totales: 66
+--------------------------------------------------------------------------------
+   • ADA Jaén
+   • Alianza Lima
+   • Alianza UDH
+   • Atlético Grau
+   • Bentín Tacna H.
+   • CA Chalaco
+   • CA Mannucci
+   • CNI
+   • Cienciano
+   • Comerciantes
+   • Cor. Bolognesi
+   • César Vallejo
+   • Dep. Coopsol
+   • Dep. Municipal
+   • FBC Melgar
+   • FC Cajamarca
+   • José Gálvez
+   • Juan Aurich
+   • Juan Pablo II
+   • Llacuabamba
+   • Los Caimanes
+   • Pacífico
+   • Santos FC
+   • Sport Ancash
+   • Sport Boys
+   • Sport Huancayo
+   • Sport. Cristal
+   • U. San Martín
+   • UTC
+   • Universitario
+   • Unión Comercio
+
+
+10. PARAGUAY
+   Total de clubes: 28
+   Menciones totales: 99
+--------------------------------------------------------------------------------
+   • 12 de Octubre
+   • 2 de Mayo
+   • 3 de Febrero
+   • Atl. Tembetary
+   • CD Capiatá
+   • CD Recoleta
+   • CS Ameliano
+   • CS San Lorenzo
+   • Caaguazú
+   • Cerro Porteño
+   • Club 24 de Set.
+   • Encarnación FC
+   • Fernando
+   • General Diaz
+   • Guaraní
+   • Independiente
+   • Libertad
+   • Libertad U19
+   • Luqueño
+   • Nacional
+   • Nacional U19
+   • Olimpia
+   • Olimpia U19
+   • Resistencia SC
+   • River Plate
+   • Rubio Ñú
+   • Sol de América
+   • Tacuary FBC
+
+
+11. BRASIL
+   Total de clubes: 28
+   Menciones totales: 54
+--------------------------------------------------------------------------------
+   • Amazonas
+   • América-MG
+   • Athletic
+   • Athletico-PR
+   • Atl. Mineiro
+   • Atlético-GO
+   • Atlético-PR
+   • Bangu-RJ
+   • Botafogo
+   • CSA
+   • Corinthians
+   • Desp. Brasil
+   • EC Bahia
+   • EC Vitória
+   • Figueirense FC
+   • Flamengo
+   • Fluminense
+   • Fortaleza
+   • Grêmio
+   • Guarani
+   • Internacional
+   • Palmeiras
+   • Remo
+   • Rio Branco-ES
+   • Santos
+   • Sport Recife
+   • São Paulo
+   • Vasco da Gama
+
+
+12. ECUADOR
+   Total de clubes: 23
+   Menciones totales: 67
+--------------------------------------------------------------------------------
+   • Barcelona SC
+   • Búhos ULVR FC
+   • CD Espoli
+   • CD Macará
+   • CD Olmedo
+   • CD Santa Rita
+   • CS Emelec
+   • Cumbayá FC
+   • Delfín SC
+   • Dep. Cuenca
+   • Deportivo Colón
+   • Deportivo Quito
+   • Guayaquil City
+   • Ind. Jrs.
+   • LDU Cuenca
+   • LDU Portoviejo
+   • LDU Quito
+   • Manta FC
+   • Mushuc Runa SC
+   • Orense SC
+   • SD Aucas
+   • Técnico U.
+   • Uni. Católica
+
+
+13. GRECIA
+   Total de clubes: 22
+   Menciones totales: 36
+--------------------------------------------------------------------------------
+   • AO Kavala
+   • APO Levadiakos
+   • APS Zakynthos
+   • Anag. Karditsas
+   • Ap. Larisas
+   • Apollon Smyrnis
+   • Aris Salónica
+   • Asteras Tripoli
+   • Atromitos FC
+   • Ergotelis
+   • Ionikos Nikeas
+   • Iraklis
+   • Niki Volou
+   • OFI Creta
+   • Olymp. Volou
+   • Olympiacos
+   • PAE Veria
+   • Panathinaikos
+   • Panetolikos
+   • Panionios
+   • Skoda Xanthi
+   • Tilykratis
+
+
+14. INGLATERRA
+   Total de clubes: 21
+   Menciones totales: 25
+--------------------------------------------------------------------------------
+   • Barnsley FC
+   • Birmingham
+   • Brighton
+   • Chelsea
+   • Coventry City
+   • Derby
+   • Huddersfield
+   • Hull City
+   • Leeds
+   • Leicester City
+   • Man. City
+   • Manchester Utd.
+   • Newcastle
+   • Nott'm Forest
+   • Oldham Athletic
+   • Southampton
+   • Stoke City
+   • Sunderland
+   • Tottenham
+   • West Brom
+   • West Ham
+
+
+15. ESTADOS UNIDOS
+   Total de clubes: 19
+   Menciones totales: 22
+--------------------------------------------------------------------------------
+   • Atlanta
+   • CA Cerro U19
+   • Charlotte
+   • Chicago
+   • Colorado
+   • D.C. United
+   • Houston
+   • Minnesota
+   • New England
+   • New York City
+   • OC Blues FC
+   • Philadelphia
+   • Portland
+   • Portland 2
+   • Real Monarchs
+   • SJ Earthquakes
+   • Seattle
+   • Toronto
+   • VCU Rams
+
+
+16. PORTUGAL
+   Total de clubes: 18
+   Menciones totales: 30
+--------------------------------------------------------------------------------
+   • Académico Viseu
+   • Benfica
+   • Caniçal
+   • Chaves
+   • Famalicão
+   • Feirense
+   • Leiria
+   • Moreirense
+   • Ollanense
+   • Oporto
+   • Pontassolense
+   • Ribeira Brava
+   • Rio Ave
+   • SC Braga
+   • Santa Clara
+   • Sporting B
+   • Sporting CP
+   • Torreense
+
+
+17. VENEZUELA
+   Total de clubes: 14
+   Menciones totales: 27
+--------------------------------------------------------------------------------
+   • Anzoátegui
+   • Aragua FC
+   • Carabobo FC
+   • Caracas FC
+   • Dep. La Guaira
+   • Dep. Miranda
+   • Metropolitanos
+   • Mineros
+   • Monagas SC
+   • Portuguesa FC
+   • Puerto Cabello
+   • Táchira
+   • Yaracuyanos
+   • Zamora FC
+
+
+18. FRANCIA
+   Total de clubes: 13
+   Menciones totales: 18
+--------------------------------------------------------------------------------
+   • Dijon
+   • Estrasburgo
+   • FC Nantes
+   • Lille
+   • Lyon
+   • Montpellier
+   • Mónaco
+   • PSG
+   • Paris SG U19
+   • SM Caen
+   • Stade Rennes
+   • Toulouse
+   • Évian
+
+
+19. BOLIVIA
+   Total de clubes: 12
+   Menciones totales: 33
+--------------------------------------------------------------------------------
+   • Atletico Warnes
+   • Aurora
+   • Blooming
+   • Bolívar
+   • Club P.E.F. Matienzo
+   • Destroyers
+   • GV San José
+   • Gran Mamoré
+   • Guabirá
+   • Oriente P.
+   • Real Santa Cruz
+   • Wilstermann
+
+
+20. CHIPRE
+   Total de clubes: 12
+   Menciones totales: 15
+--------------------------------------------------------------------------------
+   • AEL Limassol
+   • ASIL Lysi
+   • Apol. Limassol
+   • Aris Limassol
+   • Doxa Katokopias
+   • EN Paralimniou
+   • Ethnikos
+   • Karmiotissa
+   • Nea Salamis
+   • Olympiakos N.
+   • Omonia Nicosia
+   • Pafos FC
+
+
+21. JAPÓN
+   Total de clubes: 9
+   Menciones totales: 12
+--------------------------------------------------------------------------------
+   • Avispa Fukuoka
+   • Brera Ilch FC
+   • Cerezo Osaka
+   • FC Tokyo
+   • JEF Utd. Chiba
+   • Sagan Tosu
+   • Urawa Reds
+   • Vegalta Sendai
+   • Yokohama Marinos
+
+
+22. ARABIA SAUDITA
+   Total de clubes: 8
+   Menciones totales: 10
+--------------------------------------------------------------------------------
+   • Al-Ahli
+   • Al-Ettifaq
+   • Al-Fayha
+   • Al-Hilal
+   • Al-Ittihad
+   • Al-Shabab
+   • Damac FC
+   • Ohod Club
+
+
+23. GUATEMALA
+   Total de clubes: 7
+   Menciones totales: 10
+--------------------------------------------------------------------------------
+   • Achuapa
+   • Antigua GFC
+   • CSD Municipal
+   • Cobán Imperial
+   • Comunicaciones
+   • Guastatoya
+   • Suchitepéquez
+
+
+24. EMIRATOS ÁRABES UNIDOS
+   Total de clubes: 5
+   Menciones totales: 6
+--------------------------------------------------------------------------------
+   • Al-Ain
+   • Al-Wahda
+   • Emirates Club
+   • FC Baniyas
+   • Shabab Al-Ahli
+
+
+25. RUMANIA
+   Total de clubes: 5
+   Menciones totales: 5
+--------------------------------------------------------------------------------
+   • Alexandria
+   • CFR Cluj
+   • FC Arges
+   • FC Dinamo
+   • FC Rapid 1923
+
+
+26. RUSIA
+   Total de clubes: 5
+   Menciones totales: 6
+--------------------------------------------------------------------------------
+   • Atyrá FC
+   • CSKA Moscú
+   • Câmara Lobos
+   • Rostov
+   • Terek Grozny
+
+
+27. PAÍSES BAJOS
+   Total de clubes: 4
+   Menciones totales: 7
+--------------------------------------------------------------------------------
+   • Ajax
+   • FC Den Bosch
+   • FC Twente
+   • Feyenoord
+
+
+28. ISRAEL
+   Total de clubes: 4
+   Menciones totales: 5
+--------------------------------------------------------------------------------
+   • B. Jerusalem
+   • Hapoel Tel Aviv
+   • M. Petah Tikva
+   • M. Tel Aviv
+
+
+29. CATAR
+   Total de clubes: 4
+   Menciones totales: 4
+--------------------------------------------------------------------------------
+   • Al-Ahli SC
+   • Al-Gharafa
+   • Al-Kharitiyath
+   • Qatar SC
+
+
+30. TURQUÍA
+   Total de clubes: 4
+   Menciones totales: 5
+--------------------------------------------------------------------------------
+   • 1.FC Oberhaid
+   • Galatasaray
+   • Kayserispor
+   • Trabzonspor
+
+
+31. COSTA RICA
+   Total de clubes: 4
+   Menciones totales: 4
+--------------------------------------------------------------------------------
+   • Herediano
+   • Herediano II
+   • Liberia Mía
+   • Saprissa
+
+
+32. AUSTRIA
+   Total de clubes: 4
+   Menciones totales: 4
+--------------------------------------------------------------------------------
+   • FC Tirol
+   • First Vienna FC
+   • Kremser SC
+   • St. Pölten
+
+
+33. SUIZA
+   Total de clubes: 3
+   Menciones totales: 3
+--------------------------------------------------------------------------------
+   • Carouge Juvenil
+   • FC St. Gallen
+   • Lausanne-Sport
+
+
+34. ALEMANIA
+   Total de clubes: 3
+   Menciones totales: 4
+--------------------------------------------------------------------------------
+   • F. Düsseldorf
+   • Núremberg
+   • Werder Bremen
+
+
+35. UCRANIA
+   Total de clubes: 2
+   Menciones totales: 2
+--------------------------------------------------------------------------------
+   • Chornomorets
+   • Dinamo de Kiev
+
+
+36. EL SALVADOR
+   Total de clubes: 2
+   Menciones totales: 3
+--------------------------------------------------------------------------------
+   • CD Águila
+   • Santa Tecla
+
+
+37. POLONIA
+   Total de clubes: 2
+   Menciones totales: 2
+--------------------------------------------------------------------------------
+   • Korona Kielce
+   • Wisla Cracovia
+
+
+38. BÉLGICA
+   Total de clubes: 2
+   Menciones totales: 2
+--------------------------------------------------------------------------------
+   • RSC Anderlecht
+   • Royal Amberes
+
+
+39. INDONESIA
+   Total de clubes: 2
+   Menciones totales: 2
+--------------------------------------------------------------------------------
+   • PSBS Biak
+   • PSMS
+
+
+40. CHINA
+   Total de clubes: 2
+   Menciones totales: 2
+--------------------------------------------------------------------------------
+   • CC Yatai
+   • SH SIPG
+
+
+41. HONDURAS
+   Total de clubes: 2
+   Menciones totales: 2
+--------------------------------------------------------------------------------
+   • CD Olimpia
+   • FC Motagua
+
+
+42. MACEDONIA DEL NORTE
+   Total de clubes: 2
+   Menciones totales: 2
+--------------------------------------------------------------------------------
+   • AP Brera
+   • Brera Strumica
+
+
+43. CROACIA
+   Total de clubes: 2
+   Menciones totales: 2
+--------------------------------------------------------------------------------
+   • Hajduk Split
+   • NK Lokomotiva
+
+
+44. BULGARIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Ludogorets
+
+
+45. MALASIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Johor DT
+
+
+46. ESLOVAQUIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • AS Trencin
+
+
+47. REPÚBLICA CHECA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Slovacko
+
+
+48. MALTA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Valletta
+
+
+49. REPÚBLICA DOMINICANA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Cibao FC
+
+
+50. DINAMARCA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Copenhague
+
+
+51. PANAMÁ
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • San Francisco
+
+
+52. TAILANDIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • BG Pathum Utd.
+
+
+53. VIETNAM
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Da Nang FC
+
+
+54. MYANMAR
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Yangon United
+
+
+55. SUECIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • IFK Göteborg
+
+
+56. CONGO
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • KF Erzeni
+
+
+57. ALBANIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • KS Besa
+
+
+58. AUSTRALIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Melbourne City
+
+
+59. AZERBAIYÁN
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Borjomi
+
+
+60. HONG KONG
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • South China
+
+
+61. JORDANIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Sahab SC
+
+
+62. ARGELIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • USM Blida
+
+
+63. COSTA DE MARFIL
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Lanciano
+
+
+64. SAN MARINO
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Tre Penne
+
+
+65. ARMENIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • Ararat-Armenia
+
+
+66. NIGERIA
+   Total de clubes: 1
+   Menciones totales: 1
+--------------------------------------------------------------------------------
+   • San Giuseppe
+
+================================================================================
+FIN DEL REPORTE
+================================================================================

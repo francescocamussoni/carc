@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import EquipoNacional from './pages/EquipoNacional'
-import EquipoInternacional from './pages/EquipoInternacional'
-import OrbitaDelDia from './pages/OrbitaDelDia'
+import EquipoEuropeo from './pages/EquipoEuropeo'
+import EquipoLatinoamericano from './pages/EquipoLatinoamericano'
 import './styles/App.css'
 
 function App() {
@@ -13,7 +13,11 @@ function App() {
           <div className="nav-container">
             <Link to="/" className="nav-logo">
               <div className="logo-container">
-                <span className="logo-shield">🔵⚪🔵</span>
+                <img 
+                  src="http://localhost:8000/api/v1/static/clubes/rosario_central.png" 
+                  alt="Rosario Central" 
+                  className="logo-shield"
+                />
                 <div>
                   <h1>carc.io</h1>
                   <span className="nav-subtitle">Rosario Central</span>
@@ -23,8 +27,8 @@ function App() {
             <div className="nav-menu">
               <Link to="/" className="nav-link">Inicio</Link>
               <Link to="/equipo-nacional" className="nav-link">Equipo Nacional</Link>
-              <Link to="/equipo-internacional" className="nav-link">Equipo Internacional</Link>
-              <Link to="/orbita" className="nav-link">Órbita</Link>
+              <Link to="/equipo-europeo" className="nav-link">Equipo Europeo</Link>
+              <Link to="/equipo-latinoamericano" className="nav-link">Equipo Latinoamericano</Link>
             </div>
           </div>
         </nav>
@@ -33,8 +37,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/equipo-nacional" element={<EquipoNacional />} />
-            <Route path="/equipo-internacional" element={<EquipoInternacional />} />
-            <Route path="/orbita" element={<OrbitaDelDia />} />
+            <Route path="/equipo-europeo" element={<EquipoEuropeo />} />
+            <Route path="/equipo-latinoamericano" element={<EquipoLatinoamericano />} />
           </Routes>
         </main>
 

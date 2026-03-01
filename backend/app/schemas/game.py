@@ -26,51 +26,34 @@ class EstadisticaTorneo(BaseModel):
     rojas: int = 0
 
 
-class ElementoOrbital(BaseModel):
-    """Orbital element for Orbita game"""
-    id: str
-    tipo: str  # "jugador", "estadistica"
-    nombre: str = "???"
-    valor: Optional[str] = None  # For statistics
-    image_url: Optional[str] = None
+class PosicionVacia(BaseModel):
+    """Empty position in formation"""
+    posicion: str  # PO, DC, ED, EI, MC, MD, MI, etc.
     revelado: bool = False
+    jugador_nombre: Optional[str] = None
+    jugador_apellido: Optional[str] = None
 
 
-class JugadorFormacion(BaseModel):
-    """Player in formation"""
-    posicion: str  # PO, DC, ED, EI, etc.
+class ClubActual(BaseModel):
+    """Current club to guess"""
     nombre: str
-    apellido: str
-    nombre_completo: str
-    image_url: Optional[str] = None
-    revelado: bool = False
-    nacionalidad: Optional[str] = None
-    partidos: Optional[int] = None
+    logo_url: Optional[str] = None
+    pais: str
 
 
 class EquipoDelDiaGame(BaseModel):
-    """Equipo del Día game data"""
+    """Equipo del Día game data - Nueva mecánica"""
     game_id: str
     fecha: str
-    tipo: str  # "equipo_nacional" o "equipo_internacional"
-    formacion: str = "3-4-3"  # Formación táctica
-    jugadores: List[JugadorFormacion]  # 11 jugadores
+    tipo: str  # "equipo_nacional", "equipo_europeo", "equipo_latinoamericano"
+    formacion: str  # "4-4-2" o "4-3-3"
+    posiciones: List[PosicionVacia]  # 11 posiciones vacías
+    club_actual: ClubActual  # Club que deben adivinar
+    entrenador_apellido: str  # Apellido del DT a adivinar
+    entrenador_nombre_completo: str
+    entrenador_revelado: bool = False
+    jugadores_revelados: int = 0  # Contador
     pistas_disponibles: int = 3
-    dt_nombre: Optional[str] = None  # Director técnico (opcional)
-    temporada: Optional[str] = None  # Ej: "2021"
-    competencia: Optional[str] = None  # Ej: "Liga Profesional"
-
-
-class OrbitaGame(BaseModel):
-    """Órbita del Día game data"""
-    game_id: str
-    fecha: str
-    tipo: str = "orbita"
-    protagonista: Dict[str, Any]  # Técnico principal
-    elementos_orbitales: List[ElementoOrbital]  # Jugadores/estadísticas
-    modo_juego: str  # "mas_minutos", "mas_goles", "mas_apariciones"
-    competencia: str  # "Liga Profesional", "Copa Libertadores", etc.
-    tiempo_limite: int = 120  # seconds
 
 
 class GameResponse(BaseModel):
@@ -96,6 +79,8 @@ class GameResult(BaseModel):
     correcto: bool
     mensaje: str
     jugador_revelado: Optional[Dict[str, Any]] = None
+    posicion_asignada: Optional[str] = None
+    nuevo_club: Optional[Dict[str, Any]] = None  # Siguiente club a adivinar
     elementos_revelados: Optional[List[str]] = None
     pista_nueva: Optional[str] = None
     game_over: bool = False

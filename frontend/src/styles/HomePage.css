@@ -19,8 +19,9 @@
 }
 
 .logo-shield-large {
-  font-size: 5rem;
-  line-height: 1;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
   display: inline-block;
   animation: pulse 2s ease-in-out infinite;
 }

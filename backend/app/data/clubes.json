@@ -1,0 +1,219 @@
+{
+   "Nacional": {
+      "Argentina": [
+         "Aldosivi",
+         "Argentinos Jrs.",
+         "Arsenal",
+         "Atl. Rafaela",
+         "Atl. Tucumán",
+         "Banfield",
+         "Barracas",
+         "Belgrano",
+         "Boca Juniors",
+         "Colón",
+         "Crucero",
+         "Def. y Justicia",
+         "Dep. Riestra",
+         "Desamparados",
+         "Estudiantes",
+         "Estudiantes RC",
+         "Ferro",
+         "Gimnasia",
+         "Godoy Cruz",
+         "Huracán",
+         "Ind. Rivadavia",
+         "Independiente",
+         "Instituto ACC",
+         "Lanús",
+         "Newell's",
+         "Nueva Chicago",
+         "Olimpo",
+         "Patronato",
+         "Platense",
+         "Quilmes",
+         "Racing",
+         "River Plate",
+         "San Lorenzo",
+         "San Martín (SJ)",
+         "San Martín (T)",
+         "Sarmiento",
+         "Talleres",
+         "Temperley",
+         "Tigre",
+         "Unión",
+         "Vélez Sarsfield"
+      ]
+   },
+   "Internacional": {
+      "Italia": [
+         "AC Milan",
+         "AS Livorno",
+         "AS Roma",
+         "Atalanta",
+         "Catania",
+         "Fiorentina",
+         "Génova",
+         "Inter",
+         "Juventus",
+         "Lazio",
+         "Milan",
+         "Sampdoria",
+         "Torino",
+         "US Palermo",
+         "Udinese"
+      ],
+      "España": [
+         "Alavés",
+         "Atlético",
+         "CA Osasuna",
+         "CD Leganés",
+         "CD Tenerife",
+         "Cádiz CF",
+         "Elche CF",
+         "FC Barcelona",
+         "Getafe CF",
+         "Girona FC",
+         "Granada CF",
+         "Hércules CF",
+         "Levante UD",
+         "Málaga CF",
+         "RC Celta",
+         "RCD Espanyol",
+         "RCD Mallorca",
+         "Racing",
+         "Rayo Vallecano",
+         "Real Betis",
+         "Real Madrid",
+         "Real Sociedad",
+         "Real Valladolid",
+         "Real Zaragoza",
+         "SD Eibar",
+         "SD Huesca",
+         "Sevilla FC",
+         "Valencia CF",
+         "Villarreal"
+      ],
+      "Inglaterra": [
+         "Brighton",
+         "Chelsea",
+         "Derby",
+         "Leeds",
+         "Leicester City",
+         "Man. City",
+         "Manchester Utd.",
+         "Newcastle",
+         "Southampton",
+         "Stoke City",
+         "Sunderland",
+         "Tottenham",
+         "West Ham"
+      ],
+      "Portugal": [
+         "Benfica",
+         "Oporto",
+         "Sporting CP"
+      ],
+      "Francia": [
+         "Lille",
+         "Mónaco",
+         "PSG"
+      ],
+      "Alemania": [
+         "Núremberg",
+         "Werder Bremen"
+      ],
+      "Países Bajos": [
+         "Feyenoord"
+      ],
+      "Turquía": [
+         "Galatasaray",
+         "Trabzonspor"
+      ],
+      "Grecia": [
+         "Olympiacos",
+         "Panathinaikos"
+      ]
+   },
+   "Latinoamérica": {
+      "México": [
+         "Atlante",
+         "Atlas",
+         "CF América",
+         "Club Puebla",
+         "Club Tijuana",
+         "Cruz Azul",
+         "Dorados Sinaloa",
+         "Mazatlán FC",
+         "Monterrey",
+         "Morelia",
+         "Necaxa",
+         "Pachuca",
+         "Pumas UNAM",
+         "Querétaro FC",
+         "San Luis",
+         "Santos Laguna",
+         "Tigres UANL",
+         "Toluca"
+      ],
+      "Uruguay": [
+         "CD Maldonado",
+         "Nacional",
+         "Peñarol"
+      ],
+      "Chile": [
+         "Audax Italiano",
+         "Cobreloa",
+         "Cobresal",
+         "Colo-Colo",
+         "Everton",
+         "Huachipato",
+         "O'Higgins",
+         "Palestino",
+         "U. Católica",
+         "U. Concepción",
+         "U. de Chile",
+         "Unión Española"
+      ],
+      "Colombia": [
+         "A. Bucaramanga",
+         "Deportivo Cali",
+         "Indep. Medellín",
+         "Indep. Santa Fe",
+         "Millonarios",
+         "Once Caldas"
+      ],
+      "Perú": [
+         "Alianza Lima",
+         "Cienciano",
+         "Universitario"
+      ],
+      "Paraguay": [
+         "Cerro Porteño",
+         "Guaraní",
+         "Luqueño",
+         "Olimpia"
+      ],
+      "Brasil": [
+         "Athletico-PR",
+         "Atl. Mineiro",
+         "Botafogo",
+         "Corinthians",
+         "Flamengo",
+         "Fluminense",
+         "Fortaleza",
+         "Grêmio",
+         "Palmeiras",
+         "Santos",
+         "São Paulo",
+         "Vasco da Gama"
+      ],
+      "Ecuador": [
+         "Barcelona SCo",
+         "LDU Quito"
+      ],
+      "Bolivia": [
+         "Bolívar",
+         "Oriente P."
+      ]
+   }
+}

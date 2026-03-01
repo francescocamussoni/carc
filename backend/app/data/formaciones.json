@@ -1,0 +1,94 @@
+{
+  "formaciones": {
+    "3-5-2": {
+      "nombre": "3-5-2",
+      "posiciones": [
+        { "linea": "portero", "posicion": "PO", "cantidad": 1 },
+        { "linea": "defensa", "posicion": "DC", "cantidad": 3 },
+        { "linea": "mediocampo", "posicion": "ED", "cantidad": 1 },
+        { "linea": "mediocampo", "posicion": "MC", "cantidad": 3 },
+        { "linea": "mediocampo", "posicion": "EI", "cantidad": 1 },
+        { "linea": "delantera", "posicion": "DC_delantero", "cantidad": 2 }
+      ],
+      "total_jugadores": 11,
+      "consideraciones": {
+        "Defensa": "DC",
+        "Defensa central": "DC",
+        "Delantero": "DC_delantero",
+        "Delantero centro": "DC_delantero",
+        "Pivote": "MC",
+        "Centrocampista": "MC",
+        "Mediocentro": "MC",
+        "Mediocentro ofensivo": "MC",
+        "Interior derecho": "ED",
+        "Extremo derecho": "ED",
+        "Interior izquierdo": "EI",
+        "Extremo izquierdo": "EI",
+        "Mediapunta": "DC_delantero"
+      }
+    },
+    "4-3-2-1": {
+      "nombre": "4-3-2-1",
+      "posiciones": [
+        { "linea": "portero", "posicion": "PO", "cantidad": 1 },
+        { "linea": "defensa", "posicion": "ED", "cantidad": 1 },
+        { "linea": "defensa", "posicion": "DC", "cantidad": 2 },
+        { "linea": "defensa", "posicion": "EI", "cantidad": 1 },
+        { "linea": "mediocampo", "posicion": "MD", "cantidad": 1 },
+        { "linea": "mediocampo", "posicion": "MC", "cantidad": 1 },
+        { "linea": "mediocampo", "posicion": "MI", "cantidad": 1 },
+        { "linea": "mediocampo_ofensivo", "posicion": "MC_ofensivo", "cantidad": 2 },
+        { "linea": "delantera", "posicion": "DC_delantero", "cantidad": 1 }
+      ],
+      "total_jugadores": 11,
+      "consideraciones": {
+        "Defensa": "DC",
+        "Defensa central": "DC",
+        "Lateral derecho": "ED",
+        "Lateral izquierdo": "EI",
+        "Pivote": "MC",
+        "Centrocampista": "MC",
+        "Mediocentro": "MC",
+        "Interior derecho": "MD",
+        "Extremo derecho": "MD",
+        "Interior izquierdo": "MI",
+        "Extremo izquierdo": "MI",
+        "Mediocentro ofensivo": "MC_ofensivo",
+        "Mediapunta": "MC_ofensivo",
+        "Delantero": "DC_delantero",
+        "Delantero centro": "DC_delantero"
+      }
+    },
+    "4-4-2": {
+      "nombre": "4-4-2",
+      "posiciones": [
+        { "linea": "portero", "posicion": "PO", "cantidad": 1 },
+        { "linea": "defensa", "posicion": "ED", "cantidad": 1 },
+        { "linea": "defensa", "posicion": "DC", "cantidad": 2 },
+        { "linea": "defensa", "posicion": "EI", "cantidad": 1 },
+        { "linea": "mediocampo", "posicion": "MD", "cantidad": 1 },
+        { "linea": "mediocampo", "posicion": "MC", "cantidad": 2 },
+        { "linea": "mediocampo", "posicion": "MI", "cantidad": 1 },
+        { "linea": "delantera", "posicion": "DC_delantero", "cantidad": 2 }
+      ],
+      "total_jugadores": 11,
+      "consideraciones": {
+        "Defensa": "DC",
+        "Defensa central": "DC",
+        "Lateral derecho": "ED",
+        "Lateral izquierdo": "EI",
+        "Delantero": "DC_delantero",
+        "Delantero centro": "DC_delantero",
+        "Pivote": "MC",
+        "Centrocampista": "MC",
+        "Mediocentro": "MC",
+        "Mediocentro ofensivo": "MC",
+        "Interior derecho": "MD",
+        "Extremo derecho": "MD",
+        "Interior izquierdo": "MI",
+        "Extremo izquierdo": "MI",
+        "Mediapunta": "DC_delantero"
+      }
+    }
+  }
+}

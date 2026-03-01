@@ -1,0 +1,43 @@
+================================================================================
+POSICIONES ÚNICAS - TRANSFERMARKT
+================================================================================
+Fecha: 2026-02-28 21:42:59
+
+ARCHIVO: rosario_central_jugadores.json
+--------------------------------------------------------------------------------
+Defensa central                          -  81 jugadores
+Delantero centro                         -  76 jugadores
+Pivote                                   -  39 jugadores
+Lateral izquierdo                        -  32 jugadores
+Mediocentro                              -  32 jugadores
+Mediocentro ofensivo                     -  30 jugadores
+Portero                                  -  28 jugadores
+Centrocampista                           -  26 jugadores
+Lateral derecho                          -  23 jugadores
+Interior derecho                         -  18 jugadores
+Delantero                                -  18 jugadores
+Defensa                                  -  16 jugadores
+Extremo izquierdo                        -  14 jugadores
+Extremo derecho                          -  10 jugadores
+Interior izquierdo                       -   7 jugadores
+Mediapunta                               -   1 jugadores
+
+
+ARCHIVO: rosario_central_tecnicos_jugadores.json
+--------------------------------------------------------------------------------
+Defensa central                          -  385 registros
+Delantero centro                         -  350 registros
+Portero                                  -  182 registros
+Pivote                                   -  179 registros
+Mediocentro                              -  169 registros
+Lateral izquierdo                        -  155 registros
+Mediocentro ofensivo                     -  152 registros
+Lateral derecho                          -  134 registros
+Interior derecho                         -  103 registros
+Extremo izquierdo                        -   91 registros
+Centrocampista                           -   60 registros
+Extremo derecho                          -   48 registros
+Interior izquierdo                       -   40 registros
+Delantero                                -   37 registros
+Defensa                                  -   31 registros
+Mediapunta                               -    2 registros

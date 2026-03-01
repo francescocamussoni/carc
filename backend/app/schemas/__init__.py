@@ -1,8 +1,8 @@
 from .game import (
     GameResponse,
     EquipoDelDiaGame,
-    JugadorFormacion,
-    OrbitaGame,
+    PosicionVacia,
+    ClubActual,
     GameGuess,
     GameResult
 )
@@ -10,8 +10,8 @@ from .game import (
 __all__ = [
     "GameResponse",
     "EquipoDelDiaGame",
-    "JugadorFormacion",
-    "OrbitaGame",
+    "PosicionVacia",
+    "ClubActual",
     "GameGuess",
     "GameResult"
 ]

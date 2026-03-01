@@ -94,7 +94,7 @@ class ClubHistoryService:
             for transfer in data.get('transfers', []):
                 # Extraer info del club origen ("from")
                 from_club = transfer.get('from', {})
-                if from_club and not from_club.get('isSpecial', True):
+                if from_club and not from_club.get('isSpecial', False):
                     nombre = from_club.get('clubName', '').strip()
                     if nombre and self._es_club_valido(nombre) and nombre not in clubes_vistos:
                         clubes_vistos.add(nombre)
@@ -114,7 +114,7 @@ class ClubHistoryService:
                 
                 # Extraer info del club destino ("to")
                 to_club = transfer.get('to', {})
-                if to_club and not to_club.get('isSpecial', True):
+                if to_club and not to_club.get('isSpecial', False):
                     nombre = to_club.get('clubName', '').strip()
                     if nombre and self._es_club_valido(nombre) and nombre not in clubes_vistos:
                         clubes_vistos.add(nombre)
@@ -511,7 +511,7 @@ class ClubHistoryService:
         # Lista de palabras clave que indican que NO es un club
         palabras_invalidas = [
             'nuevo fichaje', 'fichaje', 'transferencia',
-            'selección', 'selection', 'nacional', 'national',
+            'selección nacional', 'national team', 'national selection',
             's20', 's21', 's23', 'u20', 'u21', 'u23',
             'sin club', 'free agent', 'retirado', 'retired',
             'a prueba', 'trial', 'préstamo', 'loan'
@@ -521,8 +521,8 @@ class ClubHistoryService:
         if any(palabra in nombre_lower for palabra in palabras_invalidas):
             return False
         
-        # Verificar que no sea solo un país (muy corto)
-        if len(nombre) < 5:
+        # Verificar que no sea solo un país (muy corto) - pero permitir siglas como PSG, AEK, etc
+        if len(nombre) < 3:
             return False
         
         # Verificar que no sea solo números
@@ -631,8 +631,8 @@ class ClubHistoryService:
                         'periodo': None
                     })
                     
-                    # Limitar a un máximo razonable
-                    if len(clubes) >= 15:
+                    # Limitar a un máximo razonable (aumentado para jugadores con carreras largas)
+                    if len(clubes) >= 50:
                         break
                 
                 except Exception:

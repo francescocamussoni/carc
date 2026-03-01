@@ -221,7 +221,7 @@ class TransfermarktScraper(BaseScraper):
             time.sleep(random.uniform(0.1, 0.3))
             
             # Obtener datos completos del perfil
-            posicion, imagen_perfil, clubes_historia, tarjetas_por_torneo, goles_por_torneo = self._obtener_datos_completos_perfil(
+            posicion_principal, posiciones_lista, nombre_pila, apellido, imagen_perfil, clubes_historia, tarjetas_por_torneo, goles_por_torneo = self._obtener_datos_completos_perfil(
                 url_perfil, 
                 nombre
             )
@@ -230,8 +230,11 @@ class TransfermarktScraper(BaseScraper):
             jugador = Jugador(
                 nombre=nombre,
                 nacionalidad=nacionalidad,
-                posicion=posicion,
+                posicion=posicion_principal,
                 partidos=partidos,
+                nombre_pila=nombre_pila,
+                apellido=apellido,
+                posiciones=posiciones_lista,
                 image_profile=imagen_perfil,
                 clubes_historia=clubes_historia,
                 tarjetas_por_torneo=tarjetas_por_torneo,
@@ -283,18 +286,24 @@ class TransfermarktScraper(BaseScraper):
         except Exception:
             return None
     
-    def _obtener_datos_completos_perfil(self, url_perfil: str, nombre_jugador: str) -> Tuple[str, Optional[str], Optional[List], Optional[List], Optional[List]]:
+    def _obtener_datos_completos_perfil(self, url_perfil: str, nombre_jugador: str) -> Tuple[str, Optional[List[str]], Optional[str], Optional[str], Optional[str], Optional[List], Optional[List], Optional[List]]:
         """Obtiene TODOS los datos del jugador desde su perfil"""
         try:
             url_completa = f"{self.settings.TRANSFERMARKT_BASE_URL}{url_perfil}"
             response = self.http_client.get(url_completa, use_cache=True)
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            # Extraer posición
-            posicion = self._extraer_posicion(soup)
+            # Extraer nombre y apellido
+            nombre_pila, apellido = self._extraer_nombre_apellido(soup, nombre_jugador)
+            
+            # Extraer posiciones (principal + secundarias)
+            posicion_principal, posiciones_lista = self._extraer_posiciones(soup)
+            
+            # Usar nombre completo limpio para imagen
+            nombre_completo_limpio = f"{nombre_pila}_{apellido}".replace(" ", "_") if nombre_pila and apellido else nombre_jugador
             
             # Extraer y descargar imagen
-            imagen_perfil = self._extraer_y_descargar_imagen(soup, nombre_jugador)
+            imagen_perfil = self._extraer_y_descargar_imagen(soup, nombre_completo_limpio)
             
             # Extraer clubes
             clubes_historia = self.club_history.obtener_clubes_jugador(url_perfil, nombre_jugador)
@@ -317,23 +326,121 @@ class TransfermarktScraper(BaseScraper):
                 if t.get('amarillas', 0) > 0 or t.get('doble_amarillas', 0) > 0 or t.get('rojas', 0) > 0
             ]
             
-            return (posicion, imagen_perfil, clubes_historia, tarjetas_por_torneo, goles_por_torneo)
+            return (posicion_principal, posiciones_lista, nombre_pila, apellido, imagen_perfil, clubes_historia, tarjetas_por_torneo, goles_por_torneo)
         
         except Exception as e:
-            return ("Desconocida", None, None, None, None)
+            return ("Desconocida", ["Desconocida"], None, None, None, None, None, None)
     
-    def _extraer_posicion(self, soup) -> str:
-        """Extrae la posición del jugador desde el HTML del perfil"""
+    def _extraer_nombre_apellido(self, soup, nombre_fallback: str) -> Tuple[Optional[str], Optional[str]]:
+        """
+        Extrae el nombre y apellido del jugador desde el HTML del perfil
+        
+        En Transfermarkt, el formato es:
+        <h1>Nombre <strong>Apellido</strong></h1>
+        
+        Ejemplo: Ángel <strong>Di María</strong>
+        
+        Args:
+            soup: BeautifulSoup object del perfil
+            nombre_fallback: Nombre completo de fallback si no se puede extraer
+            
+        Returns:
+            Tupla (nombre_pila, apellido)
+        """
         try:
-            labels = soup.find_all('li', class_='data-header__label')
-            for label in labels:
-                if 'Posición:' in label.text or 'Posicion:' in label.text:
-                    content = label.find('span', class_='data-header__content')
-                    if content:
-                        return content.text.strip()
-            return "Desconocida"
+            # Buscar el h1 con la clase data-header__headline-wrapper
+            h1 = soup.find('h1', class_='data-header__headline-wrapper')
+            
+            if h1:
+                # Extraer el apellido del <strong>
+                strong_tag = h1.find('strong')
+                if strong_tag:
+                    apellido = strong_tag.text.strip()
+                    
+                    # Extraer el nombre (todo el texto antes del <strong>)
+                    # Crear una copia del h1 y eliminar el strong para obtener solo el nombre
+                    nombre_pila = h1.get_text(strip=True).replace(apellido, '').strip()
+                    
+                    if nombre_pila and apellido:
+                        return (nombre_pila, apellido)
+            
+            # Si no se pudo extraer, intentar separar por espacios como fallback
+            partes = nombre_fallback.strip().split()
+            if len(partes) >= 2:
+                # Asumir que la última parte es el apellido
+                apellido = partes[-1]
+                nombre_pila = ' '.join(partes[:-1])
+                return (nombre_pila, apellido)
+            
+            # Si todo falla, devolver el nombre completo como nombre
+            return (nombre_fallback, nombre_fallback)
+            
         except Exception:
-            return "Desconocida"
+            # En caso de error, usar el nombre completo como fallback
+            partes = nombre_fallback.strip().split()
+            if len(partes) >= 2:
+                return (' '.join(partes[:-1]), partes[-1])
+            return (nombre_fallback, nombre_fallback)
+    
+    def _extraer_posiciones(self, soup) -> Tuple[str, List[str]]:
+        """
+        Extrae todas las posiciones del jugador desde el HTML del perfil
+        
+        Transfermarkt muestra:
+        - Posición principal: <dt>Posición principal :</dt><dd>Extremo derecho</dd>
+        - Posiciones secundarias: <dt>Posición secundaria:</dt><dd>Mediocentro ofensivo</dd><dd>Extremo izquierdo</dd>
+        
+        Returns:
+            Tupla (posicion_principal, lista_de_todas_posiciones)
+        """
+        try:
+            posiciones = []
+            posicion_principal = "Desconocida"
+            
+            # Buscar en el contenedor detail-position
+            detail_position = soup.find('div', class_='detail-position__box')
+            
+            if detail_position:
+                # Buscar todas las definiciones de posiciones
+                dls = detail_position.find_all('dl')
+                
+                for dl in dls:
+                    dt = dl.find('dt', class_='detail-position__title')
+                    if dt:
+                        titulo = dt.text.strip()
+                        
+                        # Extraer las posiciones
+                        dds = dl.find_all('dd', class_='detail-position__position')
+                        
+                        for dd in dds:
+                            posicion = dd.text.strip()
+                            if posicion:
+                                posiciones.append(posicion)
+                                
+                                # Si es la posición principal, guardarla aparte
+                                if 'principal' in titulo.lower() and not posicion_principal or posicion_principal == "Desconocida":
+                                    posicion_principal = posicion
+            
+            # Si no se encontró ninguna posición con el método anterior, buscar en data-header
+            if not posiciones:
+                labels = soup.find_all('li', class_='data-header__label')
+                for label in labels:
+                    if 'Posición:' in label.text or 'Posicion:' in label.text:
+                        content = label.find('span', class_='data-header__content')
+                        if content:
+                            posicion = content.text.strip()
+                            posiciones.append(posicion)
+                            posicion_principal = posicion
+            
+            # Si no se encontró nada, usar "Desconocida"
+            if not posiciones:
+                posiciones = ["Desconocida"]
+                posicion_principal = "Desconocida"
+            
+            return (posicion_principal, posiciones)
+            
+        except Exception as e:
+            return ("Desconocida", ["Desconocida"])
     
     def _extraer_y_descargar_imagen(self, soup, nombre_jugador: str) -> Optional[str]:
         """Extrae la URL de la imagen y la descarga"""

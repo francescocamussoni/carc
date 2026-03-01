@@ -33,8 +33,11 @@ class Jugador:
     Attributes:
         nombre: Nombre completo del jugador
         nacionalidad: País de origen
-        posicion: Posición específica en el campo
+        posicion: Posición principal en el campo (por compatibilidad)
         partidos: Número de partidos jugados
+        nombre_pila: Nombre(s) de pila del jugador (opcional)
+        apellido: Apellido(s) del jugador (opcional)
+        posiciones: Lista de todas las posiciones que puede jugar (principal + secundarias) (opcional)
         image_profile: Ruta a la imagen de perfil (opcional)
         clubes_historia: Lista de clubes donde jugó (opcional)
         tarjetas_por_torneo: Lista de tarjetas por torneo en Rosario Central (opcional)
@@ -47,6 +50,9 @@ class Jugador:
     nacionalidad: str
     posicion: str
     partidos: int
+    nombre_pila: Optional[str] = None
+    apellido: Optional[str] = None
+    posiciones: Optional[List[str]] = None
     image_profile: Optional[str] = None
     clubes_historia: Optional[List[Dict]] = None
     tarjetas_por_torneo: Optional[List[Dict]] = None

@@ -1,104 +1,153 @@
-.equipo-game {
-  max-width: 1200px;
+/* Container principal */
+.equipo-game-container {
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
+  min-height: 100vh;
 }
 
-/* Game Header */
-.game-header {
+.equipo-game-container h1 {
   text-align: center;
+  color: var(--rc-blue);
   margin-bottom: 30px;
-  padding: 25px;
-  background: linear-gradient(135deg, var(--rc-blue) 0%, var(--rc-light-blue) 100%);
-  border-radius: 15px;
+  font-size: 2.5rem;
+}
+
+/* Sección del club actual */
+.club-actual-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
   color: white;
-  box-shadow: 0 5px 20px rgba(0, 63, 127, 0.3);
-}
-
-.game-header h1 {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-}
-
-.game-subtitle {
-  font-size: 1.05rem;
-  opacity: 0.95;
-  margin-bottom: 15px;
-}
-
-.game-stats {
   display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 15px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.progreso-container,
-.pistas-container {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 8px 16px;
-  border-radius: 8px;
+.club-actual-card {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 25px;
 }
 
-.progreso-container .label,
-.pistas-container .label {
+.club-icon {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+.club-logo-placeholder {
+  font-size: 3rem;
+}
+
+.club-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.club-emoji {
+  font-size: 3rem;
+}
+
+.dt-icon {
+  font-size: 3.5rem;
+}
+
+.club-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.club-label {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   font-weight: 600;
 }
 
-.progreso,
-.pistas {
-  font-size: 1.3rem;
+.club-nombre {
+  font-size: 2.2rem;
   font-weight: 700;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Campo de Fútbol */
+.progreso-inline {
+  display: flex;
+  gap: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.check-dt {
+  color: #4ade80;
+  font-size: 1.2rem;
+}
+
+/* Game Content Layout */
+.game-content {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+/* Campo de fútbol */
 .campo-futbol {
   background: linear-gradient(180deg, #2d5016 0%, #3a6b1e 50%, #2d5016 100%);
-  border-radius: 15px;
-  padding: 40px 20px;
-  margin: 30px auto;
-  max-width: 900px;
+  border-radius: 20px;
+  padding: 50px 30px;
   position: relative;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   border: 4px solid #fff;
+  min-height: 600px;
 }
 
-.esquema-titulo {
+.formacion-info {
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 20px;
   background: rgba(255, 255, 255, 0.95);
   color: var(--rc-blue);
-  padding: 8px 15px;
-  border-radius: 8px;
+  padding: 8px 16px;
+  border-radius: 10px;
   font-weight: 700;
-  font-size: 0.9rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Líneas del Campo */
+/* Líneas de la formación */
 .linea {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
-  margin: 30px 0;
-  position: relative;
+  gap: 30px;
+  margin: 40px 0;
 }
 
-.linea-delanteros {
-  margin-bottom: 50px;
+.portero-linea {
+  margin-top: 60px;
 }
 
-.linea-portero {
-  margin-top: 50px;
+.delanteros-linea {
+  margin-bottom: 60px;
 }
 
-/* Jugador Slot */
-.jugador-slot {
+/* Jugador posición en el campo */
+.jugador-posicion {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,173 +155,376 @@
 }
 
 .jugador-circle {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border: 4px solid #fff;
-  background: rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-.jugador-circle.oculto {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.jugador-circle.revelado {
-  background: #fff;
-  border-color: var(--rc-yellow);
-  box-shadow: 0 0 20px rgba(255, 209, 0, 0.6);
-  animation: revelarJugador 0.5s ease;
+.jugador-oculto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
-@keyframes revelarJugador {
-  0% {
-    transform: scale(0.8);
-  }
-  50% {
-    transform: scale(1.15);
-  }
-  100% {
-    transform: scale(1);
-  }
+.posicion-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  margin-bottom: 5px;
 }
 
-.jugador-circle img {
+.interrogacion {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.jugador-revelado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: revelar 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.jugador-foto {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
 }
 
-.jugador-silhouette {
-  font-size: 3rem;
-  color: rgba(255, 255, 255, 0.7);
+@keyframes revelar {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-/* Jugador Info */
-.jugador-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-
-.jugador-info .posicion {
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--rc-blue);
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-weight: 700;
+.jugador-nombre {
   font-size: 0.85rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.jugador-info .nombre {
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  color: var(--rc-blue);
   text-align: center;
-  max-width: 100px;
+  padding: 0 5px;
 }
 
-/* DT Container */
-.dt-container {
-  position: absolute;
-  right: -80px;
-  top: 50%;
-  transform: translateY(-50%);
+.posicion-small {
+  font-size: 0.65rem;
+  color: #666;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Sección entrenador */
+.entrenador-section {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  justify-content: center;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 3px dashed rgba(255, 255, 255, 0.3);
 }
 
-.dt-circle {
-  width: 60px;
-  height: 60px;
+.entrenador-box {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
-  border: 3px solid var(--rc-yellow);
+  border: 4px solid #ffd100;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 209, 0, 0.5);
 }
 
-.dt-label {
-  color: #fff;
+.entrenador-nombre {
+  font-size: 0.8rem;
   font-weight: 700;
-  font-size: 0.85rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  color: var(--rc-blue);
 }
 
-/* Game Controls */
-.game-controls {
+.entrenador-oculto {
+  font-size: 2rem;
+  color: #666;
+}
+
+/* Panel derecho */
+.panel-derecho {
   background: white;
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 25px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
 }
 
-.guess-form {
+.stats-header {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.stats-header h3 {
+  font-size: 1.5rem;
+  color: var(--rc-blue);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.stats-counters {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: white;
+  min-width: 80px;
+}
+
+.counter-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.counter-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+/* Grid de jugadores */
+.jugadores-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.jugador-card {
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.jugador-card.oculto {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+}
+
+.jugador-card.revelado {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-color: #10b981;
+  animation: revelarCard 0.5s ease;
+}
+
+@keyframes revelarCard {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.card-posicion {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.card-nombre {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--rc-blue);
+  margin-bottom: 5px;
+}
+
+.jugador-card.oculto .card-nombre {
+  color: #9ca3af;
+  font-size: 1.5rem;
+}
+
+.card-club {
+  font-size: 0.75rem;
+  color: #059669;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.dt-card {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.dt-card.revelado {
+  background: linear-gradient(135deg, #fde68a 0%, #fbbf24 100%);
+  border-color: #f59e0b;
+}
+
+/* Controles */
+.controles {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.input-form {
   display: flex;
   gap: 12px;
   margin-bottom: 20px;
 }
 
-.guess-input {
+.input-guess {
   flex: 1;
-  padding: 14px 18px;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+  padding: 16px 20px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
 }
 
-.guess-input:focus {
+.input-guess:focus {
   outline: none;
   border-color: var(--rc-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.action-buttons {
+.btn-enviar {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-enviar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-enviar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.botones {
   display: flex;
   gap: 12px;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
-/* Game Result */
-.game-result {
-  background: white;
-  border-radius: 15px;
-  padding: 30px;
-  margin-bottom: 25px;
-  text-align: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border: 4px solid var(--success-color);
+.btn-pista,
+.btn-rendirse {
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.95rem;
 }
 
-.game-result h2 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
+.btn-pista {
+  background: #3b82f6;
+  color: white;
 }
 
-/* Messages */
+.btn-pista:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.btn-rendirse {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-rendirse:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+.btn-pista:disabled,
+.btn-rendirse:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Mensajes */
 .mensaje {
   margin-top: 20px;
-  padding: 15px 20px;
-  border-radius: 10px;
+  padding: 16px 24px;
+  border-radius: 12px;
   text-align: center;
   font-size: 1.05rem;
-  font-weight: 500;
+  font-weight: 600;
   animation: slideIn 0.3s ease;
+}
+
+.mensaje.success {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #047857;
+  border: 2px solid #10b981;
+}
+
+.mensaje.error {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #991b1b;
+  border: 2px solid #ef4444;
 }
 
 @keyframes slideIn {
@@ -286,97 +538,82 @@
   }
 }
 
-.info-message {
-  background-color: #d1ecf1;
-  border: 1px solid #bee5eb;
-  color: #0c5460;
+/* Loading/Error */
+.loading,
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: var(--rc-blue);
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .game-content {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-derecho {
+    position: relative;
+    top: 0;
+  }
+}
+
 @media (max-width: 768px) {
+  .club-actual-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .club-actual-card {
+    flex-direction: column;
+  }
+
   .campo-futbol {
-    padding: 30px 10px;
+    padding: 30px 15px;
   }
 
   .linea {
-    gap: 25px;
+    gap: 20px;
   }
 
   .jugador-circle {
-    width: 65px;
-    height: 65px;
+    width: 70px;
+    height: 70px;
   }
 
-  .jugador-silhouette {
-    font-size: 2.5rem;
+  .jugadores-grid {
+    grid-template-columns: 1fr;
   }
 
-  .game-stats {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .dt-container {
-    right: -60px;
-  }
-
-  .dt-circle {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-  }
-
-  .guess-form {
-    flex-direction: column;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-  }
-
-  .action-buttons .btn {
-    width: 100%;
+  .dt-card {
+    grid-column: span 1;
   }
 }
 
 @media (max-width: 480px) {
-  .campo-futbol {
-    padding: 25px 5px;
+  .equipo-game-container h1 {
+    font-size: 1.8rem;
   }
 
-  .linea {
-    gap: 15px;
+  .club-nombre {
+    font-size: 1.6rem;
   }
 
   .jugador-circle {
-    width: 55px;
-    height: 55px;
-    border-width: 3px;
+    width: 60px;
+    height: 60px;
   }
 
-  .jugador-silhouette {
+  .interrogacion {
     font-size: 2rem;
   }
 
-  .jugador-info .posicion {
-    font-size: 0.75rem;
-    padding: 3px 8px;
+  .input-form {
+    flex-direction: column;
   }
 
-  .jugador-info .nombre {
-    font-size: 0.85rem;
-  }
-
-  .esquema-titulo {
-    font-size: 0.8rem;
-    padding: 6px 10px;
-  }
-
-  .dt-container {
-    display: none; /* Hide DT on very small screens */
-  }
-
-  .game-header h1 {
-    font-size: 1.6rem;
+  .botones {
+    flex-direction: column;
   }
 }

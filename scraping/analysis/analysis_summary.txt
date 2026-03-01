@@ -1,0 +1,23 @@
+================================================================================
+RESUMEN DE ANÁLISIS - ROSARIO CENTRAL
+================================================================================
+Fecha: 2026-02-28 19:13:34
+
+DATOS GENERALES
+--------------------------------------------------------------------------------
+Jugadores totales: 451
+Técnicos totales: 43
+Goles registrados: 0
+Temporadas T-J: 33
+Posiciones únicas: 16
+
+COBERTURA GEOGRÁFICA
+--------------------------------------------------------------------------------
+Países (jugadores): 66
+Países (técnicos): 0
+
+JUEGOS RECOMENDADOS
+--------------------------------------------------------------------------------
+✅ Equipo Nacional del Día
+✅ Órbita del Día
+⚠️  Equipo Internacional (limitado)

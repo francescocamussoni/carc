@@ -6,25 +6,25 @@ function HomePage() {
     {
       id: 'equipo-nacional',
       title: 'Equipo Nacional',
-      description: 'Adivina los 11 jugadores argentinos del equipo del día',
+      description: 'Adivina los 11 jugadores que pasaron por clubes argentinos',
       icon: '🇦🇷',
       path: '/equipo-nacional',
       color: '#76b9ff'
     },
     {
-      id: 'equipo-internacional',
-      title: 'Equipo Internacional',
-      description: 'Descubre los jugadores internacionales que pasaron por Central',
-      icon: '🌎',
-      path: '/equipo-internacional',
+      id: 'equipo-europeo',
+      title: 'Equipo Europeo',
+      description: 'Adivina los 11 jugadores que pasaron por clubes europeos',
+      icon: '🇪🇺',
+      path: '/equipo-europeo',
       color: '#4a90e2'
     },
     {
-      id: 'orbita',
-      title: 'Órbita del Día',
-      description: 'Identifica los jugadores más destacados bajo un técnico canalla',
-      icon: '⚽',
-      path: '/orbita',
+      id: 'equipo-latinoamericano',
+      title: 'Equipo Latinoamericano',
+      description: 'Adivina los 11 jugadores que pasaron por clubes latinoamericanos',
+      icon: '🌎',
+      path: '/equipo-latinoamericano',
       color: '#003f7f'
     }
   ]
@@ -33,7 +33,11 @@ function HomePage() {
     <div className="home-page">
       <div className="hero-section">
         <div className="logo-hero">
-          <span className="logo-shield-large">🔵⚪🔵</span>
+          <img 
+            src="http://localhost:8000/api/v1/static/clubes/rosario_central.png" 
+            alt="Rosario Central" 
+            className="logo-shield-large"
+          />
         </div>
         <h1 className="hero-title">
           Bienvenido a <span className="highlight">carc.io</span>

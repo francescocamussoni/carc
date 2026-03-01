@@ -1,55 +1,70 @@
 """
 Service to generate daily games
+Nueva mecánica: Mostrar club -> Usuario adivina jugador que jugó en RC + ese club
 """
 import random
+import json
+import unicodedata
 from datetime import datetime, date
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Set, Tuple
+from pathlib import Path
+from app.core.config import settings
 from app.services.data_loader import data_loader_service
 from app.schemas.game import (
     EquipoDelDiaGame,
-    JugadorFormacion,
-    OrbitaGame,
-    ElementoOrbital
+    PosicionVacia,
+    ClubActual
 )
 
 
 class GameGeneratorService:
     """Generates daily games with deterministic randomness based on date"""
     
-    # Mapeo de posiciones de Transfermarkt a posiciones de formación
-    POSICION_MAPPING = {
-        # Porteros
-        'portero': ['PO'],
-        'arquero': ['PO'],
-        'goalkeeper': ['PO'],
-        
-        # Defensas
-        'defensa central': ['DC'],
-        'defensa': ['DC', 'ED', 'EI'],
-        'lateral derecho': ['ED'],
-        'lateral izquierdo': ['EI'],
-        'lateral': ['ED', 'EI'],
-        'defensor': ['DC', 'ED', 'EI'],
-        
-        # Mediocampistas
-        'mediocentro': ['MC'],
-        'mediocampista': ['MC', 'MD', 'MI'],
-        'pivote': ['MC'],
-        'interior derecho': ['MD'],
-        'interior izquierdo': ['MI'],
-        'volante': ['MC', 'MD', 'MI'],
-        'medio': ['MC', 'MD', 'MI'],
-        
-        # Delanteros
-        'delantero': ['CT'],
-        'delantero centro': ['CT'],
-        'extremo': ['CT'],
-        'atacante': ['CT'],
-        'punta': ['CT']
-    }
     
     def __init__(self):
         self.data_loader = data_loader_service
+        self.clubes_data = self._load_clubes()
+        self.formaciones_data = self._load_formaciones()
+        # Cache de juegos activos por game_id
+        self._games_cache: Dict[str, Dict] = {}
+        # Cache de formaciones usadas por día (para no repetir)
+        self._formaciones_usadas_hoy: Set[str] = set()
+    
+    @staticmethod
+    def _normalize_text(text: str) -> str:
+        """
+        Normalize text by removing accents/tildes and converting to lowercase
+        
+        Examples:
+            'Ángel Di María' -> 'angel di maria'
+            'Pérez' -> 'perez'
+            'José' -> 'jose'
+        """
+        if not text:
+            return ""
+        # Convert to NFD (decomposed) form, then remove combining characters (accents)
+        nfd = unicodedata.normalize('NFD', text)
+        without_accents = ''.join(char for char in nfd if unicodedata.category(char) != 'Mn')
+        return without_accents.lower()
+    
+    def _load_clubes(self) -> Dict:
+        """Load clubes.json file"""
+        clubes_path = Path(settings.CLUBES_FILE)
+        with open(clubes_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    
+    def _load_formaciones(self) -> Dict:
+        """Load formaciones.json file"""
+        formaciones_path = Path(settings.FORMACIONES_FILE)
+        with open(formaciones_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    
+    def _get_all_clubs_by_category(self, categoria: str) -> Set[str]:
+        """Get all club names for a category"""
+        clubs = set()
+        for pais, clubes_list in self.clubes_data.get(categoria, {}).items():
+            clubs.update(clubes_list)
+        return clubs
     
     def _get_daily_seed(self, game_type: str) -> int:
         """Generate seed based on current date and game type"""
@@ -62,342 +77,418 @@ class GameGeneratorService:
         today = date.today()
         return f"{game_type}_{today.strftime('%Y%m%d')}"
     
-    def _get_posiciones_posibles(self, posicion_jugador: str) -> List[str]:
-        """Get possible formation positions for a player position"""
-        posicion_lower = posicion_jugador.lower()
+    def _normalize_position(self, pos: str) -> List[str]:
+        """
+        Get possible game positions for a Transfermarkt position using formaciones.json considerations
+        """
+        pos_lower = pos.lower().strip()
         
-        for key, positions in self.POSICION_MAPPING.items():
-            if key in posicion_lower:
-                return positions
+        # Build a combined map from all formations' considerations
+        posiciones_resultado = set()
         
-        # Default por tipo general
-        if 'porter' in posicion_lower or 'arquer' in posicion_lower:
+        for formacion_nombre, formacion_data in self.formaciones_data['formaciones'].items():
+            consideraciones = formacion_data.get('consideraciones', {})
+            
+            # Check for exact match
+            for tm_pos, game_pos in consideraciones.items():
+                if tm_pos.lower() == pos_lower:
+                    posiciones_resultado.add(game_pos)
+        
+        # If we found matches, return them
+        if posiciones_resultado:
+            return list(posiciones_resultado)
+        
+        # Fallback: partial match
+        if 'porter' in pos_lower or 'arquer' in pos_lower:
             return ['PO']
-        elif 'defens' in posicion_lower or 'lateral' in posicion_lower:
-            return ['DC', 'ED', 'EI']
-        elif 'medio' in posicion_lower or 'volante' in posicion_lower:
-            return ['MC', 'MD', 'MI']
-        elif 'delant' in posicion_lower or 'atac' in posicion_lower:
-            return ['CT']
+        elif 'defens' in pos_lower and 'central' in pos_lower:
+            return ['DC']
+        elif 'lateral' in pos_lower:
+            if 'derech' in pos_lower:
+                return ['ED']
+            elif 'izquier' in pos_lower:
+                return ['EI']
+            return ['ED', 'EI']
+        elif 'defens' in pos_lower:
+            return ['DC']
+        elif 'medio' in pos_lower or 'volante' in pos_lower:
+            if 'ofensivo' in pos_lower:
+                return ['MC_ofensivo', 'MC']
+            if 'derech' in pos_lower:
+                return ['MD', 'MC']
+            elif 'izquier' in pos_lower:
+                return ['MI', 'MC']
+            return ['MC']
+        elif 'delant' in pos_lower or 'atac' in pos_lower:
+            return ['DC_delantero']
         
         return ['MC']  # Default
     
-    def _crear_formacion(self, jugadores: List[Dict], tipo: str = "nacional") -> List[JugadorFormacion]:
-        """Create formation with players in positions"""
-        # Formación simplificada: 1 PO, 3 defensas, 4 medios, 3 delanteros
-        # Ser más flexible con las posiciones específicas
-        posiciones_objetivo = [
-            ('PO', 1),      # Portero
-            ('DC', 3),      # 3 defensas (cualquier tipo)
-            ('MC', 4),      # 4 mediocampistas (cualquier tipo)
-            ('CT', 3)       # 3 delanteros
-        ]
+    def _get_all_valid_positions(self, jugador: Dict) -> List[str]:
+        """
+        Get all valid game positions for a player based on their positions list
         
-        formacion = []
-        jugadores_asignados = set()
+        Args:
+            jugador: Player dict with 'posiciones' (list) or 'posicion' (string)
+            
+        Returns:
+            List of all valid game positions (without duplicates)
+        """
+        todas_posiciones = set()
         
-        # Organizar jugadores por línea general (más flexible)
-        jugadores_por_linea = {
-            'PO': [],
-            'DC': [],  # Todos los defensas
-            'MC': [],  # Todos los mediocampistas
-            'CT': []   # Todos los delanteros
+        # Try to get positions list first
+        posiciones_lista = jugador.get('posiciones', [])
+        if posiciones_lista:
+            for pos in posiciones_lista:
+                todas_posiciones.update(self._normalize_position(pos))
+        
+        # Fallback to single position field
+        if not todas_posiciones:
+            posicion_single = jugador.get('posicion', 'MC')
+            todas_posiciones.update(self._normalize_position(posicion_single))
+        
+        return list(todas_posiciones)
+    
+    def _get_club_country(self, club_nombre: str) -> Optional[str]:
+        """
+        Get the country of a club from clubes.json
+        
+        Args:
+            club_nombre: Name of the club
+            
+        Returns:
+            Country name or None
+        """
+        for categoria, paises in self.clubes_data.items():
+            for pais, clubes_list in paises.items():
+                if club_nombre in clubes_list:
+                    return pais
+        return None
+    
+    def _get_jugador_image_url(self, jugador: Dict) -> Optional[str]:
+        """
+        Get player image URL
+        
+        Args:
+            jugador: Player dict with 'image_profile' field
+            
+        Returns:
+            URL path to player image or None
+        """
+        image_profile = jugador.get('image_profile')
+        if not image_profile:
+            return None
+        
+        # image_profile format: "data/images/jugadores/nombre_apellido.png"
+        # We need to convert to: "/api/v1/static/jugadores/nombre_apellido.png"
+        if image_profile.startswith('data/images/'):
+            # Remove 'data/images/' prefix
+            relative_path = image_profile.replace('data/images/', '')
+            return f"/api/v1/static/{relative_path}"
+        
+        return None
+    
+    def _get_logo_url(self, club_nombre: str, pais: Optional[str] = None) -> Optional[str]:
+        """
+        Get club logo URL from country-specific subfolder
+        
+        Args:
+            club_nombre: Name of the club
+            pais: Country of the club (will be auto-detected if not provided)
+            
+        Returns:
+            URL path to logo or None
+        """
+        # Auto-detect country if not provided
+        if not pais:
+            pais = self._get_club_country(club_nombre)
+        
+        if not pais:
+            return None
+        
+        # Normalize club name for filename
+        filename = club_nombre.lower()
+        filename = filename.replace(' ', '_')
+        filename = filename.replace('.', '')
+        filename = filename.replace('-', '_')
+        
+        # Normalize country name for folder
+        pais_folder = pais.lower().replace(' ', '_').replace('.', '')
+        
+        # Try different extensions in country subfolder
+        for ext in ['png', 'jpg', 'jpeg', 'svg']:
+            logo_path = Path(settings.IMAGES_DIR) / 'clubes' / pais_folder / f"{filename}.{ext}"
+            if logo_path.exists():
+                return f"/api/v1/static/clubes/{pais_folder}/{filename}.{ext}"
+        
+        # Fallback: try root clubes folder (for backwards compatibility)
+        for ext in ['png', 'jpg', 'jpeg', 'svg']:
+            logo_path = Path(settings.IMAGES_DIR) / 'clubes' / f"{filename}.{ext}"
+            if logo_path.exists():
+                return f"/api/v1/static/clubes/{filename}.{ext}"
+        
+        return None
+    
+    def _get_jugadores_con_clubes(self, clubs_permitidos: Set[str]) -> List[Dict]:
+        """Get players who played in Rosario Central AND in allowed clubs"""
+        jugadores = self.data_loader.get_all_jugadores()
+        result = []
+        
+        for jugador in jugadores:
+            clubes_historia = jugador.get('clubes_historia', [])
+            
+            # Check if played in Rosario Central
+            tiene_rc = any('rosario central' in c.get('nombre', '').lower() 
+                          for c in clubes_historia)
+            
+            if not tiene_rc:
+                continue
+            
+            # Get clubs that are in the permitted list
+            clubes_validos = [
+                c['nombre'] for c in clubes_historia
+                if c['nombre'] in clubs_permitidos and 
+                'rosario central' not in c['nombre'].lower()
+            ]
+            
+            if clubes_validos and jugador.get('partidos', 0) >= 5:
+                jugador['clubes_validos'] = clubes_validos
+                result.append(jugador)
+        
+        return result
+    
+    def _generar_lista_clubes(self, jugadores: List[Dict], posiciones: List[PosicionVacia], rng: random.Random) -> List[str]:
+        """Generate ordered list of clubs to show (one per position)"""
+        # Get all unique clubs
+        todos_clubes = set()
+        for jugador in jugadores:
+            todos_clubes.update(jugador.get('clubes_validos', []))
+        
+        todos_clubes_list = list(todos_clubes)
+        rng.shuffle(todos_clubes_list)
+        
+        # Need as many clubs as positions (11)
+        clubes_orden = todos_clubes_list[:len(posiciones)]
+        
+        return clubes_orden
+    
+    def _elegir_formacion(self, rng: random.Random) -> Tuple[str, List[Dict]]:
+        """
+        Choose a formation that hasn't been used today
+        
+        Returns:
+            Tuple of (formation_name, positions_list)
+        """
+        formaciones_disponibles = list(self.formaciones_data['formaciones'].keys())
+        
+        # Filter out formations already used today
+        formaciones_no_usadas = [f for f in formaciones_disponibles if f not in self._formaciones_usadas_hoy]
+        
+        # If all have been used, reset
+        if not formaciones_no_usadas:
+            self._formaciones_usadas_hoy.clear()
+            formaciones_no_usadas = formaciones_disponibles
+        
+        # Choose one
+        formacion_elegida = rng.choice(formaciones_no_usadas)
+        self._formaciones_usadas_hoy.add(formacion_elegida)
+        
+        # Get positions list
+        posiciones_config = self.formaciones_data['formaciones'][formacion_elegida]['posiciones']
+        
+        return formacion_elegida, posiciones_config
+    
+    def _generate_equipo_del_dia(self, game_type: str, clubs_permitidos: Set[str]) -> EquipoDelDiaGame:
+        """Generate Equipo del Día game with new mechanics"""
+        seed = self._get_daily_seed(game_type)
+        rng = random.Random(seed)
+        game_id = self._get_game_id(game_type)
+        
+        # Get players who played in RC + permitted clubs
+        jugadores = self._get_jugadores_con_clubes(clubs_permitidos)
+        
+        if len(jugadores) < 11:
+            raise ValueError(f"No hay suficientes jugadores ({len(jugadores)}) para el juego")
+        
+        # Choose formation (ensuring no repetition within the day)
+        formacion_nombre, posiciones_config = self._elegir_formacion(rng)
+        
+        # Create empty positions based on formation config
+        posiciones = []
+        for pos_def in posiciones_config:
+            posicion = pos_def['posicion']
+            cantidad = pos_def['cantidad']
+            for _ in range(cantidad):
+                posiciones.append(PosicionVacia(
+                    posicion=posicion,
+                    revelado=False
+                ))
+        
+        # Generate club list (11 clubs, one per position)
+        clubes_list = self._generar_lista_clubes(jugadores, posiciones, rng)
+        
+        # Select first club
+        primer_club = clubes_list[0] if clubes_list else "River Plate"
+        
+        # Select a coach
+        tecnicos_jugadores = self.data_loader.load_tecnicos_jugadores()
+        tecnicos = list(tecnicos_jugadores.get('tecnicos', {}).keys())
+        entrenador = rng.choice(tecnicos) if tecnicos else "Miguel Russo"
+        
+        # Store game state in cache
+        self._games_cache[game_id] = {
+            'clubes_list': clubes_list,
+            'clubes_index': 0,
+            'jugadores': jugadores,
+            'formacion_nombre': formacion_nombre,
+            'posiciones_config': posiciones_config,
+            'posiciones': [p.model_dump() for p in posiciones],
+            'entrenador': entrenador,
+            'categoria': game_type.replace('equipo_', '')
         }
         
-        for jug in jugadores:
-            if 'posicion' not in jug:
-                continue
-            posiciones_posibles = self._get_posiciones_posibles(jug['posicion'])
-            # Agrupar por línea principal
-            for pos in posiciones_posibles:
-                if pos == 'PO':
-                    jugadores_por_linea['PO'].append(jug)
-                elif pos in ['DC', 'ED', 'EI']:
-                    if jug not in jugadores_por_linea['DC']:
-                        jugadores_por_linea['DC'].append(jug)
-                elif pos in ['MC', 'MD', 'MI']:
-                    if jug not in jugadores_por_linea['MC']:
-                        jugadores_por_linea['MC'].append(jug)
-                elif pos == 'CT':
-                    if jug not in jugadores_por_linea['CT']:
-                        jugadores_por_linea['CT'].append(jug)
-        
-        # Asignar jugadores a posiciones
-        posiciones_usadas = {'PO': 0, 'DC': 0, 'ED': 0, 'EI': 0, 'MC': 0, 'MD': 0, 'MI': 0, 'CT': 0}
-        
-        for linea, cantidad in posiciones_objetivo:
-            candidatos = [j for j in jugadores_por_linea.get(linea, []) if j['nombre'] not in jugadores_asignados]
-            
-            for i in range(cantidad):
-                if candidatos:
-                    jugador = random.choice(candidatos)
-                    candidatos.remove(jugador)
-                    jugadores_asignados.add(jugador['nombre'])
-                    
-                    # Asignar posición específica basada en la línea
-                    if linea == 'DC':
-                        if posiciones_usadas['DC'] < 1:
-                            pos_especifica = 'DC'
-                            posiciones_usadas['DC'] += 1
-                        elif posiciones_usadas['ED'] < 1:
-                            pos_especifica = 'ED'
-                            posiciones_usadas['ED'] += 1
-                        else:
-                            pos_especifica = 'EI'
-                            posiciones_usadas['EI'] += 1
-                    elif linea == 'MC':
-                        if posiciones_usadas['MC'] < 2:
-                            pos_especifica = 'MC'
-                            posiciones_usadas['MC'] += 1
-                        elif posiciones_usadas['MD'] < 1:
-                            pos_especifica = 'MD'
-                            posiciones_usadas['MD'] += 1
-                        else:
-                            pos_especifica = 'MI'
-                            posiciones_usadas['MI'] += 1
-                    else:
-                        pos_especifica = linea
-                    
-                    # Extraer apellido
-                    nombre_completo = jugador['nombre']
-                    partes = nombre_completo.split()
-                    apellido = partes[-1] if partes else nombre_completo
-                    
-                    jugador_formacion = JugadorFormacion(
-                        posicion=pos_especifica,
-                        nombre=nombre_completo,
-                        apellido=apellido,
-                        nombre_completo=nombre_completo,
-                        image_url=f"/api/v1/static/jugadores/{self._sanitize_filename(nombre_completo)}.jpg",
-                        revelado=False,
-                        nacionalidad=jugador.get('nacionalidad'),
-                        partidos=jugador.get('partidos', jugador.get('apariciones', 0))
-                    )
-                    formacion.append(jugador_formacion)
-        
-        return formacion
+        return EquipoDelDiaGame(
+            game_id=game_id,
+            fecha=date.today().isoformat(),
+            tipo=game_type,
+            formacion=formacion_nombre,
+            posiciones=posiciones,
+            club_actual=ClubActual(
+                nombre=primer_club,
+                logo_url=self._get_logo_url(primer_club),
+                pais=self._get_club_country(primer_club) or "Desconocido"
+            ),
+            entrenador_apellido=entrenador.split()[-1],
+            entrenador_nombre_completo=entrenador,
+            entrenador_revelado=False,
+            jugadores_revelados=0,
+            pistas_disponibles=3
+        )
     
     def generate_equipo_nacional(self) -> EquipoDelDiaGame:
         """Generate Equipo Nacional del Día"""
-        game_type = "equipo_nacional"
-        seed = self._get_daily_seed(game_type)
-        random.seed(seed)
-        
-        # Obtener técnicos que dirigieron en Argentina
-        tecnicos_data = self.data_loader.load_tecnicos_jugadores()
-        if not tecnicos_data or 'tecnicos' not in tecnicos_data:
-            raise ValueError("No hay datos de técnicos disponibles")
-        
-        tecnicos = tecnicos_data['tecnicos']
-        
-        # Filtrar técnicos con suficientes jugadores argentinos
-        tecnicos_validos = []
-        for tecnico_nombre, data in tecnicos.items():
-            torneos = data.get('torneos', [])
-            # Buscar torneos con suficientes jugadores argentinos
-            for torneo_data in torneos:
-                jugadores = torneo_data.get('jugadores', [])
-                # Filtrar solo jugadores argentinos
-                jugadores_argentinos = [j for j in jugadores if j.get('nacionalidad', '') == 'Argentina']
-                
-                if len(jugadores_argentinos) >= 11:
-                    tecnicos_validos.append({
-                        'nombre': tecnico_nombre,
-                        'torneo': f"{torneo_data.get('torneo', 'Torneo')} {torneo_data.get('temporada', '')}",
-                        'jugadores': jugadores_argentinos
-                    })
-        
-        if not tecnicos_validos:
-            raise ValueError("No hay técnicos con suficientes jugadores argentinos")
-        
-        # Seleccionar técnico y torneo aleatorio
-        seleccion = random.choice(tecnicos_validos)
-        
-        # Crear formación
-        formacion = self._crear_formacion(seleccion['jugadores'], tipo="nacional")
-        
-        if len(formacion) < 9:
-            raise ValueError(f"No se pudo completar la formación (solo {len(formacion)} jugadores)")
-        
-        return EquipoDelDiaGame(
-            game_id=self._get_game_id(game_type),
-            fecha=date.today().strftime("%Y-%m-%d"),
-            tipo=game_type,
-            formacion="3-4-3",
-            jugadores=formacion,
-            pistas_disponibles=3,
-            dt_nombre=seleccion['nombre'],
-            competencia=seleccion['torneo']
-        )
+        clubs_argentinos = self._get_all_clubs_by_category('Nacional')
+        return self._generate_equipo_del_dia('equipo_nacional', clubs_argentinos)
     
-    def generate_equipo_internacional(self) -> EquipoDelDiaGame:
-        """Generate Equipo Internacional del Día"""
-        game_type = "equipo_internacional"
-        seed = self._get_daily_seed(game_type)
-        random.seed(seed)
-        
-        # Similar a nacional pero filtrando jugadores internacionales
-        tecnicos_data = self.data_loader.load_tecnicos_jugadores()
-        if not tecnicos_data or 'tecnicos' not in tecnicos_data:
-            raise ValueError("No hay datos de técnicos disponibles")
-        
-        tecnicos = tecnicos_data['tecnicos']
-        
-        tecnicos_validos = []
-        for tecnico_nombre, data in tecnicos.items():
-            torneos = data.get('torneos', [])
-            for torneo_data in torneos:
-                jugadores = torneo_data.get('jugadores', [])
-                
-                # Filtrar solo jugadores NO argentinos
-                jugadores_internacionales = [j for j in jugadores if j.get('nacionalidad', '') != 'Argentina']
-                
-                if len(jugadores_internacionales) >= 11:
-                    tecnicos_validos.append({
-                        'nombre': tecnico_nombre,
-                        'torneo': f"{torneo_data.get('torneo', 'Torneo')} {torneo_data.get('temporada', '')}",
-                        'jugadores': jugadores_internacionales
-                    })
-        
-        if not tecnicos_validos:
-            raise ValueError("No hay suficientes jugadores internacionales")
-        
-        seleccion = random.choice(tecnicos_validos)
-        formacion = self._crear_formacion(seleccion['jugadores'], tipo="internacional")
-        
-        if len(formacion) < 9:
-            raise ValueError(f"No se pudo completar la formación internacional (solo {len(formacion)} jugadores)")
-        
-        return EquipoDelDiaGame(
-            game_id=self._get_game_id(game_type),
-            fecha=date.today().strftime("%Y-%m-%d"),
-            tipo=game_type,
-            formacion="3-4-3",
-            jugadores=formacion,
-            pistas_disponibles=3,
-            dt_nombre=seleccion['nombre'],
-            competencia=seleccion['torneo']
-        )
+    def generate_equipo_europeo(self) -> EquipoDelDiaGame:
+        """Generate Equipo Europeo del Día"""
+        clubs_europeos = self._get_all_clubs_by_category('Internacional')
+        return self._generate_equipo_del_dia('equipo_europeo', clubs_europeos)
     
-    def generate_orbita_del_dia(self) -> OrbitaGame:
-        """Generate Órbita del Día"""
-        game_type = "orbita"
-        seed = self._get_daily_seed(game_type)
-        random.seed(seed)
+    def generate_equipo_latinoamericano(self) -> EquipoDelDiaGame:
+        """Generate Equipo Latinoamericano del Día"""
+        clubs_latinoamericanos = self._get_all_clubs_by_category('Latinoamérica')
+        return self._generate_equipo_del_dia('equipo_latinoamericano', clubs_latinoamericanos)
+    
+    def verificar_respuesta(self, game_id: str, game_type: str, respuesta: str) -> Dict[str, Any]:
+        """Verify player guess - NEW LOGIC"""
+        # Normalize user input (remove accents, lowercase)
+        respuesta_normalizada = self._normalize_text(respuesta.strip())
         
-        # Get coaches with players data
-        tecnicos_data = self.data_loader.load_tecnicos_jugadores()
-        if not tecnicos_data or 'tecnicos' not in tecnicos_data:
-            raise ValueError("No hay técnicos disponibles para Órbita")
+        # Get game state
+        if game_id not in self._games_cache:
+            # Regenerate game
+            if 'nacional' in game_type:
+                self.generate_equipo_nacional()
+            elif 'europeo' in game_type:
+                self.generate_equipo_europeo()
+            elif 'latinoamericano' in game_type:
+                self.generate_equipo_latinoamericano()
         
-        tecnicos = tecnicos_data['tecnicos']
+        game_state = self._games_cache.get(game_id)
+        if not game_state:
+            return {'correcto': False, 'mensaje': 'Juego no encontrado'}
         
-        # Get coach info
-        all_tecnicos = self.data_loader.get_all_tecnicos()
+        # Get current club
+        club_index = game_state['clubes_index']
+        club_actual = game_state['clubes_list'][club_index]
         
-        # Select random coach with enough data
-        tecnicos_validos = []
-        for tecnico_nombre, data in tecnicos.items():
-            torneos = data.get('torneos', [])
-            if torneos and len(torneos) > 0:
-                tecnicos_validos.append(tecnico_nombre)
+        # Check if it's the coach
+        entrenador = game_state['entrenador']
+        entrenador_apellido_normalizado = self._normalize_text(entrenador.split()[-1])
+        if entrenador_apellido_normalizado == respuesta_normalizada:
+            return {
+                'correcto': True,
+                'mensaje': f'¡Correcto! DT: {entrenador}',
+                'jugador_revelado': {
+                    'nombre': entrenador,
+                    'posicion': 'DT',
+                    'tipo': 'entrenador'
+                },
+                'posicion_asignada': 'DT'
+            }
         
-        if not tecnicos_validos:
-            raise ValueError("No hay técnicos con torneos disponibles")
+        # Search for player
+        jugadores = game_state['jugadores']
+        jugador_encontrado = None
         
-        tecnico_nombre = random.choice(tecnicos_validos)
-        tecnico_jugadores_data = tecnicos[tecnico_nombre]
-        tecnico_info = all_tecnicos.get(tecnico_nombre, {})
+        for jugador in jugadores:
+            # Use 'apellido' field if available, fallback to splitting nombre
+            apellido_original = jugador.get('apellido', jugador['nombre'].split()[-1])
+            apellido_normalizado = self._normalize_text(apellido_original)
+            nombre_completo_normalizado = self._normalize_text(jugador['nombre'])
+            
+            # Match by apellido or full name (both normalized)
+            if apellido_normalizado == respuesta_normalizada or nombre_completo_normalizado == respuesta_normalizada:
+                # Check if played in current club
+                clubes_jugador = jugador.get('clubes_validos', [])
+                if club_actual in clubes_jugador:
+                    jugador_encontrado = jugador
+                    break
         
-        # Choose game mode randomly
-        modos = ["mas_minutos", "mas_goles", "mas_apariciones"]
-        modo = random.choice(modos)
+        if not jugador_encontrado:
+            return {
+                'correcto': False,
+                'mensaje': f'El jugador no jugó en {club_actual} o no existe'
+            }
         
-        # Get available tournaments
-        torneos = tecnico_jugadores_data.get('torneos', [])
+        # Find available position for this player
+        posiciones = game_state['posiciones']
+        # Get all valid positions for this player (from posiciones list)
+        posiciones_jugador = self._get_all_valid_positions(jugador_encontrado)
         
-        # Select a tournament with enough players
-        torneos_validos = [t for t in torneos if len(t.get('jugadores', [])) >= 6]
+        posicion_asignada = None
+        for i, pos in enumerate(posiciones):
+            if not pos['revelado']:
+                pos_type = pos['posicion']
+                if pos_type in posiciones_jugador or (pos_type == 'DC' and 'DC_delantero' in posiciones_jugador):
+                    # Assign to this position
+                    pos['revelado'] = True
+                    pos['jugador_nombre'] = jugador_encontrado['nombre']
+                    # Use 'apellido' field if available, fallback to splitting nombre
+                    pos['jugador_apellido'] = jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1])
+                    # Add image URL
+                    pos['image_url'] = self._get_jugador_image_url(jugador_encontrado)
+                    posicion_asignada = pos_type
+                    break
         
-        if not torneos_validos:
-            torneos_validos = torneos
+        if not posicion_asignada:
+            return {
+                'correcto': False,
+                'mensaje': f'{jugador_encontrado["nombre"]} no puede ocupar ninguna posición vacía'
+            }
         
-        if not torneos_validos:
-            raise ValueError(f"No hay torneos válidos para {tecnico_nombre}")
+        # Move to next club
+        game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
+        next_club = game_state['clubes_list'][game_state['clubes_index']]
         
-        torneo_seleccionado = random.choice(torneos_validos)
-        jugadores_competencia = torneo_seleccionado.get('jugadores', [])
-        
-        # Sort players based on mode
-        if modo == "mas_minutos":
-            jugadores_sorted = sorted(
-                jugadores_competencia,
-                key=lambda x: x.get("minutos", 0),
-                reverse=True
-            )
-        elif modo == "mas_goles":
-            jugadores_sorted = sorted(
-                jugadores_competencia,
-                key=lambda x: x.get("goles", 0),
-                reverse=True
-            )
-        else:  # mas_apariciones
-            jugadores_sorted = sorted(
-                jugadores_competencia,
-                key=lambda x: x.get("apariciones", 0),
-                reverse=True
-            )
-        
-        # Select top 8-12 players as orbital elements
-        num_elementos = min(random.randint(8, 12), len(jugadores_sorted))
-        jugadores_seleccionados = jugadores_sorted[:num_elementos]
-        
-        # Create orbital elements
-        elementos_orbitales = []
-        for idx, jug in enumerate(jugadores_seleccionados):
-            elemento = ElementoOrbital(
-                id=f"orbital_{idx}",
-                tipo="jugador",
-                nombre=jug.get("nombre", "???"),
-                image_url=f"/api/v1/static/jugadores/{self._sanitize_filename(jug.get('nombre', ''))}.jpg",
-                revelado=False
-            )
-            elementos_orbitales.append(elemento)
-        
-        # Protagonista (coach)
-        protagonista = {
-            "nombre": tecnico_nombre,
-            "image_url": f"/api/v1/static/tecnicos/{self._sanitize_filename(tecnico_nombre)}.jpg",
-            "nacionalidad": tecnico_info.get("nacionalidad", ""),
-            "partidos_dirigidos": tecnico_info.get("partidos_dirigidos", 0)
+        return {
+            'correcto': True,
+            'mensaje': f'¡Correcto! {jugador_encontrado["nombre"]} - {posicion_asignada}',
+            'jugador_revelado': {
+                'nombre': jugador_encontrado['nombre'],
+                'apellido': jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1]),
+                'posicion': posicion_asignada,
+                'club': club_actual,
+                'image_url': self._get_jugador_image_url(jugador_encontrado)
+            },
+            'posicion_asignada': posicion_asignada,
+            'nuevo_club': {
+                'nombre': next_club,
+                'logo_url': self._get_logo_url(next_club),
+                'pais': self._get_club_country(next_club) or "Desconocido"
+            }
         }
-        
-        competencia_nombre = f"{torneo_seleccionado.get('torneo', 'Torneo')} {torneo_seleccionado.get('temporada', '')}"
-        
-        return OrbitaGame(
-            game_id=self._get_game_id(game_type),
-            fecha=date.today().strftime("%Y-%m-%d"),
-            tipo=game_type,
-            protagonista=protagonista,
-            elementos_orbitales=elementos_orbitales,
-            modo_juego=modo,
-            competencia=competencia_nombre,
-            tiempo_limite=120
-        )
-    
-    def _sanitize_filename(self, name: str) -> str:
-        """Sanitize name for filename"""
-        import re
-        name = name.lower()
-        name = re.sub(r'[áàäâ]', 'a', name)
-        name = re.sub(r'[éèëê]', 'e', name)
-        name = re.sub(r'[íìïî]', 'i', name)
-        name = re.sub(r'[óòöô]', 'o', name)
-        name = re.sub(r'[úùüû]', 'u', name)
-        name = re.sub(r'[ñ]', 'n', name)
-        name = re.sub(r'[^a-z0-9\s_-]', '', name)
-        name = re.sub(r'\s+', '_', name)
-        return name
 
 
 # Singleton instance

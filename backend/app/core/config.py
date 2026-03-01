@@ -37,6 +37,8 @@ class Settings(BaseSettings):
     TECNICOS_FILE: str = str(Path(__file__).parent.parent.parent.parent / "scraping" / "data" / "output" / "rosario_central_tecnicos.json")
     TECNICOS_JUGADORES_FILE: str = str(Path(__file__).parent.parent.parent.parent / "scraping" / "data" / "output" / "rosario_central_tecnicos_jugadores.json")
     GOLES_DETALLADOS_FILE: str = str(Path(__file__).parent.parent.parent.parent / "scraping" / "data" / "output" / "rosario_central_goles_detallados.json")
+    CLUBES_FILE: str = str(Path(__file__).parent.parent / "data" / "clubes.json")
+    FORMACIONES_FILE: str = str(Path(__file__).parent.parent / "data" / "formaciones.json")
     
     # Game settings
     GAME_REFRESH_HOUR: int = 0  # Midnight

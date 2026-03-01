@@ -17,15 +17,15 @@ export const gamesAPI = {
     return response.data;
   },
 
-  // Get Equipo Internacional del Día
-  getEquipoInternacional: async () => {
-    const response = await api.get('/games/equipo-internacional');
+  // Get Equipo Europeo del Día
+  getEquipoEuropeo: async () => {
+    const response = await api.get('/games/equipo-europeo');
     return response.data;
   },
 
-  // Get Órbita del Día
-  getOrbita: async () => {
-    const response = await api.get('/games/orbita');
+  // Get Equipo Latinoamericano del Día
+  getEquipoLatinoamericano: async () => {
+    const response = await api.get('/games/equipo-latinoamericano');
     return response.data;
   },
 
