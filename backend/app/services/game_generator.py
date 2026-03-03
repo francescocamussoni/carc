@@ -481,7 +481,7 @@ class GameGeneratorService:
                     break
         
         if tecnico_encontrado:
-            # ✅ NUEVO: Verificar si el técnico ya fue revelado
+            # Verificar si el técnico ya fue revelado
             if game_state.get('entrenador_revelado', False):
                 return {
                     'correcto': False,
@@ -491,19 +491,44 @@ class GameGeneratorService:
             # Get tecnico info for image
             tecnico_info = tecnicos_dict.get(tecnico_encontrado, {})
             
-            # ✅ NUEVO: Marcar técnico como revelado
+            # Marcar técnico como revelado
             game_state['entrenador_revelado'] = True
+            
+            # ✅ Cambiar al siguiente club (igual que con jugadores)
+            club_index = game_state['clubes_index']
+            game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
+            next_club = game_state['clubes_list'][game_state['clubes_index']]
+            
+            # ✅ Verificar si el juego terminó (11 jugadores + 1 técnico = 12 personas)
+            posiciones = game_state['posiciones']
+            jugadores_revelados = sum(1 for p in posiciones if p.get('revelado', False))
+            entrenador_revelado = game_state.get('entrenador_revelado', False)
+            
+            # Victoria si 11 jugadores + técnico revelados
+            game_over = (jugadores_revelados >= 11 and entrenador_revelado)
+            victoria = game_over
+            
+            mensaje = f'¡Correcto! DT: {tecnico_encontrado}'
+            if victoria:
+                mensaje = f'🎉 ¡Felicitaciones! Completaste el equipo. DT: {tecnico_encontrado}'
             
             return {
                 'correcto': True,
-                'mensaje': f'¡Correcto! DT: {tecnico_encontrado}',
+                'mensaje': mensaje,
                 'jugador_revelado': {
                     'nombre': tecnico_encontrado,
                     'posicion': 'DT',
                     'tipo': 'entrenador',
                     'image_url': self._get_tecnico_image_url(tecnico_info)
                 },
-                'posicion_asignada': 'DT'
+                'posicion_asignada': 'DT',
+                'nuevo_club': {
+                    'nombre': next_club,
+                    'logo_url': self._get_logo_url(next_club),
+                    'pais': self._get_club_country(next_club) or "Desconocido"
+                },
+                'game_over': game_over,
+                'victoria': victoria
             }
         
         # Search for player
@@ -598,9 +623,19 @@ class GameGeneratorService:
         game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
         next_club = game_state['clubes_list'][game_state['clubes_index']]
         
+        # ✅ Verificar victoria: 11 jugadores + 1 técnico = 12 personas
+        jugadores_revelados = sum(1 for p in posiciones if p.get('revelado', False))
+        entrenador_revelado = game_state.get('entrenador_revelado', False)
+        game_over = (jugadores_revelados >= 11 and entrenador_revelado)
+        victoria = game_over
+        
+        mensaje = f'¡Correcto! {jugador_encontrado["nombre"]} - {posicion_asignada}'
+        if victoria:
+            mensaje = f'🎉 ¡Felicitaciones! Completaste el equipo con {jugador_encontrado["nombre"]}'
+        
         return {
             'correcto': True,
-            'mensaje': f'¡Correcto! {jugador_encontrado["nombre"]} - {posicion_asignada}',
+            'mensaje': mensaje,
             'jugador_revelado': {
                 'nombre': jugador_encontrado['nombre'],
                 'apellido': jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1]),
@@ -613,7 +648,9 @@ class GameGeneratorService:
                 'nombre': next_club,
                 'logo_url': self._get_logo_url(next_club),
                 'pais': self._get_club_country(next_club) or "Desconocido"
-            }
+            },
+            'game_over': game_over,
+            'victoria': victoria
         }
     
     def confirmar_posicion(self, game_id: str, posicion_elegida: str) -> Dict[str, Any]:
@@ -656,12 +693,22 @@ class GameGeneratorService:
         game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
         next_club = game_state['clubes_list'][game_state['clubes_index']]
         
+        # ✅ Verificar victoria: 11 jugadores + 1 técnico = 12 personas
+        jugadores_revelados = sum(1 for p in posiciones if p.get('revelado', False))
+        entrenador_revelado = game_state.get('entrenador_revelado', False)
+        game_over = (jugadores_revelados >= 11 and entrenador_revelado)
+        victoria = game_over
+        
+        mensaje = f'¡Correcto! {jugador_encontrado["nombre"]} - {posicion_elegida}'
+        if victoria:
+            mensaje = f'🎉 ¡Felicitaciones! Completaste el equipo con {jugador_encontrado["nombre"]}'
+        
         # Clear pending player
         del game_state['pending_player']
         
         return {
             'correcto': True,
-            'mensaje': f'¡Correcto! {jugador_encontrado["nombre"]} - {posicion_elegida}',
+            'mensaje': mensaje,
             'jugador_revelado': {
                 'nombre': jugador_encontrado['nombre'],
                 'apellido': jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1]),
@@ -674,7 +721,9 @@ class GameGeneratorService:
                 'nombre': next_club,
                 'logo_url': self._get_logo_url(next_club),
                 'pais': self._get_club_country(next_club) or "Desconocido"
-            }
+            },
+            'game_over': game_over,
+            'victoria': victoria
         }
 
 
