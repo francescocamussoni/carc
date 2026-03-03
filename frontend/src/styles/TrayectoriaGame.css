@@ -1,336 +1,297 @@
+/* ========================================
+   TRAYECTORIA GAME - ESTILO FUTFACTOS
+   ======================================== */
+
 .trayectoria-game {
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem;
+  min-height: calc(100vh - 70px);
 }
 
-/* Game Header */
+/* Header del juego */
 .game-header {
   text-align: center;
-  margin-bottom: 40px;
-  padding: 30px;
-  background: linear-gradient(135deg, var(--rc-blue) 0%, var(--rc-light-blue) 100%);
-  border-radius: 15px;
-  color: white;
-  box-shadow: 0 5px 20px rgba(0, 63, 127, 0.3);
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 209, 0, 0.2);
 }
 
 .game-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.game-subtitle {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  margin-bottom: 20px;
-}
-
-.game-stats {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
-}
-
-.vidas-container {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 10px 20px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.vidas-container .label {
-  font-weight: 600;
-}
-
-.vidas {
-  font-size: 1.5rem;
-  letter-spacing: 3px;
-}
-
-/* Game Result */
-.game-result {
-  background: white;
-  border-radius: 15px;
-  padding: 40px;
-  margin-bottom: 30px;
-  text-align: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border: 4px solid;
-}
-
-.game-result.victoria {
-  border-color: var(--success-color);
-}
-
-.game-result.derrota {
-  border-color: var(--error-color);
-}
-
-.game-result h2 {
   font-size: 2rem;
-  margin-bottom: 15px;
+  font-weight: 700;
+  color: var(--central-yellow);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-.jugador-image-revealed {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 15px;
-  margin: 20px auto;
-  display: block;
-  border: 4px solid var(--rc-yellow);
+.game-header p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
-.player-info {
-  margin-top: 20px;
-  text-align: left;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.player-info p {
-  margin: 10px 0;
-  font-size: 1.1rem;
-}
-
-/* Trayectoria Container */
-.trayectoria-container {
-  background: white;
-  border-radius: 15px;
-  padding: 30px;
-  margin-bottom: 30px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-.trayectoria-container h3 {
-  color: var(--rc-blue);
-  margin-bottom: 25px;
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-.clubes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
-}
-
-.club-item {
-  background: #f8f9fa;
+/* Info del partido */
+.match-info {
+  background: var(--bg-card);
   border-radius: 12px;
-  padding: 20px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 2px solid rgba(255, 209, 0, 0.2);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.info-item {
   text-align: center;
+}
+
+.info-label {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+}
+
+.info-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--central-yellow);
+}
+
+/* Grid de clubes */
+.clubs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 209, 0, 0.2);
+}
+
+.club-button {
+  background: rgba(0, 61, 165, 0.3);
+  border: 2px solid rgba(255, 209, 0, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  text-align: center;
 }
 
-.club-item.revealed {
-  background: white;
-  border-color: var(--rc-yellow);
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+.club-button:hover:not(:disabled) {
+  background: rgba(0, 61, 165, 0.5);
+  border-color: var(--central-yellow);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow-yellow);
 }
 
-.club-item.hidden {
-  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+.club-button:disabled {
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
-.club-logo {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  margin-bottom: 10px;
+.club-button.selected {
+  background: rgba(255, 209, 0, 0.2);
+  border-color: var(--central-yellow);
+  border-width: 3px;
 }
 
-.club-info {
-  margin-top: 10px;
+.club-button.correct {
+  background: rgba(76, 175, 80, 0.3);
+  border-color: var(--success);
+  border-width: 3px;
+}
+
+.club-button.incorrect {
+  background: rgba(244, 67, 54, 0.3);
+  border-color: var(--error);
+  border-width: 3px;
+}
+
+.club-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
 }
 
 .club-name {
-  font-weight: 600;
-  color: var(--rc-blue);
-  margin-bottom: 5px;
-  font-size: 0.95rem;
-}
-
-.club-periodo {
   font-size: 0.85rem;
-  color: #666;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.club-hidden {
+/* Área de resultado */
+.result-display {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 2px solid rgba(255, 209, 0, 0.2);
+  text-align: center;
+}
+
+.result-display.success {
+  border-color: var(--success);
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.result-display.error {
+  border-color: var(--error);
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.result-message {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.result-display.success .result-message {
+  color: var(--success-light);
+}
+
+.result-display.error .result-message {
+  color: var(--error-light);
+}
+
+/* Controles del juego */
+.game-controls {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 120px;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
 }
 
-.question-mark {
-  font-size: 3rem;
-  color: #adb5bd;
-  margin-bottom: 10px;
+.hint-button {
+  background: rgba(255, 209, 0, 0.15);
+  color: var(--central-yellow);
+  border: 2px solid var(--central-yellow);
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.club-pais {
-  font-size: 0.9rem;
-  color: #6c757d;
-  font-style: italic;
+.hint-button:hover:not(:disabled) {
+  background: var(--central-yellow);
+  color: var(--text-on-yellow);
+  transform: scale(1.05);
 }
 
-/* Pistas */
-.pistas-container {
-  background: white;
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 30px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border-left: 5px solid var(--rc-yellow);
+.hint-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
-.pistas-container h3 {
-  color: var(--rc-blue);
-  margin-bottom: 15px;
-  font-size: 1.3rem;
+.hints-display {
+  background: rgba(255, 209, 0, 0.1);
+  border: 2px solid var(--central-yellow);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
 }
 
-.pistas-list {
+.hints-display h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--central-yellow);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hints-list {
   list-style: none;
   padding: 0;
-}
-
-.pista-item {
-  background: #f8f9fa;
-  padding: 12px 20px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border-left: 3px solid var(--rc-blue);
-  font-size: 1rem;
-}
-
-/* Game Controls */
-.game-controls {
-  background: white;
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-.guess-form {
   display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
-.guess-input {
-  flex: 1;
-  padding: 15px 20px;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
+.hint-item {
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  color: var(--text-primary);
+  padding: 0.6rem 1rem;
+  background: rgba(255, 209, 0, 0.05);
+  border-radius: 6px;
+  border-left: 3px solid var(--central-yellow);
 }
 
-.guess-input:focus {
-  outline: none;
-  border-color: var(--rc-blue);
-}
+/* ========================================
+   RESPONSIVE
+   ======================================== */
 
-.action-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Messages */
-.mensaje {
-  margin-top: 20px;
-  padding: 15px 20px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-
-.info-message {
-  background-color: #d1ecf1;
-  border: 1px solid #bee5eb;
-  color: #0c5460;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
+  .trayectoria-game {
+    padding: 1rem;
+  }
+  
+  .game-header {
+    padding: 1.5rem 1rem;
+  }
+  
   .game-header h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
-
-  .game-subtitle {
-    font-size: 1rem;
+  
+  .clubs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.8rem;
+    padding: 1rem;
   }
-
-  .clubes-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
-  }
-
+  
   .club-logo {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
-
-  .guess-form {
-    flex-direction: column;
+  
+  .club-name {
+    font-size: 0.75rem;
   }
-
-  .guess-input {
-    width: 100%;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-  }
-
-  .action-buttons .btn {
-    width: 100%;
-  }
-
-  .jugador-image-revealed {
-    width: 150px;
-    height: 150px;
+  
+  .result-message {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .trayectoria-game {
-    padding: 10px;
+  .match-info {
+    flex-direction: column;
+    gap: 0.8rem;
   }
-
-  .game-header {
-    padding: 20px 15px;
-  }
-
-  .game-header h1 {
-    font-size: 1.5rem;
-  }
-
-  .clubes-grid {
+  
+  .clubs-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
   }
-
-  .club-item {
-    padding: 15px 10px;
-  }
-
-  .trayectoria-container,
-  .pistas-container,
+  
   .game-controls {
-    padding: 20px 15px;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hint-button,
+  .btn {
+    width: 100%;
   }
 }

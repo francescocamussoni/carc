@@ -188,6 +188,29 @@ class GameGeneratorService:
         
         return None
     
+    def _get_tecnico_image_url(self, tecnico_info: Dict) -> Optional[str]:
+        """
+        Get coach image URL
+        
+        Args:
+            tecnico_info: Coach dict with 'image_profile' field
+            
+        Returns:
+            URL path to coach image or None
+        """
+        image_profile = tecnico_info.get('image_profile')
+        if not image_profile:
+            return None
+        
+        # image_profile format: "data/images/tecnicos/nombre_apellido.jpeg"
+        # We need to convert to: "/api/v1/static/tecnicos/nombre_apellido.jpeg"
+        if image_profile.startswith('data/images/'):
+            # Remove 'data/images/' prefix
+            relative_path = image_profile.replace('data/images/', '')
+            return f"/api/v1/static/{relative_path}"
+        
+        return None
+    
     def _get_logo_url(self, club_nombre: str, pais: Optional[str] = None) -> Optional[str]:
         """
         Get club logo URL from country-specific subfolder
@@ -403,17 +426,44 @@ class GameGeneratorService:
         club_index = game_state['clubes_index']
         club_actual = game_state['clubes_list'][club_index]
         
-        # Check if it's the coach
-        entrenador = game_state['entrenador']
-        entrenador_apellido_normalizado = self._normalize_text(entrenador.split()[-1])
-        if entrenador_apellido_normalizado == respuesta_normalizada:
+        # Check if it's a coach that managed the current club
+        tecnicos_data = self.data_loader.load_tecnicos()
+        tecnicos_dict = tecnicos_data.get('tecnicos', {})
+        
+        tecnico_encontrado = None
+        for tecnico_nombre, tecnico_info in tecnicos_dict.items():
+            # Normalize coach names
+            tecnico_apellido = tecnico_nombre.split()[-1]
+            tecnico_apellido_normalizado = self._normalize_text(tecnico_apellido)
+            tecnico_nombre_completo_normalizado = self._normalize_text(tecnico_nombre)
+            
+            # Check if the user's answer matches this coach
+            if (tecnico_apellido_normalizado == respuesta_normalizada or 
+                tecnico_nombre_completo_normalizado == respuesta_normalizada):
+                
+                # Check if this coach managed the current club
+                clubes_historia = tecnico_info.get('clubes_historia', [])
+                for club_periodo in clubes_historia:
+                    club_nombre = club_periodo.get('club', '')
+                    if self._normalize_text(club_nombre) == self._normalize_text(club_actual):
+                        tecnico_encontrado = tecnico_nombre
+                        break
+                
+                if tecnico_encontrado:
+                    break
+        
+        if tecnico_encontrado:
+            # Get tecnico info for image
+            tecnico_info = tecnicos_dict.get(tecnico_encontrado, {})
+            
             return {
                 'correcto': True,
-                'mensaje': f'¡Correcto! DT: {entrenador}',
+                'mensaje': f'¡Correcto! DT: {tecnico_encontrado}',
                 'jugador_revelado': {
-                    'nombre': entrenador,
+                    'nombre': tecnico_encontrado,
                     'posicion': 'DT',
-                    'tipo': 'entrenador'
+                    'tipo': 'entrenador',
+                    'image_url': self._get_tecnico_image_url(tecnico_info)
                 },
                 'posicion_asignada': 'DT'
             }
