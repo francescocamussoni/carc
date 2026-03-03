@@ -34,7 +34,7 @@ function HomePage() {
       <div className="hero-section">
         <div className="logo-hero">
           <img 
-            src="http://localhost:8000/api/v1/static/clubes/rosario_central.png" 
+            src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png" 
             alt="Rosario Central" 
             className="logo-shield-large"
           />

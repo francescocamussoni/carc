@@ -38,12 +38,12 @@ class ClubImagesScraper:
         self.lock = threading.Lock()
         self.clubes_procesados: Dict[str, str] = {}
     
-    def extraer_clubes_jugadores(self) -> Set[Tuple[str, str]]:
+    def extraer_clubes_jugadores(self) -> Set[Tuple[str, str, str]]:
         """
         Extrae todos los clubes únicos del JSON de jugadores.
         
         Returns:
-            Set de tuplas (nombre_club, pais)
+            Set de tuplas (nombre_club, pais, club_url)
         """
         clubes = set()
         
@@ -55,8 +55,9 @@ class ClubImagesScraper:
                 for club in jugador.get('clubes_historia', []):
                     nombre = club.get('nombre', '').strip()
                     pais = club.get('pais', '').strip()
+                    club_url = club.get('club_url', '').strip()  # ✅ NUEVO
                     if nombre:
-                        clubes.add((nombre, pais))
+                        clubes.add((nombre, pais, club_url))
             
             print(f'✅ Encontrados {len(clubes)} clubes únicos en jugadores')
             return clubes
@@ -65,12 +66,12 @@ class ClubImagesScraper:
             print(f'❌ Error extrayendo clubes de jugadores: {e}')
             return set()
     
-    def extraer_clubes_tecnicos(self) -> Set[Tuple[str, str]]:
+    def extraer_clubes_tecnicos(self) -> Set[Tuple[str, str, str]]:
         """
         Extrae todos los clubes únicos del JSON de técnicos.
         
         Returns:
-            Set de tuplas (nombre_club, pais)
+            Set de tuplas (nombre_club, pais, club_url)
         """
         clubes = set()
         
@@ -82,8 +83,9 @@ class ClubImagesScraper:
                 for club in tecnico_data.get('clubes_historia', []):
                     nombre = club.get('nombre', '').strip()
                     pais = club.get('pais', '').strip()
+                    club_url = club.get('club_url', '').strip()  # ✅ NUEVO
                     if nombre:
-                        clubes.add((nombre, pais))
+                        clubes.add((nombre, pais, club_url))
             
             print(f'✅ Encontrados {len(clubes)} clubes únicos en técnicos')
             return clubes
@@ -92,12 +94,12 @@ class ClubImagesScraper:
             print(f'❌ Error extrayendo clubes de técnicos: {e}')
             return set()
     
-    def extraer_todos_clubes(self) -> Set[Tuple[str, str]]:
+    def extraer_todos_clubes(self) -> Set[Tuple[str, str, str]]:
         """
         Extrae todos los clubes únicos de jugadores y técnicos.
         
         Returns:
-            Set de tuplas (nombre_club, pais)
+            Set de tuplas (nombre_club, pais, club_url)
         """
         clubes_jugadores = self.extraer_clubes_jugadores()
         clubes_tecnicos = self.extraer_clubes_tecnicos()
@@ -108,22 +110,23 @@ class ClubImagesScraper:
         
         return todos_clubes
     
-    def _procesar_club(self, club_info: Tuple[str, str]) -> Tuple[str, str, bool]:
+    def _procesar_club(self, club_info: Tuple[str, str, str]) -> Tuple[str, str, bool]:
         """
         Procesa un club (descarga su escudo).
         
         Args:
-            club_info: Tupla (nombre_club, pais)
+            club_info: Tupla (nombre_club, pais, club_url)
         
         Returns:
             Tupla (nombre_club, ruta_imagen, exito)
         """
-        nombre_club, pais = club_info
+        nombre_club, pais, club_url = club_info
         
         try:
             print(f'   🔍 Descargando: {nombre_club} ({pais})')
             
-            ruta_imagen = self.club_service.buscar_y_descargar_escudo(nombre_club, pais)
+            # ✅ NUEVO: Pasar la URL del club al servicio
+            ruta_imagen = self.club_service.buscar_y_descargar_escudo(nombre_club, pais, club_url)
             
             if ruta_imagen:
                 with self.lock:
@@ -136,12 +139,12 @@ class ClubImagesScraper:
             print(f'   ❌ Error con {nombre_club}: {e}')
             return (nombre_club, '', False)
     
-    def descargar_escudos(self, clubes: Set[Tuple[str, str]], max_workers: int = 5):
+    def descargar_escudos(self, clubes: Set[Tuple[str, str, str]], max_workers: int = 5):
         """
         Descarga escudos de todos los clubes en paralelo.
         
         Args:
-            clubes: Set de tuplas (nombre_club, pais)
+            clubes: Set de tuplas (nombre_club, pais, club_url)
             max_workers: Número de workers paralelos
         """
         print(f'\n🔄 Descargando escudos ({max_workers} workers en paralelo)...\n')

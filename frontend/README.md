@@ -1,6 +1,6 @@
 # 🎨 Frontend - FutFactos Rosario Central
 
-Aplicación React con 3 juegos de trivia de fútbol.
+Aplicación React con 6 juegos de trivia de fútbol, diseño inspirado en FutFactos.com.
 
 > **[← Volver al README principal](../README.md)**
 
@@ -8,11 +8,13 @@ Aplicación React con 3 juegos de trivia de fútbol.
 
 ## 🎯 Características
 
-- ✅ 3 juegos interactivos
-- ✅ Diseño responsive (mobile/tablet/desktop)
-- ✅ Tema personalizado Rosario Central 🔵⚪
+- ✅ 6 juegos interactivos (Trayectoria + Órbita + Equipo)
+- ✅ **Diseño FutFactos** (fondo azul oscuro, acentos amarillos)
+- ✅ **Responsive dinámico** con `clamp()` (mobile/tablet/desktop)
+- ✅ Sistema de formaciones dinámicas (4-3-3, 4-4-2, 3-5-2, 4-3-2-1)
+- ✅ Selector de posición para jugadores polivalentes
+- ✅ Sistema de vidas, timer y pistas
 - ✅ Animaciones suaves
-- ✅ Sistema de vidas y timer
 - ✅ Feedback visual en tiempo real
 
 ---
@@ -63,6 +65,29 @@ Identifica jugadores dirigidos por un técnico.
 - Progreso: X/Y adivinados
 - 3 modos: más minutos/goles/apariciones
 
+### 4. 🇦🇷 Equipo Nacional (NUEVO)
+**Página:** `/equipo-nacional`
+
+Arma el equipo titular con jugadores argentinos.
+- 11 jugadores + DT
+- Formaciones dinámicas
+- Sistema de pistas
+- Selector de posición
+
+### 5. 🌍 Equipo Europeo (NUEVO)
+**Página:** `/equipo-europeo`
+
+Arma el equipo titular con jugadores europeos.
+- Misma mecánica que Equipo Nacional
+- Clubes europeos
+
+### 6. 🌎 Equipo Latinoamericano (NUEVO)
+**Página:** `/equipo-latinoamericano`
+
+Arma el equipo titular con jugadores latinoamericanos.
+- Misma mecánica que Equipo Nacional
+- Clubes latinoamericanos
+
 ---
 
 ## 📂 Estructura
@@ -70,19 +95,26 @@ Identifica jugadores dirigidos por un técnico.
 ```
 frontend/
 ├── src/
-│   ├── pages/              # 4 páginas
+│   ├── pages/              # 7 páginas
 │   │   ├── HomePage.jsx
 │   │   ├── TrayectoriaNacional.jsx
 │   │   ├── TrayectoriaInternacional.jsx
-│   │   └── OrbitaDelDia.jsx
+│   │   ├── OrbitaDelDia.jsx
+│   │   ├── EquipoNacional.jsx      # Wrapper (NUEVO)
+│   │   ├── EquipoEuropeo.jsx       # Wrapper (NUEVO)
+│   │   └── EquipoLatinoamericano.jsx  # Wrapper (NUEVO)
+│   ├── components/         # Componentes reutilizables (NUEVO)
+│   │   └── EquipoGame.jsx  # Lógica genérica de juegos de equipo
 │   ├── services/
 │   │   └── api.js          # Axios client
 │   ├── styles/             # CSS por página
-│   │   ├── index.css       # Globales + variables
-│   │   ├── App.css         # Navbar + layout
-│   │   ├── HomePage.css
+│   │   ├── variables.css   # Sistema de diseño FutFactos (NUEVO)
+│   │   ├── index.css       # Globales
+│   │   ├── App.css         # Navbar + layout (diseño FutFactos)
+│   │   ├── HomePage.css    # Tarjetas de juegos (diseño FutFactos)
 │   │   ├── TrayectoriaGame.css
-│   │   └── OrbitaGame.css
+│   │   ├── OrbitaGame.css
+│   │   └── EquipoGame.css  # Juegos de equipo (NUEVO)
 │   ├── App.jsx             # Router
 │   └── main.jsx            # Entry point
 ├── package.json
@@ -91,22 +123,35 @@ frontend/
 
 ---
 
-## 🎨 Diseño
+## 🎨 Diseño FutFactos
 
-### Colores (Rosario Central)
+### Colores
 
 ```css
---rc-blue: #003f7f       /* Azul principal */
---rc-yellow: #FFD100     /* Amarillo */
---rc-dark: #001f3f       /* Azul oscuro */
---rc-light-blue: #4a90e2 /* Celeste */
+/* Paleta FutFactos (variables.css) */
+--primary-bg: #041742           /* Fondo azul oscuro */
+--secondary-bg: #0a2454         /* Azul oscuro secundario */
+--accent-yellow: #f3b229        /* Amarillo acentos */
+--text-white: #ffffff           /* Texto blanco */
+--text-gray: #a0a0a0            /* Texto secundario */
+--border-gray: #2a3a5a          /* Bordes grises */
 ```
 
-### Responsive
+### Responsive Dinámico
 
-- **Desktop:** > 768px - Layout completo
+Usa `clamp()` para escalado fluido:
+
+```css
+/* Ejemplo: Logo que escala entre 90px y 150px */
+.club-logo {
+  width: clamp(90px, 10vw, 150px);
+  height: clamp(90px, 10vw, 150px);
+}
+```
+
+- **Desktop:** > 768px - Layout completo, 2 columnas (juegos de equipo)
 - **Tablet:** 481-768px - Layout adaptado
-- **Mobile:** < 480px - Layout vertical
+- **Mobile:** < 480px - Layout vertical, elementos más compactos
 
 ---
 
@@ -135,9 +180,9 @@ console.log(result.correcto) // true/false
 ## 🏗️ Componentes Principales
 
 ### HomePage
-Landing page con 3 tarjetas de juegos.
+Landing page con 6 tarjetas de juegos (diseño FutFactos).
 
-### TrayectoriaNacional
+### TrayectoriaNacional / TrayectoriaInternacional
 ```jsx
 // Estados principales
 const [gameData, setGameData] = useState(null)
@@ -152,6 +197,17 @@ const [gameOver, setGameOver] = useState(false)
 const [tiempoRestante, setTiempoRestante] = useState(120)
 const [elementosRevelados, setElementosRevelados] = useState([])
 const [victoria, setVictoria] = useState(false)
+```
+
+### EquipoGame (NUEVO - Componente Genérico)
+```jsx
+// Usado por: EquipoNacional, EquipoEuropeo, EquipoLatinoamericano
+const [formacionData, setFormacionData] = useState({
+  porteros: [], defensas: [], mediocampos: [], 
+  mediocampistasOfensivos: [], delanteros: [], entrenador: null
+})
+const [mostrarSelectorPosicion, setMostrarSelectorPosicion] = useState(false)
+const [posicionesDisponibles, setPosicionesDisponibles] = useState([])
 ```
 
 ---
@@ -272,4 +328,6 @@ npm run build
 
 **React:** 18.2  
 **Vite:** 5.0  
-**Node:** 18+
+**Node:** 18+  
+**Diseño:** FutFactos-inspired  
+**Última actualización:** 2026-03-03

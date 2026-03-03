@@ -34,18 +34,23 @@ class GameGeneratorService:
     def _normalize_text(text: str) -> str:
         """
         Normalize text by removing accents/tildes and converting to lowercase
+        Keeps dots, spaces, and other punctuation to maintain club name consistency
         
         Examples:
             'Ángel Di María' -> 'angel di maria'
             'Pérez' -> 'perez'
-            'José' -> 'jose'
+            'Ind. Rivadavia' -> 'ind. rivadavia'
+            'Def. y Justicia' -> 'def. y justicia'
         """
         if not text:
             return ""
         # Convert to NFD (decomposed) form, then remove combining characters (accents)
         nfd = unicodedata.normalize('NFD', text)
         without_accents = ''.join(char for char in nfd if unicodedata.category(char) != 'Mn')
-        return without_accents.lower()
+        # Convert to lowercase and normalize whitespace
+        cleaned = without_accents.lower()
+        cleaned = ' '.join(cleaned.split())
+        return cleaned
     
     def _load_clubes(self) -> Dict:
         """Load clubes.json file"""
@@ -113,14 +118,14 @@ class GameGeneratorService:
             return ['DC']
         elif 'medio' in pos_lower or 'volante' in pos_lower:
             if 'ofensivo' in pos_lower:
-                return ['MC_ofensivo', 'MC']
+                return ['MO', 'MC']
             if 'derech' in pos_lower:
                 return ['MD', 'MC']
             elif 'izquier' in pos_lower:
                 return ['MI', 'MC']
             return ['MC']
         elif 'delant' in pos_lower or 'atac' in pos_lower:
-            return ['DC_delantero']
+            return ['DEL']
         
         return ['MC']  # Default
     
@@ -226,14 +231,28 @@ class GameGeneratorService:
         if not pais:
             pais = self._get_club_country(club_nombre)
         
+        # ✅ NUEVO: Default to Argentina if country not found (for Rosario Central and other Argentine clubs)
         if not pais:
-            return None
+            pais = "Argentina"
         
-        # Normalize club name for filename
+        # Normalize club name for filename (remove accents, lowercase, replace spaces/dots/dashes/parentheses)
+        import unicodedata
         filename = club_nombre.lower()
+        # Remove accents
+        nfd = unicodedata.normalize('NFD', filename)
+        filename = ''.join(char for char in nfd if unicodedata.category(char) != 'Mn')
+        # Remove parentheses and their content, replace with underscore
+        # "San Martín (T)" -> "san_martin_t"
+        filename = filename.replace('(', '_').replace(')', '')
+        # Replace spaces, dots, dashes with underscores
         filename = filename.replace(' ', '_')
         filename = filename.replace('.', '')
         filename = filename.replace('-', '_')
+        # Remove double underscores
+        while '__' in filename:
+            filename = filename.replace('__', '_')
+        # Remove trailing underscores
+        filename = filename.strip('_')
         
         # Normalize country name for folder
         pais_folder = pais.lower().replace(' ', '_').replace('.', '')
@@ -267,14 +286,23 @@ class GameGeneratorService:
             if not tiene_rc:
                 continue
             
-            # Get clubs that are in the permitted list
-            clubes_validos = [
-                c['nombre'] for c in clubes_historia
-                if c['nombre'] in clubs_permitidos and 
-                'rosario central' not in c['nombre'].lower()
-            ]
+            # Get clubs that are in the permitted list (normalize for comparison)
+            clubes_validos = []
+            for c in clubes_historia:
+                club_nombre = c['nombre']
+                # Skip Rosario Central
+                if 'rosario central' in club_nombre.lower():
+                    continue
+                
+                # Check if this club matches any in the permitted list (normalized)
+                club_normalizado = self._normalize_text(club_nombre)
+                for club_permitido in clubs_permitidos:
+                    club_permitido_normalizado = self._normalize_text(club_permitido)
+                    if club_normalizado == club_permitido_normalizado:
+                        clubes_validos.append(club_nombre)
+                        break
             
-            if clubes_validos and jugador.get('partidos', 0) >= 5:
+            if clubes_validos and jugador.get('partidos', 0) >= 1:
                 jugador['clubes_validos'] = clubes_validos
                 result.append(jugador)
         
@@ -453,8 +481,18 @@ class GameGeneratorService:
                     break
         
         if tecnico_encontrado:
+            # ✅ NUEVO: Verificar si el técnico ya fue revelado
+            if game_state.get('entrenador_revelado', False):
+                return {
+                    'correcto': False,
+                    'mensaje': 'El técnico ya fue adivinado'
+                }
+            
             # Get tecnico info for image
             tecnico_info = tecnicos_dict.get(tecnico_encontrado, {})
+            
+            # ✅ NUEVO: Marcar técnico como revelado
+            game_state['entrenador_revelado'] = True
             
             return {
                 'correcto': True,
@@ -480,10 +518,18 @@ class GameGeneratorService:
             
             # Match by apellido or full name (both normalized)
             if apellido_normalizado == respuesta_normalizada or nombre_completo_normalizado == respuesta_normalizada:
-                # Check if played in current club
+                # Check if played in current club (normalize club names for comparison)
                 clubes_jugador = jugador.get('clubes_validos', [])
-                if club_actual in clubes_jugador:
-                    jugador_encontrado = jugador
+                club_actual_normalizado = self._normalize_text(club_actual)
+                
+                # Check if any of the player's clubs matches the current club
+                for club in clubes_jugador:
+                    club_normalizado = self._normalize_text(club)
+                    if club_actual_normalizado == club_normalizado:
+                        jugador_encontrado = jugador
+                        break
+                
+                if jugador_encontrado:
                     break
         
         if not jugador_encontrado:
@@ -492,31 +538,61 @@ class GameGeneratorService:
                 'mensaje': f'El jugador no jugó en {club_actual} o no existe'
             }
         
-        # Find available position for this player
+        # Find available positions for this player
         posiciones = game_state['posiciones']
         # Get all valid positions for this player (from posiciones list)
         posiciones_jugador = self._get_all_valid_positions(jugador_encontrado)
         
-        posicion_asignada = None
+        # Find ALL available positions that this player can occupy
+        posiciones_disponibles = []
         for i, pos in enumerate(posiciones):
             if not pos['revelado']:
                 pos_type = pos['posicion']
-                if pos_type in posiciones_jugador or (pos_type == 'DC' and 'DC_delantero' in posiciones_jugador):
-                    # Assign to this position
-                    pos['revelado'] = True
-                    pos['jugador_nombre'] = jugador_encontrado['nombre']
-                    # Use 'apellido' field if available, fallback to splitting nombre
-                    pos['jugador_apellido'] = jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1])
-                    # Add image URL
-                    pos['image_url'] = self._get_jugador_image_url(jugador_encontrado)
-                    posicion_asignada = pos_type
-                    break
+                if pos_type in posiciones_jugador:
+                    posiciones_disponibles.append({
+                        'posicion': pos_type,
+                        'index': i
+                    })
         
-        if not posicion_asignada:
+        if not posiciones_disponibles:
             return {
                 'correcto': False,
                 'mensaje': f'{jugador_encontrado["nombre"]} no puede ocupar ninguna posición vacía'
             }
+        
+        # Get unique position types available
+        posiciones_unicas = list(set(p['posicion'] for p in posiciones_disponibles))
+        
+        # If multiple position TYPES available, ask user to choose
+        if len(posiciones_unicas) > 1:
+            # Store pending player in game state
+            game_state['pending_player'] = {
+                'jugador': jugador_encontrado,
+                'posiciones_disponibles': posiciones_disponibles
+            }
+            
+            return {
+                'correcto': True,
+                'requiere_seleccion': True,
+                'mensaje': f'¡Correcto! {jugador_encontrado["nombre"]} puede jugar en varias posiciones. Elegí una:',
+                'jugador_revelado': {
+                    'nombre': jugador_encontrado['nombre'],
+                    'apellido': jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1]),
+                    'image_url': self._get_jugador_image_url(jugador_encontrado)
+                },
+                'posiciones_disponibles': sorted(posiciones_unicas)  # Unique positions only, sorted
+            }
+        
+        # Only one position available, assign automatically
+        posicion_elegida = posiciones_disponibles[0]
+        posicion_asignada = posicion_elegida['posicion']
+        pos_index = posicion_elegida['index']
+        
+        # Assign to position
+        posiciones[pos_index]['revelado'] = True
+        posiciones[pos_index]['jugador_nombre'] = jugador_encontrado['nombre']
+        posiciones[pos_index]['jugador_apellido'] = jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1])
+        posiciones[pos_index]['image_url'] = self._get_jugador_image_url(jugador_encontrado)
         
         # Move to next club
         game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
@@ -533,6 +609,67 @@ class GameGeneratorService:
                 'image_url': self._get_jugador_image_url(jugador_encontrado)
             },
             'posicion_asignada': posicion_asignada,
+            'nuevo_club': {
+                'nombre': next_club,
+                'logo_url': self._get_logo_url(next_club),
+                'pais': self._get_club_country(next_club) or "Desconocido"
+            }
+        }
+    
+    def confirmar_posicion(self, game_id: str, posicion_elegida: str) -> Dict[str, Any]:
+        """Confirm the position chosen by the user for a multi-position player"""
+        game_state = self._games_cache.get(game_id)
+        if not game_state:
+            return {'correcto': False, 'mensaje': 'Juego no encontrado'}
+        
+        # Get pending player
+        pending_data = game_state.get('pending_player')
+        if not pending_data:
+            return {'correcto': False, 'mensaje': 'No hay jugador pendiente de asignación'}
+        
+        jugador_encontrado = pending_data['jugador']
+        posiciones_disponibles = pending_data['posiciones_disponibles']
+        
+        # Find the FIRST available position of the chosen type
+        posicion_data = None
+        for p in posiciones_disponibles:
+            if p['posicion'] == posicion_elegida:
+                posicion_data = p
+                break  # Take the first one of this type
+        
+        if not posicion_data:
+            return {'correcto': False, 'mensaje': 'Posición no válida'}
+        
+        # Assign player to the first available position of chosen type
+        posiciones = game_state['posiciones']
+        pos_index = posicion_data['index']
+        posiciones[pos_index]['revelado'] = True
+        posiciones[pos_index]['jugador_nombre'] = jugador_encontrado['nombre']
+        posiciones[pos_index]['jugador_apellido'] = jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1])
+        posiciones[pos_index]['image_url'] = self._get_jugador_image_url(jugador_encontrado)
+        
+        # Get current club
+        club_index = game_state['clubes_index']
+        club_actual = game_state['clubes_list'][club_index]
+        
+        # Move to next club
+        game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
+        next_club = game_state['clubes_list'][game_state['clubes_index']]
+        
+        # Clear pending player
+        del game_state['pending_player']
+        
+        return {
+            'correcto': True,
+            'mensaje': f'¡Correcto! {jugador_encontrado["nombre"]} - {posicion_elegida}',
+            'jugador_revelado': {
+                'nombre': jugador_encontrado['nombre'],
+                'apellido': jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1]),
+                'posicion': posicion_elegida,
+                'club': club_actual,
+                'image_url': self._get_jugador_image_url(jugador_encontrado)
+            },
+            'posicion_asignada': posicion_elegida,
             'nuevo_club': {
                 'nombre': next_club,
                 'logo_url': self._get_logo_url(next_club),

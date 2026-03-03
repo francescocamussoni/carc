@@ -135,9 +135,10 @@
 
 .progreso-vertical {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* ✅ Horizontal: contadores lado a lado */
   align-items: center;
-  gap: 0.3rem;
+  justify-content: space-around; /* ✅ Espaciar los contadores */
+  gap: clamp(0.5rem, 2vw, 1.5rem); /* ✅ Gap responsive */
   width: 100%;
 }
 
@@ -225,6 +226,11 @@
 
 .portero-linea {
   justify-content: center;
+}
+
+.mediocampistas-ofensivos-linea {
+  justify-content: center;
+  gap: clamp(4rem, 10vw, 8rem); /* Mucha más separación entre los 2 MO */
 }
 
 /* Jugador en posición - MÁS GRANDE */
@@ -355,11 +361,25 @@
   letter-spacing: 0.5px;
 }
 
+/* ✅ Contenedor circular del entrenador - MISMO TAMAÑO que jugadores */
+.entrenador-circle {
+  width: clamp(60px, 5vw, 90px); /* Mismo tamaño que .jugador-circle */
+  height: clamp(60px, 5vw, 90px);
+  border-radius: 50%;
+  border: 2.5px solid rgba(255, 209, 0, 0.4);
+  background: rgba(0, 61, 165, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
 .entrenador-foto {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 50%; /* ✅ Circular como los jugadores */
 }
 
 .entrenador-oculto {
@@ -521,6 +541,62 @@
   }
 }
 
+/* Selector de Posición */
+.selector-posicion-container {
+  background: rgba(255, 209, 0, 0.15);
+  border: 2px solid var(--central-yellow);
+  border-radius: 10px;
+  padding: 1rem;
+  animation: slideDown 0.3s ease-out;
+  margin-top: 0.5rem;
+}
+
+.selector-posicion-header {
+  margin-bottom: 0.8rem;
+}
+
+.selector-posicion-header h4 {
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 700;
+  color: var(--central-yellow);
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.selector-posicion-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.btn-posicion {
+  padding: 0.6rem 1.2rem;
+  font-size: clamp(0.8rem, 1.3vw, 1rem);
+  font-weight: 700;
+  background: rgba(255, 209, 0, 0.2);
+  border: 2px solid var(--central-yellow);
+  border-radius: 8px;
+  color: var(--central-yellow);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-posicion:hover {
+  background: var(--central-yellow);
+  color: var(--bg-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 209, 0, 0.4);
+}
+
+.btn-posicion:active {
+  transform: translateY(0);
+}
+
 .pista-header {
   display: flex;
   justify-content: space-between;
@@ -679,6 +755,11 @@
     height: 60px;
   }
   
+  .entrenador-circle {
+    width: 60px;
+    height: 60px;
+  }
+  
   .jugador-nombre {
     font-size: 0.6rem;
   }
@@ -715,6 +796,11 @@
   }
   
   .jugador-circle {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .entrenador-circle {
     width: 50px;
     height: 50px;
   }

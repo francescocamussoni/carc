@@ -15,6 +15,9 @@ function EquipoGame({ gameType, title }) {
   const [mensaje, setMensaje] = useState('')
   const [gameOver, setGameOver] = useState(false)
   const [mostrarPista, setMostrarPista] = useState(false)
+  const [mostrarSelectorPosicion, setMostrarSelectorPosicion] = useState(false)
+  const [posicionesDisponibles, setPosicionesDisponibles] = useState([])
+  const [jugadorPendiente, setJugadorPendiente] = useState(null)
 
   useEffect(() => {
     fetchGame()
@@ -70,8 +73,76 @@ function EquipoGame({ gameType, title }) {
       )
 
       if (result.correcto) {
+        // Check if requires position selection
+        if (result.requiere_seleccion && result.posiciones_disponibles) {
+          setMensaje(`✅ ${result.mensaje}`)
+          setJugadorPendiente(result.jugador_revelado)
+          setPosicionesDisponibles(result.posiciones_disponibles)
+          setMostrarSelectorPosicion(true)
+          setMostrarPista(false)
+        } else {
+          // Normal flow - position assigned automatically
+          setMensaje(`✅ ${result.mensaje}`)
+          setMostrarPista(false)
+          
+          // Update positions from result
+          if (result.posicion_asignada) {
+            const newPosiciones = [...posiciones]
+            const idx = newPosiciones.findIndex(
+              p => p.posicion === result.posicion_asignada && !p.revelado
+            )
+            if (idx !== -1) {
+              newPosiciones[idx] = {
+                ...newPosiciones[idx],
+                revelado: true,
+                jugador_nombre: result.jugador_revelado.nombre,
+                jugador_apellido: result.jugador_revelado.apellido || result.jugador_revelado.nombre.split(' ').pop(),
+                image_url: result.jugador_revelado.image_url
+              }
+              setPosiciones(newPosiciones)
+            }
+          }
+
+          // Update club if there's a new one
+          if (result.nuevo_club) {
+            setClubActual(result.nuevo_club)
+          }
+
+          // Check if it was the coach
+          if (result.jugador_revelado?.tipo === 'entrenador') {
+            setEntrenadorRevelado(true)
+            setEntrenadorNombre(result.jugador_revelado.nombre) // Guardar nombre del DT
+            setEntrenadorImageUrl(result.jugador_revelado.image_url) // Guardar foto del DT
+          }
+
+          // Check victory
+          const revelados = posiciones.filter(p => p.revelado).length
+          if (revelados >= 10 && entrenadorRevelado) {
+            setGameOver(true)
+            setMensaje('🎉 ¡Felicitaciones! Completaste el equipo')
+          }
+        }
+      } else {
+        setMensaje('❌ ' + result.mensaje)
+      }
+
+      setGuess('')
+      setTimeout(() => {
+        if (!result.correcto) setMensaje('')
+      }, 3000)
+    } catch (err) {
+      console.error('Error verifying guess:', err)
+      setMensaje('Error al verificar la respuesta')
+      setTimeout(() => setMensaje(''), 3000)
+    }
+  }
+
+  const handleSeleccionPosicion = async (posicion) => {
+    try {
+      const result = await gamesAPI.confirmarPosicion(gameData.game_id, posicion)
+      
+      if (result.correcto) {
         setMensaje(`✅ ${result.mensaje}`)
-        setMostrarPista(false)
         
         // Update positions from result
         if (result.posicion_asignada) {
@@ -96,30 +167,22 @@ function EquipoGame({ gameType, title }) {
           setClubActual(result.nuevo_club)
         }
 
-        // Check if it was the coach
-        if (result.jugador_revelado?.tipo === 'entrenador') {
-          setEntrenadorRevelado(true)
-          setEntrenadorNombre(result.jugador_revelado.nombre) // Guardar nombre del DT
-          setEntrenadorImageUrl(result.jugador_revelado.image_url) // Guardar foto del DT
-        }
-
         // Check victory
         const revelados = posiciones.filter(p => p.revelado).length
         if (revelados >= 10 && entrenadorRevelado) {
           setGameOver(true)
           setMensaje('🎉 ¡Felicitaciones! Completaste el equipo')
         }
-      } else {
-        setMensaje('❌ ' + result.mensaje)
       }
-
+      
+      // Close selector
+      setMostrarSelectorPosicion(false)
+      setPosicionesDisponibles([])
+      setJugadorPendiente(null)
       setGuess('')
-      setTimeout(() => {
-        if (!result.correcto) setMensaje('')
-      }, 3000)
     } catch (err) {
-      console.error('Error verifying guess:', err)
-      setMensaje('Error al verificar la respuesta')
+      console.error('Error confirmando posición:', err)
+      setMensaje('Error al confirmar la posición')
       setTimeout(() => setMensaje(''), 3000)
     }
   }
@@ -136,17 +199,19 @@ function EquipoGame({ gameType, title }) {
     setEntrenadorNombre(gameData.entrenador_nombre_completo) // Mostrar DT del juego
     setMensaje('Te rendiste. Aquí está el equipo completo.')
     setMostrarPista(false)
+    setMostrarSelectorPosicion(false) // Cerrar selector si está abierto
   }
 
   const organizarFormacion = () => {
     if (!posiciones || posiciones.length === 0) {
-      return { portero: [], defensores: { central: [], derecho: [], izquierdo: [] }, mediocampistas: [], delanteros: [] }
+      return { portero: [], defensores: { central: [], derecho: [], izquierdo: [] }, mediocampistas: [], mediocampistasOfensivos: [], delanteros: [] }
     }
     
     const portero = posiciones.filter(p => p.posicion === 'PO')
     const defensores = posiciones.filter(p => ['DC', 'ED', 'EI'].includes(p.posicion))
     const mediocampistas = posiciones.filter(p => ['MC', 'MD', 'MI'].includes(p.posicion))
-    const delanteros = posiciones.filter(p => p.posicion === 'DC' && defensores.every(d => d !== p))
+    const mediocampistasOfensivos = posiciones.filter(p => p.posicion === 'MO')
+    const delanteros = posiciones.filter(p => p.posicion === 'DEL')
 
     return {
       portero,
@@ -156,6 +221,7 @@ function EquipoGame({ gameType, title }) {
         izquierdo: defensores.filter(d => d.posicion === 'EI')
       },
       mediocampistas,
+      mediocampistasOfensivos,
       delanteros
     }
   }
@@ -247,6 +313,10 @@ function EquipoGame({ gameType, title }) {
                   <span className="progreso-numero">{jugadoresRevelados}/11</span>
                   <span className="progreso-texto">JUGADORES</span>
                 </div>
+                <div className="progreso-item">
+                  <span className="progreso-numero">{entrenadorRevelado ? '1' : '0'}/1</span>
+                  <span className="progreso-texto">TÉCNICO</span>
+                </div>
               </div>
             </div>
           )}
@@ -302,6 +372,25 @@ function EquipoGame({ gameType, title }) {
                 {mensaje}
               </div>
             )}
+
+            {mostrarSelectorPosicion && (
+              <div className="selector-posicion-container">
+                <div className="selector-posicion-header">
+                  <h4>⚽ Elegí la posición para {jugadorPendiente?.apellido || jugadorPendiente?.nombre}</h4>
+                </div>
+                <div className="selector-posicion-botones">
+                  {posicionesDisponibles.map((pos) => (
+                    <button
+                      key={pos}
+                      onClick={() => handleSeleccionPosicion(pos)}
+                      className="btn-posicion"
+                    >
+                      {pos}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -329,6 +418,13 @@ function EquipoGame({ gameType, title }) {
               {formacionData.mediocampistas.map((j, i) => renderJugador(j, `mc-${i}`))}
             </div>
 
+            {/* Mediocampistas Ofensivos (4-3-2-1) */}
+            {formacionData.mediocampistasOfensivos.length > 0 && (
+              <div className="linea mediocampistas-ofensivos-linea">
+                {formacionData.mediocampistasOfensivos.map((j, i) => renderJugador(j, `mo-${i}`))}
+              </div>
+            )}
+
             {/* Delanteros */}
             <div className="linea delanteros-linea">
               {formacionData.delanteros.map((j, i) => renderJugador(j, `del-${i}`))}
@@ -341,14 +437,16 @@ function EquipoGame({ gameType, title }) {
                 {entrenadorRevelado || gameOver ? (
                   <>
                     {entrenadorImageUrl ? (
-                      <img 
-                        src={`http://localhost:8000${entrenadorImageUrl}`} 
-                        alt={entrenadorNombre || gameData.entrenador_apellido}
-                        className="entrenador-foto"
-                        onError={(e) => {
-                          e.target.style.display = 'none'
-                        }}
-                      />
+                      <div className="entrenador-circle">
+                        <img 
+                          src={`http://localhost:8000${entrenadorImageUrl}`} 
+                          alt={entrenadorNombre || gameData.entrenador_apellido}
+                          className="entrenador-foto"
+                          onError={(e) => {
+                            e.target.style.display = 'none'
+                          }}
+                        />
+                      </div>
                     ) : null}
                     <div className="entrenador-nombre" style={{display: entrenadorImageUrl ? 'none' : 'block'}}>
                       {entrenadorNombre || gameData.entrenador_apellido}

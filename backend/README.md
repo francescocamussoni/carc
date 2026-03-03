@@ -8,10 +8,13 @@ API REST con FastAPI para servir juegos de trivia de fútbol.
 
 ## 🎯 Características
 
-- ✅ 6 endpoints RESTful
+- ✅ 9 endpoints RESTful (6 juegos + 3 servicios)
 - ✅ Generación determinística de juegos (mismo juego/día para todos)
-- ✅ Verificación con fuzzy matching
-- ✅ Servicio de imágenes estáticas
+- ✅ 6 juegos implementados (Trayectoria + Órbita + Equipo)
+- ✅ Sistema de formaciones dinámicas (4-3-3, 4-4-2, 3-5-2, 4-3-2-1)
+- ✅ Selector de posición para jugadores polivalentes
+- ✅ Verificación con fuzzy matching + normalización de texto
+- ✅ Servicio de imágenes estáticas (jugadores, técnicos, clubes)
 - ✅ Documentación automática (Swagger)
 - ✅ CORS configurado
 
@@ -55,19 +58,30 @@ python run.py
 ### Juegos del Día
 
 ```bash
-GET  /api/v1/games/trayectoria-nacional       # Juego trayectoria nacional
-GET  /api/v1/games/trayectoria-internacional  # Juego trayectoria internacional  
-GET  /api/v1/games/orbita                     # Juego órbita
+# Juegos de Trayectoria
+GET  /api/v1/games/trayectoria-nacional       # Adivina por clubes argentinos
+GET  /api/v1/games/trayectoria-internacional  # Adivina por clubes extranjeros
+
+# Juego Órbita
+GET  /api/v1/games/orbita                     # Jugadores dirigidos por técnico
+
+# Juegos de Equipo (NUEVO)
+GET  /api/v1/games/equipo-nacional            # Arma equipo con argentinos
+GET  /api/v1/games/equipo-europeo             # Arma equipo con europeos  
+GET  /api/v1/games/equipo-latinoamericano     # Arma equipo con latinoamericanos
+
+# Servicios
 POST /api/v1/games/verify                     # Verificar respuesta
+POST /api/v1/games/confirmar-posicion         # Confirmar posición de jugador (NUEVO)
 GET  /api/v1/games/list                       # Listar juegos disponibles
 ```
 
 ### Static Files
 
 ```bash
-GET /api/v1/static/jugadores/{nombre}.jpg  # Foto de jugador
-GET /api/v1/static/tecnicos/{nombre}.jpg   # Foto de técnico
-GET /api/v1/static/clubes/{nombre}.png     # Logo de club
+GET /api/v1/static/jugadores/{nombre}.jpg      # Foto de jugador
+GET /api/v1/static/tecnicos/{nombre}.jpg       # Foto de técnico
+GET /api/v1/static/clubes/{pais}/{nombre}.png  # Logo de club (organizado por país)
 ```
 
 ---
@@ -224,4 +238,5 @@ fly deploy
 ---
 
 **FastAPI:** 0.109.0  
-**Python:** 3.9+
+**Python:** 3.9+  
+**Última actualización:** 2026-03-03

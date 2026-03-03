@@ -1,6 +1,6 @@
 # 🔧 Scraping - Rosario Central
 
-Scrapers optimizados para obtener datos de jugadores y técnicos desde Transfermarkt.
+Pipeline automatizado con 5 scrapers para obtener datos de jugadores, técnicos y clubes desde Transfermarkt.
 
 > **[← Volver al README principal](../README.md)**
 
@@ -9,11 +9,13 @@ Scrapers optimizados para obtener datos de jugadores y técnicos desde Transferm
 ## 📚 Índice
 
 - [Instalación](#-instalación)
+- [🚀 Pipeline Orquestado](#-pipeline-orquestado-nuevo)
 - [Scrapers Disponibles](#-scrapers-disponibles)
   - [1. Jugadores](#1-jugadores)
   - [2. Técnicos](#2-técnicos)
-  - [3. Técnicos-Jugadores](#3-técnicos-jugadores)
-  - [4. Goles Detallados](#4-goles-detallados)
+  - [3. Logos de Clubes](#3-logos-de-clubes-nuevo)
+  - [4. Goles Detallados](#4-goles-detallados-opcional)
+  - [5. Técnicos-Jugadores](#5-técnicos-jugadores-opcional)
 - [Estructura de Datos](#-estructura-de-datos)
 - [Configuración](#-configuración)
 
@@ -39,6 +41,30 @@ pip install -r requirements.txt
 
 ---
 
+## 🚀 Pipeline Orquestado (NUEVO)
+
+**Ejecuta todos los scrapers automáticamente en el orden correcto:**
+
+```bash
+python scripts/run_pipeline.py
+```
+
+**Opciones:**
+1. **Pipeline completo** - Jugadores + Técnicos + Logos + Opcionales (~45-60 min)
+2. **Solo esencial** - Jugadores + Técnicos + Logos (~35-45 min)
+3. **Solo jugadores** (~30-45 min)
+4. **Solo técnicos** (~3-5 min)
+5. **Solo logos** (~5-10 min)
+
+**Características:**
+- ✅ Ejecución paralela (jugadores + técnicos simultáneamente)
+- ✅ Respeta dependencias (logos espera a jugadores/técnicos)
+- ✅ Auto-confirmación (sin intervención manual)
+- ✅ Resumen detallado con tiempos
+- ✅ Scraping incremental (continúa desde donde quedó)
+
+---
+
 ## 🎯 Scrapers Disponibles
 
 ### 1. Jugadores
@@ -47,7 +73,7 @@ pip install -r requirements.txt
 
 **Ejecutar:**
 ```bash
-python scripts/run_scraper.py
+python scripts/run_jugadores.py  # Renombrado desde run_scraper.py
 ```
 
 **Output:** `data/output/rosario_central_jugadores.json`
@@ -108,14 +134,40 @@ python scripts/run_tecnicos.py
 
 ---
 
-### 3. Técnicos-Jugadores
+### 3. Logos de Clubes (NUEVO)
 
-**Obtiene:** Jugadores dirigidos por cada técnico con estadísticas por competencia.
+**Obtiene:** Logos de todos los clubes donde jugaron/dirigieron jugadores/técnicos de Central.
 
 **Ejecutar:**
 ```bash
-python scripts/run_tecnicos_jugadores.py
+python scripts/run_equipos.py
 ```
+
+**Output:** `data/images/clubes/{pais}/{club}.png`
+
+**Características:**
+- ✅ Usa URLs directas del historial de jugadores/técnicos
+- ✅ **Garantiza consistencia**: Nombres de clubes = Nombres de archivos
+- ✅ Organizado por país (argentina/, italia/, españa/, etc.)
+- ✅ ~300 clubes únicos
+- ✅ Descarga paralela (5 workers)
+
+**Ejemplo:**
+```
+data/images/clubes/
+├── argentina/
+│   ├── boca_juniors.png
+│   ├── desamparados.png  # ✅ Ahora funciona
+│   └── river_plate.png
+├── italia/
+│   ├── inter.png
+│   └── juventus.png
+└── ...
+```
+
+---
+
+### 4. Goles Detallados (OPCIONAL)
 
 **Output:** `data/output/rosario_central_tecnicos_jugadores.json`
 
@@ -146,8 +198,6 @@ python scripts/run_tecnicos_jugadores.py
 ```
 
 ---
-
-### 4. Goles Detallados
 
 **Obtiene:** Información detallada de cada gol marcado por jugadores de Central.
 
@@ -185,6 +235,24 @@ python scripts/run_goles_detallados.py
 
 ---
 
+### 5. Técnicos-Jugadores (OPCIONAL)
+
+**Obtiene:** Jugadores dirigidos por cada técnico con estadísticas por competencia.
+
+**Ejecutar:**
+```bash
+python scripts/run_tecnicos_jugadores.py
+```
+
+**Output:** `data/output/rosario_central_tecnicos_jugadores.json`
+
+**Incluye:**
+- Jugadores por técnico y competencia
+- Apariciones, goles, asistencias
+- Resumen de jugadores más dirigidos
+
+---
+
 ## 📊 Estructura de Datos
 
 ### Output Files
@@ -192,14 +260,18 @@ python scripts/run_goles_detallados.py
 ```
 data/
 ├── output/
-│   ├── rosario_central_jugadores.json           # 451 jugadores
-│   ├── rosario_central_tecnicos.json            # 65 técnicos
-│   ├── rosario_central_tecnicos_jugadores.json  # Relaciones
-│   └── rosario_central_goles_detallados.json    # Goles individuales
+│   ├── rosario_central_jugadores.json           # ~1,500 jugadores
+│   ├── rosario_central_tecnicos.json            # ~65 técnicos
+│   ├── rosario_central_tecnicos_jugadores.json  # Relaciones (opcional)
+│   └── rosario_central_goles_detallados.json    # Goles (opcional)
 └── images/
-    ├── jugadores/   # 451 fotos
-    ├── tecnicos/    # 43 fotos
-    └── clubes/      # 690 logos
+    ├── jugadores/   # ~1,500 fotos
+    ├── tecnicos/    # ~65 fotos
+    └── clubes/      # ~300 logos (NUEVO)
+        ├── argentina/
+        ├── italia/
+        ├── españa/
+        └── ...
 ```
 
 ### Relaciones
@@ -248,13 +320,19 @@ DELAY_ENTRE_PAGINAS = (1, 2)
 
 | Scraper | Cantidad | Tiempo (paralelo) |
 |---------|----------|-------------------|
-| Jugadores | 451 | ~5-7 min |
-| Técnicos | 65 | ~3-4 min |
-| Técnicos-Jugadores | 65 técnicos | ~15-20 min |
-| Goles Detallados | 100 jugadores | ~2-3 min |
+| **Pipeline Completo** | Todo | **~45-60 min** |
+| **Pipeline Esencial** | Sin opcionales | **~35-45 min** |
+| Jugadores | ~1,500 | ~30-45 min |
+| Técnicos | ~65 | ~3-5 min |
+| Logos de Clubes | ~300 | ~5-10 min |
+| Goles Detallados (opcional) | ~200 | ~7-10 min |
+| Técnicos-Jugadores (opcional) | 65 | ~5-8 min |
 
 **Optimizaciones:**
-- ✅ Paralelización (4 workers)
+- ✅ **Orquestación inteligente** (pipeline automatizado)
+- ✅ **Ejecución paralela** (jugadores + técnicos simultáneos)
+- ✅ **URLs directas** (logos sin búsqueda ambigua)
+- ✅ Paralelización (4-5 workers por scraper)
 - ✅ Session pooling (keep-alive)
 - ✅ Caché HTTP
 - ✅ Scraping incremental (skip ya procesados)
@@ -309,6 +387,7 @@ scraper.scrape(paralelo=False)  # Más lento pero más seguro
 
 ---
 
-**Versión:** 2.0  
-**Performance:** 4-5x más rápido que v1  
-**Total datos:** 1,184 imágenes + 4 JSON files
+**Versión:** 3.0  
+**Performance:** 4-5x más rápido que v1, con pipeline automatizado  
+**Total datos:** ~2,000 imágenes + 4 JSON files  
+**Última actualización:** 2026-03-03

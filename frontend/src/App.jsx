@@ -14,7 +14,7 @@ function App() {
             <Link to="/" className="nav-logo">
               <div className="logo-container">
                 <img 
-                  src="http://localhost:8000/api/v1/static/clubes/rosario_central.png" 
+                  src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png" 
                   alt="Rosario Central" 
                   className="logo-shield"
                 />

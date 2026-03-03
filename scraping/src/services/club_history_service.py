@@ -101,15 +101,16 @@ class ClubHistoryService:
                         
                         # Obtener país desde countryFlag o desde la página del club
                         pais = from_club.get('countryName', '')
+                        club_href = from_club.get('href', '')
                         if not pais or pais == '':
                             # Intentar extraer desde la URL del club
-                            club_href = from_club.get('href', '')
                             pais = self._obtener_pais_del_club(club_href) if club_href else 'Desconocido'
                         
                         clubes.append({
                             'nombre': nombre,
                             'pais': pais,
-                            'periodo': transfer.get('date', None)
+                            'periodo': transfer.get('date', None),
+                            'club_url': club_href  # ✅ NUEVO: Guardar URL del club
                         })
                 
                 # Extraer info del club destino ("to")
@@ -121,15 +122,16 @@ class ClubHistoryService:
                         
                         # Obtener país desde countryFlag o desde la página del club
                         pais = to_club.get('countryName', '')
+                        club_href = to_club.get('href', '')
                         if not pais or pais == '':
                             # Intentar extraer desde la URL del club
-                            club_href = to_club.get('href', '')
                             pais = self._obtener_pais_del_club(club_href) if club_href else 'Desconocido'
                         
                         clubes.append({
                             'nombre': nombre,
                             'pais': pais,
-                            'periodo': transfer.get('date', None)
+                            'periodo': transfer.get('date', None),
+                            'club_url': club_href  # ✅ NUEVO: Guardar URL del club
                         })
             
             return clubes
@@ -196,7 +198,8 @@ class ClubHistoryService:
                         clubes.append({
                             'nombre': nombre_club,
                             'pais': pais,
-                            'periodo': periodo
+                            'periodo': periodo,
+                            'club_url': url_club  # ✅ NUEVO: Guardar URL del club
                         })
                     
                     except Exception:
@@ -307,6 +310,7 @@ class ClubHistoryService:
                         
                         for link_club in links_clubes:
                             nombre_club = link_club.text.strip()
+                            url_club = link_club.get('href', '')
                             
                             if not self._es_club_valido(nombre_club):
                                 continue
@@ -332,7 +336,8 @@ class ClubHistoryService:
                             clubes.append({
                                 'nombre': nombre_club,
                                 'pais': pais,
-                                'periodo': periodo
+                                'periodo': periodo,
+                                'club_url': url_club  # ✅ NUEVO: Guardar URL del club
                             })
                     
                     except Exception:
@@ -387,6 +392,7 @@ class ClubHistoryService:
                                     continue
                                 
                                 nombre_club = link_club.text.strip()
+                                url_club = link_club.get('href', '')
                                 
                                 if not self._es_club_valido(nombre_club):
                                     continue
@@ -411,7 +417,8 @@ class ClubHistoryService:
                                 clubes.append({
                                     'nombre': nombre_club,
                                     'pais': pais,
-                                    'periodo': periodo
+                                    'periodo': periodo,
+                                    'club_url': url_club  # ✅ NUEVO: Guardar URL del club
                                 })
                             
                             except Exception:
@@ -469,6 +476,8 @@ class ClubHistoryService:
                             if not nombre_club:
                                 nombre_club = link_club.text.strip()
                             
+                            url_club = link_club.get('href', '')
+                            
                             # Validar nombre del club
                             if not self._es_club_valido(nombre_club):
                                 continue
@@ -484,7 +493,8 @@ class ClubHistoryService:
                                 clubes.append({
                                     'nombre': nombre_club,
                                     'pais': pais,
-                                    'periodo': None
+                                    'periodo': None,
+                                    'club_url': url_club  # ✅ NUEVO: Guardar URL del club
                                 })
                     
                     except Exception:
@@ -598,6 +608,7 @@ class ClubHistoryService:
             for link in links_clubes:
                 try:
                     nombre_club = link.text.strip()
+                    url_club = link.get('href', '')
                     
                     # Filtrar nombres inválidos
                     if not self._es_club_valido(nombre_club):
@@ -628,7 +639,8 @@ class ClubHistoryService:
                     clubes.append({
                         'nombre': nombre_club,
                         'pais': pais,
-                        'periodo': None
+                        'periodo': None,
+                        'club_url': url_club  # ✅ NUEVO: Guardar URL del club
                     })
                     
                     # Limitar a un máximo razonable (aumentado para jugadores con carreras largas)

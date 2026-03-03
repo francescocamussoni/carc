@@ -361,6 +361,10 @@ class TransfermarktScraper(BaseScraper):
                     # Crear una copia del h1 y eliminar el strong para obtener solo el nombre
                     nombre_pila = h1.get_text(strip=True).replace(apellido, '').strip()
                     
+                    # ✅ LIMPIAR: Remover número de camiseta (#32Gino → Gino)
+                    import re
+                    nombre_pila = re.sub(r'^#\d+', '', nombre_pila).strip()
+                    
                     if nombre_pila and apellido:
                         return (nombre_pila, apellido)
             

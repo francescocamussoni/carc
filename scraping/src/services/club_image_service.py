@@ -70,26 +70,46 @@ class ClubImageService:
             'u. de chile': 2077,
         }
     
-    def buscar_y_descargar_escudo(self, nombre_club: str, pais: str = "") -> Optional[str]:
+    def buscar_y_descargar_escudo(self, nombre_club: str, pais: str = "", club_url: str = "") -> Optional[str]:
         """
         Busca un club en Transfermarkt y descarga su escudo.
         
         Args:
             nombre_club: Nombre del club
             pais: País del club (opcional, ayuda a disambiguar)
+            club_url: URL directa del club (opcional, si se proporciona, evita la búsqueda)
         
         Returns:
             Ruta relativa del escudo descargado o None si falla
         """
         try:
-            # Buscar club en Transfermarkt
-            club_url = self._buscar_club(nombre_club, pais)
-            if not club_url:
+            # ✅ NUEVO: Si ya tenemos la URL directa del club, usarla
+            if club_url:
+                # Convertir URL relativa a absoluta si es necesario
+                if not club_url.startswith('http'):
+                    club_url_completa = f"{self.base_url}{club_url}"
+                else:
+                    club_url_completa = club_url
+                
+                # Convertir cualquier URL del club a formato /startseite/
+                club_url_completa = club_url_completa.replace('/transfers/', '/startseite/').replace('/kader/', '/startseite/')
+                
+                # Extraer URL del escudo
+                escudo_url = self._extraer_url_escudo(club_url_completa)
+                if escudo_url:
+                    return self._descargar_escudo(escudo_url, nombre_club, pais)
+                else:
+                    print(f"      ⚠️  No se pudo extraer escudo desde URL directa de {nombre_club}")
+                    # Intentar con búsqueda como fallback
+            
+            # Buscar club en Transfermarkt (método original)
+            club_url_buscada = self._buscar_club(nombre_club, pais)
+            if not club_url_buscada:
                 print(f"      ⚠️  No se encontró {nombre_club}")
                 return None
             
             # Extraer URL del escudo
-            escudo_url = self._extraer_url_escudo(club_url)
+            escudo_url = self._extraer_url_escudo(club_url_buscada)
             if not escudo_url:
                 print(f"      ⚠️  No se pudo extraer escudo de {nombre_club}")
                 return None

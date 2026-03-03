@@ -7,7 +7,8 @@ from app.schemas.game import (
     GameResponse,
     EquipoDelDiaGame,
     GameGuess,
-    GameResult
+    GameResult,
+    PosicionSeleccionada
 )
 from app.services.game_generator import game_generator_service
 
@@ -75,6 +76,31 @@ async def verify_guess(guess: GameGuess):
             guess.game_id,
             guess.game_type,
             guess.respuesta
+        )
+        
+        return GameResult(
+            correcto=result.get('correcto', False),
+            mensaje=result.get('mensaje', ''),
+            jugador_revelado=result.get('jugador_revelado'),
+            posicion_asignada=result.get('posicion_asignada'),
+            nuevo_club=result.get('nuevo_club'),
+            game_over=result.get('game_over', False),
+            victoria=result.get('victoria', False),
+            requiere_seleccion=result.get('requiere_seleccion', False),
+            posiciones_disponibles=result.get('posiciones_disponibles')
+        )
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/confirmar-posicion", response_model=GameResult)
+async def confirmar_posicion(seleccion: PosicionSeleccionada):
+    """Confirm position choice for a multi-position player"""
+    try:
+        result = game_generator_service.confirmar_posicion(
+            seleccion.game_id,
+            seleccion.posicion
         )
         
         return GameResult(

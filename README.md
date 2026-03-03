@@ -10,11 +10,14 @@ Plataforma completa de trivias de fútbol basada en datos reales de Rosario Cent
 
 ## 🎯 ¿Qué es esto?
 
-Una aplicación web **full-stack** tipo [FutFactos.com](http://futfactos.com/) con 3 juegos de trivia:
+Una aplicación web **full-stack** tipo [FutFactos.com](http://futfactos.com/) con 6 juegos de trivia:
 
 1. **🇦🇷 Trayectoria Nacional** - Adivina el jugador por clubes argentinos
 2. **🌎 Trayectoria Internacional** - Adivina el jugador por clubes extranjeros  
 3. **⚽ Órbita del Día** - Identifica jugadores dirigidos por un técnico
+4. **🇦🇷 Equipo Nacional** - Arma el equipo titular con jugadores argentinos
+5. **🌍 Equipo Europeo** - Arma el equipo titular con jugadores europeos
+6. **🌎 Equipo Latinoamericano** - Arma el equipo titular con jugadores latinoamericanos
 
 ---
 
@@ -32,9 +35,9 @@ carc/
 
 ### 📚 Documentación por Módulo
 
-- **[Backend API](backend/README.md)** - FastAPI con 6 endpoints
-- **[Frontend](frontend/README.md)** - React + Vite con 3 juegos
-- **[Scraping](scraping/README.md)** - 4 scrapers optimizados
+- **[Backend API](backend/README.md)** - FastAPI con 9 endpoints, 6 juegos
+- **[Frontend](frontend/README.md)** - React + Vite, diseño FutFactos
+- **[Scraping](scraping/README.md)** - Pipeline automatizado con 5 scrapers
 
 ---
 
@@ -112,19 +115,28 @@ Identifica jugadores dirigidos por un técnico.
 - Múltiples jugadores para adivinar
 - 3 modos: más minutos/goles/apariciones
 
+### 🇦🇷 Equipo Nacional / 🌍 Europeo / 🌎 Latinoamericano
+Arma el equipo titular adivinando jugadores por clubes.
+- 11 jugadores + DT
+- Formaciones dinámicas (4-3-3, 4-4-2, 3-5-2, etc.)
+- Sistema de pistas
+- Selector de posición para jugadores polivalentes
+
 ---
 
 ## 📊 Datos Disponibles
 
 | Tipo | Cantidad | Ubicación |
 |------|----------|-----------|
-| Jugadores | 451 | `scraping/data/output/rosario_central_jugadores.json` |
-| Técnicos | 65 | `scraping/data/output/rosario_central_tecnicos.json` |
+| Jugadores | ~1,500 | `scraping/data/output/rosario_central_jugadores.json` |
+| Técnicos | ~65 | `scraping/data/output/rosario_central_tecnicos.json` |
 | Relaciones | 65 técnicos | `scraping/data/output/rosario_central_tecnicos_jugadores.json` |
 | Goles | Miles | `scraping/data/output/rosario_central_goles_detallados.json` |
-| Imágenes | 1,184 | `scraping/data/images/` |
+| Logos Clubes | ~300 | `scraping/data/images/clubes/` |
+| Fotos Jugadores | ~1,500 | `scraping/data/images/jugadores/` |
+| Fotos Técnicos | ~65 | `scraping/data/images/tecnicos/` |
 
-**Generar datos nuevos:** Ver [Scraping README](scraping/README.md)
+**Generar datos nuevos:** `cd scraping && python scripts/run_pipeline.py`
 
 ---
 
@@ -193,11 +205,13 @@ console.log(result.correcto) // true/false
 ### Scraping
 
 ```bash
-# Obtener jugadores
-cd scraping && python scripts/run_scraper.py
+# Pipeline completo (recomendado)
+cd scraping && python scripts/run_pipeline.py
 
-# Obtener técnicos
-python scripts/run_tecnicos.py
+# O individual
+python scripts/run_jugadores.py  # Jugadores
+python scripts/run_tecnicos.py   # Técnicos
+python scripts/run_equipos.py    # Logos de clubes
 ```
 
 ---
@@ -306,5 +320,6 @@ Uso educativo. Datos de Transfermarkt (respetar ToS).
 
 ---
 
-**Versión:** 1.0.0  
-**Última actualización:** 2026-02-28
+**Versión:** 2.0.0  
+**Última actualización:** 2026-03-03  
+**Diseño:** Inspirado en FutFactos.com

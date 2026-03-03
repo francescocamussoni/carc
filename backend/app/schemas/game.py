@@ -85,3 +85,11 @@ class GameResult(BaseModel):
     pista_nueva: Optional[str] = None
     game_over: bool = False
     victoria: bool = False
+    requiere_seleccion: bool = False  # Si el jugador puede ocupar múltiples posiciones
+    posiciones_disponibles: Optional[List[str]] = None  # Lista de posiciones disponibles
+
+
+class PosicionSeleccionada(BaseModel):
+    """Position selection by user"""
+    game_id: str
+    posicion: str

@@ -40,6 +40,15 @@ export const gamesAPI = {
     return response.data;
   },
 
+  // Confirm position selection for multi-position player
+  confirmarPosicion: async (gameId, posicion) => {
+    const response = await api.post('/games/confirmar-posicion', {
+      game_id: gameId,
+      posicion: posicion,
+    });
+    return response.data;
+  },
+
   // Get list of available games
   listGames: async () => {
     const response = await api.get('/games/list');
