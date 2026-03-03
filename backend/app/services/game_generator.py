@@ -235,22 +235,18 @@ class GameGeneratorService:
         if not pais:
             pais = "Argentina"
         
-        # Normalize club name for filename (remove accents, lowercase, replace spaces/dots/dashes/parentheses)
+        # Normalize club name for filename (same logic as scraper in text_utils.py)
         import unicodedata
+        import re
+        
         filename = club_nombre.lower()
         # Remove accents
         nfd = unicodedata.normalize('NFD', filename)
         filename = ''.join(char for char in nfd if unicodedata.category(char) != 'Mn')
-        # Remove parentheses and their content, replace with underscore
-        # "San Martín (T)" -> "san_martin_t"
-        filename = filename.replace('(', '_').replace(')', '')
-        # Replace spaces, dots, dashes with underscores
-        filename = filename.replace(' ', '_')
-        filename = filename.replace('.', '')
-        filename = filename.replace('-', '_')
-        # Remove double underscores
-        while '__' in filename:
-            filename = filename.replace('__', '_')
+        # Replace ALL special characters (not just some) with underscore
+        # This matches the scraper's logic: re.sub(r'[^a-z0-9]+', '_', nombre_limpio)
+        # Examples: "Newell's" -> "newell_s", "O'Higgins" -> "o_higgins", "San Martín (T)" -> "san_martin_t"
+        filename = re.sub(r'[^a-z0-9]+', '_', filename)
         # Remove trailing underscores
         filename = filename.strip('_')
         
@@ -390,7 +386,7 @@ class GameGeneratorService:
         self._games_cache[game_id] = {
             'clubes_list': clubes_list,
             'clubes_index': 0,
-            'jugadores': jugadores,
+            # 'jugadores': jugadores,  # ❌ REMOVED: No longer needed - we search all players now
             'formacion_nombre': formacion_nombre,
             'posiciones_config': posiciones_config,
             'posiciones': [p.model_dump() for p in posiciones],
@@ -532,10 +528,12 @@ class GameGeneratorService:
             }
         
         # Search for ALL players matching the input
-        jugadores = game_state['jugadores']
+        # 🔧 FIX: Search in ALL players, not just game_state players
+        # This allows any player who played in RC + current club to be valid
+        all_jugadores = self.data_loader.get_all_jugadores()
         jugadores_encontrados = []
         
-        for jugador in jugadores:
+        for jugador in all_jugadores:
             # Use 'apellido' field if available, fallback to splitting nombre
             apellido_original = jugador.get('apellido', jugador['nombre'].split()[-1])
             apellido_normalizado = self._normalize_text(apellido_original)
@@ -543,16 +541,23 @@ class GameGeneratorService:
             
             # Match by apellido or full name (both normalized)
             if apellido_normalizado == respuesta_normalizada or nombre_completo_normalizado == respuesta_normalizada:
+                # 🔧 FIX: Check if played in Rosario Central first
+                clubes_historia = jugador.get('clubes_historia', [])
+                tiene_rc = any('rosario central' in c.get('nombre', '').lower() for c in clubes_historia)
+                
+                if not tiene_rc:
+                    continue
+                
                 # Check if played in current club (normalize club names for comparison)
-                clubes_jugador = jugador.get('clubes_validos', [])
                 club_actual_normalizado = self._normalize_text(club_actual)
                 
                 # Check if any of the player's clubs matches the current club
-                for club in clubes_jugador:
-                    club_normalizado = self._normalize_text(club)
+                for club_hist in clubes_historia:
+                    club_nombre = club_hist.get('nombre', '')
+                    club_normalizado = self._normalize_text(club_nombre)
                     if club_actual_normalizado == club_normalizado:
                         jugadores_encontrados.append(jugador)
-                        break
+                        break  # ✅ Break ONLY if we found a match
         
         if not jugadores_encontrados:
             return {

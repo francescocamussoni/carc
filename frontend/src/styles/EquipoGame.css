@@ -604,57 +604,32 @@
 }
 
 /* ========================================
-   MODAL DE VICTORIA
+   PANEL DE VICTORIA (dentro del juego)
    ======================================== */
 
-.modal-victoria {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(4, 23, 66, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.victoria-contenido {
+.victoria-panel {
   background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
-  border: 4px solid var(--central-yellow);
-  border-radius: 20px;
-  padding: clamp(2rem, 4vw, 4rem);
+  border: 3px solid var(--central-yellow);
+  border-radius: 15px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
   text-align: center;
-  max-width: 600px;
-  width: 90%;
-  box-shadow: 0 20px 60px rgba(243, 178, 41, 0.3);
-  animation: scaleIn 0.5s ease;
+  box-shadow: 0 8px 24px rgba(243, 178, 41, 0.4);
+  animation: slideInUp 0.5s ease;
 }
 
-@keyframes scaleIn {
+@keyframes slideInUp {
   from {
-    transform: scale(0.8);
+    transform: translateY(30px);
     opacity: 0;
   }
   to {
-    transform: scale(1);
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
-.victoria-escudo {
-  margin-bottom: 2rem;
+.victoria-escudo-panel {
+  margin-bottom: 1rem;
   animation: bounceIn 0.8s ease;
 }
 
@@ -685,51 +660,51 @@
   }
 }
 
-.escudo-victoria {
-  width: clamp(120px, 20vw, 200px);
-  height: clamp(120px, 20vw, 200px);
+.escudo-victoria-panel {
+  width: clamp(100px, 15vw, 150px);
+  height: clamp(100px, 15vw, 150px);
   object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
-.victoria-titulo {
-  font-size: clamp(2rem, 4vw, 3rem);
+.victoria-titulo-panel {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 900;
   color: var(--central-yellow);
   margin: 1rem 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
 }
 
-.victoria-mensaje {
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+.victoria-mensaje-panel {
+  font-size: clamp(1rem, 2vw, 1.4rem);
   color: #ffffff;
-  margin: 1rem 0 2rem 0;
+  margin: 0.8rem 0 1.5rem 0;
   font-weight: 600;
 }
 
-.btn-jugar-de-nuevo {
+.btn-jugar-de-nuevo-panel {
   background: var(--central-yellow);
   color: var(--bg-dark);
   border: none;
-  padding: 1rem 2.5rem;
-  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  padding: clamp(0.8rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   font-weight: 800;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   box-shadow: 0 4px 12px rgba(243, 178, 41, 0.4);
 }
 
-.btn-jugar-de-nuevo:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(243, 178, 41, 0.6);
+.btn-jugar-de-nuevo-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(243, 178, 41, 0.6);
   background: #ffd54f;
 }
 
-.btn-jugar-de-nuevo:active {
+.btn-jugar-de-nuevo-panel:active {
   transform: translateY(0);
 }
 

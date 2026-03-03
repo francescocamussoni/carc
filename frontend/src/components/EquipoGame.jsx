@@ -357,8 +357,8 @@ function EquipoGame({ gameType, title }) {
       <div className="game-content-two-columns">
         {/* COLUMNA 1: CLUB + CONTROLES */}
         <div className="columna-izquierda">
-          {/* Club arriba */}
-          {!gameOver && clubActual && (
+          {/* Club arriba - Solo ocultar si es victoria */}
+          {!(gameOver && mensaje.includes('Felicitaciones')) && clubActual && (
             <div className="club-section">
               <div className="club-icon-large">
                 {clubActual.logo_url ? (
@@ -391,96 +391,116 @@ function EquipoGame({ gameType, title }) {
             </div>
           )}
 
-          {/* Controles debajo */}
-          <div className="controles-section">
-            <form onSubmit={handleSubmit} className="input-form">
-              <input
-                type="text"
-                value={guess}
-                onChange={(e) => setGuess(e.target.value)}
-                placeholder="APELLIDO DEL JUGADOR"
-                className="input-guess"
-                disabled={gameOver}
-              />
-              <button type="submit" disabled={gameOver} className="btn-enviar">
-                ENVIAR
-              </button>
-            </form>
-
-            <div className="botones">
+          {/* Controles debajo O mensaje de victoria */}
+          {gameOver && mensaje.includes('Felicitaciones') ? (
+            <div className="victoria-panel">
+              <div className="victoria-escudo-panel">
+                <img 
+                  src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png"
+                  alt="Rosario Central"
+                  className="escudo-victoria-panel"
+                />
+              </div>
+              <h2 className="victoria-titulo-panel">🎉 ¡FELICITACIONES! 🎉</h2>
+              <p className="victoria-mensaje-panel">¡Completaste el equipo!</p>
               <button 
-                onClick={handlePista}
-                disabled={gameOver} 
-                className="btn-pista"
+                onClick={() => window.location.reload()} 
+                className="btn-jugar-de-nuevo-panel"
               >
-                💡 PISTA
-              </button>
-              <button 
-                onClick={handleRendirse}
-                disabled={gameOver} 
-                className="btn-rendirse"
-              >
-                RENDIRSE
+                🔄 JUGAR DE NUEVO
               </button>
             </div>
+          ) : (
+            <div className="controles-section">
+              <form onSubmit={handleSubmit} className="input-form">
+                <input
+                  type="text"
+                  value={guess}
+                  onChange={(e) => setGuess(e.target.value)}
+                  placeholder="APELLIDO DEL JUGADOR"
+                  className="input-guess"
+                  disabled={gameOver}
+                />
+                <button type="submit" disabled={gameOver} className="btn-enviar">
+                  ENVIAR
+                </button>
+              </form>
 
-            {mostrarPista && (
-              <div className="pista-container">
-                <div className="pista-header">
-                  <h4>💡 PISTA</h4>
-                  <button className="pista-close" onClick={() => setMostrarPista(false)}>✕</button>
-                </div>
-                <div className="pista-content">
-                  <p>Este jugador jugó en {clubActual?.nombre || 'este club'} y actualmente tiene {21 + Math.floor(Math.random() * 15)} años de edad.</p>
-                  <p className="pista-hint">Pista: Su apellido tiene {5 + Math.floor(Math.random() * 5)} letras.</p>
-                </div>
+              <div className="botones">
+                <button 
+                  onClick={handlePista}
+                  disabled={gameOver} 
+                  className="btn-pista"
+                >
+                  💡 PISTA
+                </button>
+                <button 
+                  onClick={handleRendirse}
+                  disabled={gameOver} 
+                  className="btn-rendirse"
+                >
+                  RENDIRSE
+                </button>
               </div>
-            )}
 
-            {mensaje && (
-              <div className={`mensaje ${mensaje.includes('✅') ? 'success' : 'error'}`}>
-                {mensaje}
-              </div>
-            )}
+              {mostrarPista && (
+                <div className="pista-container">
+                  <div className="pista-header">
+                    <h4>💡 PISTA</h4>
+                    <button className="pista-close" onClick={() => setMostrarPista(false)}>✕</button>
+                  </div>
+                  <div className="pista-content">
+                    <p>Este jugador jugó en {clubActual?.nombre || 'este club'} y actualmente tiene {21 + Math.floor(Math.random() * 15)} años de edad.</p>
+                    <p className="pista-hint">Pista: Su apellido tiene {5 + Math.floor(Math.random() * 5)} letras.</p>
+                  </div>
+                </div>
+              )}
 
-            {mostrarSelectorJugador && (
-              <div className="selector-posicion-container">
-                <div className="selector-posicion-header">
-                  <h4>👥 Hay {jugadoresDisponibles.length} jugadores con ese apellido. Elegí uno:</h4>
+              {mensaje && (
+                <div className={`mensaje ${mensaje.includes('✅') ? 'success' : 'error'}`}>
+                  {mensaje}
                 </div>
-                <div className="selector-posicion-botones">
-                  {jugadoresDisponibles.map((jugador) => (
-                    <button
-                      key={jugador}
-                      onClick={() => handleSeleccionJugador(jugador)}
-                      className="btn-posicion btn-jugador"
-                    >
-                      {jugador}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+              )}
 
-            {mostrarSelectorPosicion && (
-              <div className="selector-posicion-container">
-                <div className="selector-posicion-header">
-                  <h4>⚽ Elegí la posición para {jugadorPendiente?.apellido || jugadorPendiente?.nombre}</h4>
+              {mostrarSelectorJugador && (
+                <div className="selector-posicion-container">
+                  <div className="selector-posicion-header">
+                    <h4>👥 Hay {jugadoresDisponibles.length} jugadores con ese apellido. Elegí uno:</h4>
+                  </div>
+                  <div className="selector-posicion-botones">
+                    {jugadoresDisponibles.map((jugador) => (
+                      <button
+                        key={jugador}
+                        onClick={() => handleSeleccionJugador(jugador)}
+                        className="btn-posicion btn-jugador"
+                      >
+                        {jugador}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="selector-posicion-botones">
-                  {posicionesDisponibles.map((pos) => (
-                    <button
-                      key={pos}
-                      onClick={() => handleSeleccionPosicion(pos)}
-                      className="btn-posicion"
-                    >
-                      {pos}
-                    </button>
-                  ))}
+              )}
+
+              {mostrarSelectorPosicion && (
+                <div className="selector-posicion-container">
+                  <div className="selector-posicion-header">
+                    <h4>⚽ Elegí la posición para {jugadorPendiente?.apellido || jugadorPendiente?.nombre}</h4>
+                  </div>
+                  <div className="selector-posicion-botones">
+                    {posicionesDisponibles.map((pos) => (
+                      <button
+                        key={pos}
+                        onClick={() => handleSeleccionPosicion(pos)}
+                        className="btn-posicion"
+                      >
+                        {pos}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* COLUMNA 2: CAMPO DE FÚTBOL (MÁS GRANDE) */}
@@ -549,29 +569,6 @@ function EquipoGame({ gameType, title }) {
           </div>
         </div>
       </div>
-
-      {/* ✅ NUEVO: Modal de Victoria */}
-      {gameOver && mensaje.includes('Felicitaciones') && (
-        <div className="modal-victoria">
-          <div className="victoria-contenido">
-            <div className="victoria-escudo">
-              <img 
-                src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png"
-                alt="Rosario Central"
-                className="escudo-victoria"
-              />
-            </div>
-            <h2 className="victoria-titulo">🎉 ¡FELICITACIONES! 🎉</h2>
-            <p className="victoria-mensaje">¡Completaste el equipo!</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="btn-jugar-de-nuevo"
-            >
-              🔄 JUGAR DE NUEVO
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
