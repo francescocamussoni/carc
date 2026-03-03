@@ -48,7 +48,8 @@ class PipelineScraper:
             'tecnicos': 'run_tecnicos.py',
             'equipos': 'run_equipos.py',
             'goles': 'run_goles_detallados.py',
-            'tecnicos_jugadores': 'run_tecnicos_jugadores.py'
+            'tecnicos_jugadores': 'run_tecnicos_jugadores.py',
+            'indice': 'generar_indice_club_posicion.py'
         }
         
         self.tiempos = {}
@@ -73,6 +74,9 @@ class PipelineScraper:
         print(Color.OKBLUE + "  NIVEL 3 (Opcional - Paralelo):" + Color.ENDC)
         print("    4️⃣  Goles detallados")
         print("    5️⃣  Jugadores por técnico")
+        print()
+        print(Color.OKBLUE + "  NIVEL 4 (Post-procesamiento):" + Color.ENDC)
+        print("    6️⃣  Índice club-posición (optimización)")
         print()
     
     def _ejecutar_script(self, nombre: str, script: str, auto_confirmar: bool = True) -> Tuple[bool, Optional[float]]:
@@ -276,10 +280,33 @@ class PipelineScraper:
         if incluir_opcionales:
             self.ejecutar_nivel_3_paralelo()
         
+        # Nivel 4: Post-procesamiento (índice optimizado)
+        self.ejecutar_nivel_4_indices()
+        
         # Resumen
         self.print_resumen(inicio_total)
         
         return True
+    
+    def ejecutar_nivel_4_indices(self) -> bool:
+        """
+        Ejecuta generación de índices optimizados
+        
+        Returns:
+            True si terminó exitosamente
+        """
+        print(f"\n{Color.BOLD}{Color.OKBLUE}🔄 NIVEL 4: Generando índices optimizados...{Color.ENDC}\n")
+        
+        exito, tiempo = self._ejecutar_script(
+            "Índice Club-Posición",
+            self.scripts['indice'],
+            auto_confirmar=False  # No necesita confirmación
+        )
+        
+        self.resultados['indice'] = exito
+        self.tiempos['indice'] = tiempo
+        
+        return exito
 
 
 def main():

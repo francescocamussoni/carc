@@ -885,6 +885,73 @@ class GameGeneratorService:
             'game_over': game_over,
             'victoria': victoria
         }
+    
+    def obtener_pista(self, game_id: str) -> Dict[str, Any]:
+        """
+        Get hints for the current club using optimized index (O(1) lookup)
+        
+        Returns hints:
+        - Primera letra del apellido  
+        - Posición principal del jugador
+        - Otro club donde jugó (si hay alguno disponible)
+        """
+        game_state = self._games_cache.get(game_id)
+        if not game_state:
+            return {'error': 'Juego no encontrado'}
+        
+        # Get current club
+        club_index = game_state['clubes_index']
+        club_actual = game_state['clubes_list'][club_index]
+        posiciones = game_state['posiciones']
+        
+        # Find first available position
+        posicion_disponible = None
+        for pos in posiciones:
+            if not pos['revelado']:
+                posicion_disponible = pos['posicion']
+                break
+        
+        if not posicion_disponible:
+            return {'error': 'No hay posiciones disponibles'}
+        
+        # Get players for this club and position using optimized index (O(1))
+        jugadores_posibles = self.data_loader.get_jugadores_por_club_posicion(
+            club_actual,
+            posicion_disponible
+        )
+        
+        if not jugadores_posibles:
+            # Fallback: try getting any player for this club
+            jugadores_posibles = self.data_loader.get_jugadores_por_club_posicion(
+                club_actual
+            )
+            
+            if not jugadores_posibles:
+                return {'error': 'No se encontró jugador válido para generar pista'}
+        
+        # Take first player
+        jugador_sugerido = jugadores_posibles[0]
+        
+        # Generate hints
+        apellido = jugador_sugerido.get('apellido', 'Desconocido')
+        primera_letra = apellido[0].upper() if apellido else '?'
+        
+        # Main position
+        posiciones_jugador = jugador_sugerido.get('posiciones', [])
+        posicion_principal = posiciones_jugador[0] if posiciones_jugador else 'Desconocida'
+        
+        # Find another club (not RC, not current club)
+        otros_clubes = jugador_sugerido.get('otros_clubes', [])
+        otro_club = otros_clubes[0] if otros_clubes else None
+        
+        return {
+            'pistas': {
+                'letra_inicial': primera_letra,
+                'posicion': posicion_principal,
+                'otro_club': otro_club
+            },
+            'club_actual': club_actual
+        }
 
 
 # Singleton instance

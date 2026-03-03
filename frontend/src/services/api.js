@@ -57,6 +57,12 @@ export const gamesAPI = {
     return response.data;
   },
 
+  // Get hints for current club
+  obtenerPista: async (gameId) => {
+    const response = await api.get(`/games/pista/${gameId}`);
+    return response.data;
+  },
+
   // Get list of available games
   listGames: async () => {
     const response = await api.get('/games/list');

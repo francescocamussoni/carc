@@ -15,6 +15,7 @@ function EquipoGame({ gameType, title }) {
   const [mensaje, setMensaje] = useState('')
   const [gameOver, setGameOver] = useState(false)
   const [mostrarPista, setMostrarPista] = useState(false)
+  const [pistasReales, setPistasReales] = useState(null) // Pistas del backend
   const [mostrarSelectorPosicion, setMostrarSelectorPosicion] = useState(false)
   const [posicionesDisponibles, setPosicionesDisponibles] = useState([])
   const [jugadorPendiente, setJugadorPendiente] = useState(null)
@@ -257,8 +258,27 @@ function EquipoGame({ gameType, title }) {
     }
   }
 
-  const handlePista = () => {
-    setMostrarPista(!mostrarPista)
+  const handlePista = async () => {
+    if (!mostrarPista) {
+      // Si no está mostrando la pista, obtenerla del backend
+      try {
+        const result = await gamesAPI.obtenerPista(gameData.game_id)
+        
+        if (result.error) {
+          setMensaje(`❌ ${result.error}`)
+          return
+        }
+        
+        setPistasReales(result.pistas)
+        setMostrarPista(true)
+      } catch (error) {
+        console.error('Error obteniendo pista:', error)
+        setMensaje('❌ Error al obtener pista')
+      }
+    } else {
+      // Si ya está mostrando, solo ocultar
+      setMostrarPista(false)
+    }
   }
 
   const handleRendirse = () => {
@@ -443,15 +463,18 @@ function EquipoGame({ gameType, title }) {
                 </button>
               </div>
 
-              {mostrarPista && (
+              {mostrarPista && pistasReales && (
                 <div className="pista-container">
                   <div className="pista-header">
                     <h4>💡 PISTA</h4>
                     <button className="pista-close" onClick={() => setMostrarPista(false)}>✕</button>
                   </div>
                   <div className="pista-content">
-                    <p>Este jugador jugó en {clubActual?.nombre || 'este club'} y actualmente tiene {21 + Math.floor(Math.random() * 15)} años de edad.</p>
-                    <p className="pista-hint">Pista: Su apellido tiene {5 + Math.floor(Math.random() * 5)} letras.</p>
+                    <p>🔤 <strong>Primera letra:</strong> {pistasReales.letra_inicial}</p>
+                    <p>⚽ <strong>Posición:</strong> {pistasReales.posicion}</p>
+                    {pistasReales.otro_club && (
+                      <p>🏟️ <strong>También jugó en:</strong> {pistasReales.otro_club}</p>
+                    )}
                   </div>
                 </div>
               )}

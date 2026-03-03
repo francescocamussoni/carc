@@ -97,6 +97,23 @@ async def verify_guess(guess: GameGuess):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/pista/{game_id}")
+async def obtener_pista(game_id: str):
+    """
+    Get hints for the current club
+    
+    Returns:
+    - Primera letra del apellido
+    - Posición principal
+    - Otro club donde jugó (si disponible)
+    """
+    try:
+        result = game_generator_service.obtener_pista(game_id)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.post("/confirmar-posicion", response_model=GameResult)
 async def confirmar_posicion(seleccion: PosicionSeleccionada):
     """Confirm position choice for a multi-position player"""
