@@ -18,6 +18,9 @@ function EquipoGame({ gameType, title }) {
   const [mostrarSelectorPosicion, setMostrarSelectorPosicion] = useState(false)
   const [posicionesDisponibles, setPosicionesDisponibles] = useState([])
   const [jugadorPendiente, setJugadorPendiente] = useState(null)
+  const [mostrarSelectorJugador, setMostrarSelectorJugador] = useState(false)
+  const [jugadoresDisponibles, setJugadoresDisponibles] = useState([])
+  const [apellidoBuscado, setApellidoBuscado] = useState('')
 
   useEffect(() => {
     fetchGame()
@@ -73,8 +76,16 @@ function EquipoGame({ gameType, title }) {
       )
 
       if (result.correcto) {
+        // ✅ NUEVO: Check if requires player selection (multiple players with same surname)
+        if (result.requiere_seleccion_jugador && result.jugadores_disponibles) {
+          setMensaje(`✅ ${result.mensaje}`)
+          setJugadoresDisponibles(result.jugadores_disponibles)
+          setApellidoBuscado(guess)
+          setMostrarSelectorJugador(true)
+          setMostrarPista(false)
+        }
         // Check if requires position selection
-        if (result.requiere_seleccion && result.posiciones_disponibles) {
+        else if (result.requiere_seleccion && result.posiciones_disponibles) {
           setMensaje(`✅ ${result.mensaje}`)
           setJugadorPendiente(result.jugador_revelado)
           setPosicionesDisponibles(result.posiciones_disponibles)
@@ -133,6 +144,65 @@ function EquipoGame({ gameType, title }) {
     } catch (err) {
       console.error('Error verifying guess:', err)
       setMensaje('Error al verificar la respuesta')
+      setTimeout(() => setMensaje(''), 3000)
+    }
+  }
+
+  const handleSeleccionJugador = async (nombreJugador) => {
+    try {
+      const result = await gamesAPI.confirmarJugador(gameData.game_id, nombreJugador)
+      
+      if (result.correcto) {
+        // ✅ Ahora puede requerir selección de posición O asignar directamente
+        if (result.requiere_seleccion && result.posiciones_disponibles) {
+          setMensaje(`✅ ${result.mensaje}`)
+          setJugadorPendiente(result.jugador_revelado)
+          setPosicionesDisponibles(result.posiciones_disponibles)
+          setMostrarSelectorPosicion(true)
+          setMostrarSelectorJugador(false)
+        } else {
+          setMensaje(`✅ ${result.mensaje}`)
+          
+          // Update positions from result
+          if (result.posicion_asignada) {
+            const newPosiciones = [...posiciones]
+            const idx = newPosiciones.findIndex(
+              p => p.posicion === result.posicion_asignada && !p.revelado
+            )
+            if (idx !== -1) {
+              newPosiciones[idx] = {
+                ...newPosiciones[idx],
+                revelado: true,
+                jugador_nombre: result.jugador_revelado.nombre,
+                jugador_apellido: result.jugador_revelado.apellido || result.jugador_revelado.nombre.split(' ').pop(),
+                image_url: result.jugador_revelado.image_url
+              }
+              setPosiciones(newPosiciones)
+            }
+          }
+
+          // Update club if there's a new one
+          if (result.nuevo_club) {
+            setClubActual(result.nuevo_club)
+          }
+
+          // Check victory
+          const revelados = posiciones.filter(p => p.revelado).length
+          if (revelados >= 10 && entrenadorRevelado) {
+            setGameOver(true)
+            setMensaje('🎉 ¡Felicitaciones! Completaste el equipo')
+          }
+          
+          // Close selector
+          setMostrarSelectorJugador(false)
+          setJugadoresDisponibles([])
+        }
+      }
+      
+      setGuess('')
+    } catch (err) {
+      console.error('Error confirmando jugador:', err)
+      setMensaje('Error al confirmar el jugador')
       setTimeout(() => setMensaje(''), 3000)
     }
   }
@@ -373,6 +443,25 @@ function EquipoGame({ gameType, title }) {
               </div>
             )}
 
+            {mostrarSelectorJugador && (
+              <div className="selector-posicion-container">
+                <div className="selector-posicion-header">
+                  <h4>👥 Hay {jugadoresDisponibles.length} jugadores con ese apellido. Elegí uno:</h4>
+                </div>
+                <div className="selector-posicion-botones">
+                  {jugadoresDisponibles.map((jugador) => (
+                    <button
+                      key={jugador}
+                      onClick={() => handleSeleccionJugador(jugador)}
+                      className="btn-posicion btn-jugador"
+                    >
+                      {jugador}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {mostrarSelectorPosicion && (
               <div className="selector-posicion-container">
                 <div className="selector-posicion-header">
@@ -460,6 +549,29 @@ function EquipoGame({ gameType, title }) {
           </div>
         </div>
       </div>
+
+      {/* ✅ NUEVO: Modal de Victoria */}
+      {gameOver && mensaje.includes('Felicitaciones') && (
+        <div className="modal-victoria">
+          <div className="victoria-contenido">
+            <div className="victoria-escudo">
+              <img 
+                src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png"
+                alt="Rosario Central"
+                className="escudo-victoria"
+              />
+            </div>
+            <h2 className="victoria-titulo">🎉 ¡FELICITACIONES! 🎉</h2>
+            <p className="victoria-mensaje">¡Completaste el equipo!</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="btn-jugar-de-nuevo"
+            >
+              🔄 JUGAR DE NUEVO
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

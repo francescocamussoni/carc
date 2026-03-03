@@ -87,9 +87,17 @@ class GameResult(BaseModel):
     victoria: bool = False
     requiere_seleccion: bool = False  # Si el jugador puede ocupar múltiples posiciones
     posiciones_disponibles: Optional[List[str]] = None  # Lista de posiciones disponibles
+    requiere_seleccion_jugador: bool = False  # ✅ NUEVO: Si hay múltiples jugadores con el mismo apellido
+    jugadores_disponibles: Optional[List[str]] = None  # ✅ NUEVO: Lista de jugadores disponibles
 
 
 class PosicionSeleccionada(BaseModel):
     """Position selection by user"""
     game_id: str
     posicion: str
+
+
+class JugadorSeleccionado(BaseModel):
+    """Player selection by user when multiple players match"""
+    game_id: str
+    nombre_jugador: str

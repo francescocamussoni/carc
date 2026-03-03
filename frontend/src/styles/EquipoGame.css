@@ -597,6 +597,142 @@
   transform: translateY(0);
 }
 
+.btn-jugador {
+  min-width: 150px;
+  text-transform: none;
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+}
+
+/* ========================================
+   MODAL DE VICTORIA
+   ======================================== */
+
+.modal-victoria {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 23, 66, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.victoria-contenido {
+  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+  border: 4px solid var(--central-yellow);
+  border-radius: 20px;
+  padding: clamp(2rem, 4vw, 4rem);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(243, 178, 41, 0.3);
+  animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.victoria-escudo {
+  margin-bottom: 2rem;
+  animation: bounceIn 0.8s ease;
+}
+
+@keyframes bounceIn {
+  0%, 20%, 40%, 60%, 80%, 100% {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.escudo-victoria {
+  width: clamp(120px, 20vw, 200px);
+  height: clamp(120px, 20vw, 200px);
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.victoria-titulo {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: var(--central-yellow);
+  margin: 1rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.victoria-mensaje {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: #ffffff;
+  margin: 1rem 0 2rem 0;
+  font-weight: 600;
+}
+
+.btn-jugar-de-nuevo {
+  background: var(--central-yellow);
+  color: var(--bg-dark);
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-weight: 800;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 4px 12px rgba(243, 178, 41, 0.4);
+}
+
+.btn-jugar-de-nuevo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(243, 178, 41, 0.6);
+  background: #ffd54f;
+}
+
+.btn-jugar-de-nuevo:active {
+  transform: translateY(0);
+}
+
 .pista-header {
   display: flex;
   justify-content: space-between;

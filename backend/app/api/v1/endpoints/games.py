@@ -8,7 +8,8 @@ from app.schemas.game import (
     EquipoDelDiaGame,
     GameGuess,
     GameResult,
-    PosicionSeleccionada
+    PosicionSeleccionada,
+    JugadorSeleccionado
 )
 from app.services.game_generator import game_generator_service
 
@@ -87,7 +88,9 @@ async def verify_guess(guess: GameGuess):
             game_over=result.get('game_over', False),
             victoria=result.get('victoria', False),
             requiere_seleccion=result.get('requiere_seleccion', False),
-            posiciones_disponibles=result.get('posiciones_disponibles')
+            posiciones_disponibles=result.get('posiciones_disponibles'),
+            requiere_seleccion_jugador=result.get('requiere_seleccion_jugador', False),
+            jugadores_disponibles=result.get('jugadores_disponibles')
         )
     
     except Exception as e:
@@ -111,6 +114,31 @@ async def confirmar_posicion(seleccion: PosicionSeleccionada):
             nuevo_club=result.get('nuevo_club'),
             game_over=result.get('game_over', False),
             victoria=result.get('victoria', False)
+        )
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/confirmar-jugador", response_model=GameResult)
+async def confirmar_jugador(seleccion: JugadorSeleccionado):
+    """Confirm player choice when multiple players match the same surname"""
+    try:
+        result = game_generator_service.confirmar_jugador(
+            seleccion.game_id,
+            seleccion.nombre_jugador
+        )
+        
+        return GameResult(
+            correcto=result.get('correcto', False),
+            mensaje=result.get('mensaje', ''),
+            jugador_revelado=result.get('jugador_revelado'),
+            posicion_asignada=result.get('posicion_asignada'),
+            nuevo_club=result.get('nuevo_club'),
+            game_over=result.get('game_over', False),
+            victoria=result.get('victoria', False),
+            requiere_seleccion=result.get('requiere_seleccion', False),
+            posiciones_disponibles=result.get('posiciones_disponibles')
         )
     
     except Exception as e:

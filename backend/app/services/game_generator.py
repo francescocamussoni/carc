@@ -531,9 +531,9 @@ class GameGeneratorService:
                 'victoria': victoria
             }
         
-        # Search for player
+        # Search for ALL players matching the input
         jugadores = game_state['jugadores']
-        jugador_encontrado = None
+        jugadores_encontrados = []
         
         for jugador in jugadores:
             # Use 'apellido' field if available, fallback to splitting nombre
@@ -551,17 +551,55 @@ class GameGeneratorService:
                 for club in clubes_jugador:
                     club_normalizado = self._normalize_text(club)
                     if club_actual_normalizado == club_normalizado:
-                        jugador_encontrado = jugador
+                        jugadores_encontrados.append(jugador)
                         break
-                
-                if jugador_encontrado:
-                    break
         
-        if not jugador_encontrado:
+        if not jugadores_encontrados:
             return {
                 'correcto': False,
                 'mensaje': f'El jugador no jugó en {club_actual} o no existe'
             }
+        
+        # ✅ NUEVO: Si hay múltiples jugadores con el mismo apellido, filtrar por posiciones disponibles
+        posiciones = game_state['posiciones']
+        jugadores_con_posiciones = []
+        
+        for jugador in jugadores_encontrados:
+            posiciones_jugador = self._get_all_valid_positions(jugador)
+            # Check if this player can occupy any available position
+            puede_jugar = False
+            for pos in posiciones:
+                if not pos['revelado'] and pos['posicion'] in posiciones_jugador:
+                    puede_jugar = True
+                    break
+            
+            if puede_jugar:
+                jugadores_con_posiciones.append(jugador)
+        
+        if not jugadores_con_posiciones:
+            return {
+                'correcto': False,
+                'mensaje': f'Ningún jugador con ese apellido puede ocupar las posiciones vacías'
+            }
+        
+        # ✅ NUEVO: Si hay múltiples jugadores válidos, pedir selección
+        if len(jugadores_con_posiciones) > 1:
+            game_state['pending_player_selection'] = {
+                'jugadores': jugadores_con_posiciones,
+                'apellido': respuesta.strip()
+            }
+            
+            opciones = [f"{j['nombre']}" for j in jugadores_con_posiciones]
+            
+            return {
+                'correcto': True,
+                'requiere_seleccion_jugador': True,
+                'mensaje': f'Hay {len(jugadores_con_posiciones)} jugadores con ese apellido. Elegí uno:',
+                'jugadores_disponibles': opciones
+            }
+        
+        # Solo hay un jugador válido
+        jugador_encontrado = jugadores_con_posiciones[0]
         
         # Find available positions for this player
         posiciones = game_state['posiciones']
@@ -717,6 +755,123 @@ class GameGeneratorService:
                 'image_url': self._get_jugador_image_url(jugador_encontrado)
             },
             'posicion_asignada': posicion_elegida,
+            'nuevo_club': {
+                'nombre': next_club,
+                'logo_url': self._get_logo_url(next_club),
+                'pais': self._get_club_country(next_club) or "Desconocido"
+            },
+            'game_over': game_over,
+            'victoria': victoria
+        }
+    
+    def confirmar_jugador(self, game_id: str, nombre_jugador: str) -> Dict[str, Any]:
+        """Confirm the player chosen by the user when multiple players match"""
+        game_state = self._games_cache.get(game_id)
+        if not game_state:
+            return {'correcto': False, 'mensaje': 'Juego no encontrado'}
+        
+        # Get pending player selection
+        pending_data = game_state.get('pending_player_selection')
+        if not pending_data:
+            return {'correcto': False, 'mensaje': 'No hay selección de jugador pendiente'}
+        
+        jugadores_disponibles = pending_data['jugadores']
+        
+        # Find the selected player
+        jugador_encontrado = None
+        for jugador in jugadores_disponibles:
+            if jugador['nombre'] == nombre_jugador:
+                jugador_encontrado = jugador
+                break
+        
+        if not jugador_encontrado:
+            return {'correcto': False, 'mensaje': 'Jugador no válido'}
+        
+        # Clear pending selection
+        del game_state['pending_player_selection']
+        
+        # Now continue with normal flow: find positions for this player
+        posiciones = game_state['posiciones']
+        posiciones_jugador = self._get_all_valid_positions(jugador_encontrado)
+        
+        # Find ALL available positions that this player can occupy
+        posiciones_disponibles = []
+        for i, pos in enumerate(posiciones):
+            if not pos['revelado']:
+                pos_type = pos['posicion']
+                if pos_type in posiciones_jugador:
+                    posiciones_disponibles.append({
+                        'posicion': pos_type,
+                        'index': i
+                    })
+        
+        if not posiciones_disponibles:
+            return {
+                'correcto': False,
+                'mensaje': f'{jugador_encontrado["nombre"]} no puede ocupar ninguna posición vacía'
+            }
+        
+        # Get unique position types available
+        posiciones_unicas = list(set(p['posicion'] for p in posiciones_disponibles))
+        
+        # If multiple position TYPES available, ask user to choose
+        if len(posiciones_unicas) > 1:
+            game_state['pending_player'] = {
+                'jugador': jugador_encontrado,
+                'posiciones_disponibles': posiciones_disponibles
+            }
+            
+            return {
+                'correcto': True,
+                'requiere_seleccion': True,
+                'mensaje': f'¡Correcto! {jugador_encontrado["nombre"]} puede jugar en varias posiciones. Elegí una:',
+                'jugador_revelado': {
+                    'nombre': jugador_encontrado['nombre'],
+                    'apellido': jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1]),
+                    'image_url': self._get_jugador_image_url(jugador_encontrado)
+                },
+                'posiciones_disponibles': sorted(posiciones_unicas)
+            }
+        
+        # Only one position available, assign automatically
+        club_index = game_state['clubes_index']
+        club_actual = game_state['clubes_list'][club_index]
+        
+        posicion_elegida = posiciones_disponibles[0]
+        posicion_asignada = posicion_elegida['posicion']
+        pos_index = posicion_elegida['index']
+        
+        # Assign to position
+        posiciones[pos_index]['revelado'] = True
+        posiciones[pos_index]['jugador_nombre'] = jugador_encontrado['nombre']
+        posiciones[pos_index]['jugador_apellido'] = jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1])
+        posiciones[pos_index]['image_url'] = self._get_jugador_image_url(jugador_encontrado)
+        
+        # Move to next club
+        game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
+        next_club = game_state['clubes_list'][game_state['clubes_index']]
+        
+        # Verificar victoria: 11 jugadores + 1 técnico = 12 personas
+        jugadores_revelados = sum(1 for p in posiciones if p.get('revelado', False))
+        entrenador_revelado = game_state.get('entrenador_revelado', False)
+        game_over = (jugadores_revelados >= 11 and entrenador_revelado)
+        victoria = game_over
+        
+        mensaje = f'¡Correcto! {jugador_encontrado["nombre"]} - {posicion_asignada}'
+        if victoria:
+            mensaje = f'🎉 ¡Felicitaciones! Completaste el equipo con {jugador_encontrado["nombre"]}'
+        
+        return {
+            'correcto': True,
+            'mensaje': mensaje,
+            'jugador_revelado': {
+                'nombre': jugador_encontrado['nombre'],
+                'apellido': jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1]),
+                'posicion': posicion_asignada,
+                'club': club_actual,
+                'image_url': self._get_jugador_image_url(jugador_encontrado)
+            },
+            'posicion_asignada': posicion_asignada,
             'nuevo_club': {
                 'nombre': next_club,
                 'logo_url': self._get_logo_url(next_club),

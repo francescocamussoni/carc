@@ -48,6 +48,14 @@ export const gamesAPI = {
     });
     return response.data;
   },
+  
+  confirmarJugador: async (gameId, nombreJugador) => {
+    const response = await api.post('/games/confirmar-jugador', {
+      game_id: gameId,
+      nombre_jugador: nombreJugador,
+    });
+    return response.data;
+  },
 
   // Get list of available games
   listGames: async () => {
