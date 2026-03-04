@@ -952,6 +952,134 @@ class GameGeneratorService:
             },
             'club_actual': club_actual
         }
+    
+    def revelar_jugador_aleatorio(self, game_id: str) -> dict:
+        """
+        Revela un jugador aleatorio que cumpla con club y posiciones disponibles.
+        Solo para modo FÁCIL.
+        
+        Pasos:
+        1. Obtener club actual
+        2. Obtener posiciones disponibles (no reveladas)
+        3. Elegir una posición al azar
+        4. Buscar jugadores en el índice: club + posición
+        5. Elegir jugador al azar
+        6. Revelar
+        """
+        game_state = self._games_cache.get(game_id)
+        if not game_state:
+            return {"error": "Juego no encontrado"}
+        
+        # PASO 1: Obtener club actual
+        clubes_index = game_state.get('clubes_index', 0)
+        clubes_list = game_state.get('clubes_list', [])
+        if clubes_index >= len(clubes_list):
+            return {"error": "No hay más clubes disponibles"}
+        
+        club_actual = clubes_list[clubes_index]  # String con nombre del club
+        
+        # PASO 2: Obtener posiciones disponibles (no reveladas)
+        posiciones = game_state.get('posiciones', [])
+        posiciones_vacias = []
+        for i, p in enumerate(posiciones):
+            if isinstance(p, dict) and not p.get('revelado', False):
+                posiciones_vacias.append((i, p))  # Guardar índice y posición
+        
+        if not posiciones_vacias:
+            return {"error": "No hay posiciones disponibles"}
+        
+        # PASO 3: Elegir posición al azar
+        idx_seleccionado, posicion_seleccionada = random.choice(posiciones_vacias)
+        posicion_juego = posicion_seleccionada.get('posicion')  # Ej: 'DC', 'MI', 'EI'
+        
+        # PASO 4: Buscar jugadores en el índice
+        indice = self.data_loader.load_club_posicion_index()
+        if not indice:
+            return {"error": "Índice no disponible"}
+        
+        # Normalizar club para búsqueda
+        club_normalizado = self._normalize_text(club_actual)
+        
+        # Buscar el club en el índice
+        jugadores_disponibles = []
+        for club_key, posiciones_data in indice.items():
+            if self._normalize_text(club_key) == club_normalizado:
+                # Club encontrado
+                # El índice YA tiene las posiciones normalizadas (DC, EI, MD, etc.)
+                if posicion_juego in posiciones_data:
+                    jugadores_list = posiciones_data[posicion_juego]
+                    
+                    # Filtrar jugadores ya revelados
+                    apellidos_revelados = {p.get('jugador_apellido') for p in posiciones if isinstance(p, dict) and p.get('revelado')}
+                    
+                    for j in jugadores_list:
+                        if isinstance(j, dict):
+                            apellido = j.get('apellido')
+                            if apellido and apellido not in apellidos_revelados:
+                                jugadores_disponibles.append(j)
+                break
+        
+        if not jugadores_disponibles:
+            return {"error": f"No hay jugadores de '{club_actual}' para posición '{posicion_juego}'"}
+        
+        # PASO 5: Elegir jugador al azar
+        jugador = random.choice(jugadores_disponibles)
+        
+        # PASO 6: Revelar el jugador
+        # Actualizar game_state usando el índice que guardamos
+        game_state['posiciones'][idx_seleccionado]['revelado'] = True
+        game_state['posiciones'][idx_seleccionado]['jugador_apellido'] = jugador.get('apellido', '')
+        game_state['posiciones'][idx_seleccionado]['jugador_nombre'] = jugador.get('nombre', '')
+        
+        # Imagen
+        img_path = jugador.get('image_profile', '')
+        if img_path:
+            filename = img_path.split('/')[-1]
+            game_state['posiciones'][idx_seleccionado]['image_url'] = f'/api/v1/static/jugadores/{filename}'
+        
+        # Cambiar al siguiente club
+        game_state['clubes_index'] += 1
+        
+        # Nuevo club para respuesta
+        nuevo_club = None
+        if game_state['clubes_index'] < len(clubes_list):
+            next_name = clubes_list[game_state['clubes_index']]
+            nuevo_club = {
+                'nombre': next_name,
+                'logo_url': self._get_logo_url(next_name),
+                'pais': self._get_club_country(next_name) or "Desconocido"
+            }
+        
+        # Verificar victoria
+        revelados = sum(1 for p in game_state['posiciones'] if isinstance(p, dict) and p.get('revelado'))
+        entrenador_revelado = game_state.get('entrenador_revelado', False)
+        game_over = (revelados >= 11 and entrenador_revelado)
+        
+        if game_over:
+            game_state['game_over'] = True
+            game_state['victoria'] = True
+        
+        # Respuesta
+        img_path = jugador.get('image_profile', '')
+        img_url = ''
+        if img_path:
+            img_url = f'/api/v1/static/jugadores/{img_path.split("/")[-1]}'
+        
+        nombre = jugador.get('nombre', '')
+        apellido = jugador.get('apellido', '')
+        
+        return {
+            "jugador_revelado": {
+                "apellido": apellido,
+                "nombre": nombre,
+                "posicion": posicion_juego,
+                "image_url": img_url
+            },
+            "posiciones": game_state['posiciones'],
+            "nuevo_club": nuevo_club,
+            "game_over": game_over,
+            "mensaje": "🎉 ¡Felicitaciones! Completaste el equipo" if game_over else f"✨ {nombre} {apellido} revelado"
+        }
 
 
 # Singleton instance

@@ -516,6 +516,83 @@
   cursor: not-allowed;
 }
 
+/* Botón Revelar Jugador (modo fácil) - ahora en línea con otros botones */
+.btn-revelar {
+  flex: 1;
+  padding: clamp(0.6rem, 1vh, 0.8rem) 0.5rem;
+  font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: #ffffff;
+  border: 2px solid #9b59b6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(155, 89, 182, 0.3);
+}
+
+.btn-revelar:hover:not(:disabled) {
+  background: linear-gradient(135deg, #8e44ad, #7d3c98);
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(155, 89, 182, 0.5);
+}
+
+.btn-revelar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Timer (modo difícil) - más compacto */
+.timer-container {
+  margin: 0.6rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(33, 150, 243, 0.2);
+  border: 2px solid var(--info);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 800;
+  color: var(--info);
+  box-shadow: 0 3px 8px rgba(33, 150, 243, 0.3);
+  transition: all 0.3s ease;
+}
+
+.timer-urgente {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: var(--error);
+  color: var(--error-light);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.timer-icon {
+  font-size: 1.2rem;
+}
+
+.timer-numero {
+  min-width: 40px;
+  text-align: center;
+}
+
 /* ========================================
    PISTA CONTAINER - NUEVO
    ======================================== */

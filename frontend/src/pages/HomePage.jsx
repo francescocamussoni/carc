@@ -6,7 +6,7 @@ function HomePage() {
     {
       id: 'equipo-nacional',
       title: 'Equipo Nacional',
-      description: 'Adivina los 11 jugadores que pasaron por clubes argentinos',
+      description: 'Adiviná los 11 jugadores que pasaron por clubes argentinos',
       icon: '🇦🇷',
       path: '/equipo-nacional',
       color: '#76b9ff'
@@ -14,7 +14,7 @@ function HomePage() {
     {
       id: 'equipo-europeo',
       title: 'Equipo Europeo',
-      description: 'Adivina los 11 jugadores que pasaron por clubes europeos',
+      description: 'Adiviná los 11 jugadores que pasaron por clubes europeos',
       icon: '🇪🇺',
       path: '/equipo-europeo',
       color: '#4a90e2'
@@ -22,7 +22,7 @@ function HomePage() {
     {
       id: 'equipo-latinoamericano',
       title: 'Equipo Latinoamericano',
-      description: 'Adivina los 11 jugadores que pasaron por clubes latinoamericanos',
+      description: 'Adiviná los 11 jugadores que pasaron por clubes latinoamericanos',
       icon: '🌎',
       path: '/equipo-latinoamericano',
       color: '#003f7f'
@@ -44,8 +44,8 @@ function HomePage() {
         </h1>
         <p className="hero-subtitle">Rosario Central</p>
         <p className="hero-description">
-          ¡Desafía tus conocimientos sobre el Club Atlético Rosario Central! 
-          Juega a los juegos diarios y demuestra que sos un verdadero canalla.
+          ¡Desafiá tus conocimientos sobre el Club Atlético Rosario Central! 
+          Jugá a los juegos diarios y demostrá que sos un verdadero canalla.
         </p>
       </div>
 
@@ -78,7 +78,7 @@ function HomePage() {
         </div>
         <div className="info-card">
           <h3>🏆 Desafío Canalla</h3>
-          <p>Pon a prueba tu conocimiento sobre Central</p>
+          <p>Poné a prueba tu conocimiento sobre Central</p>
         </div>
       </div>
 

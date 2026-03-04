@@ -114,6 +114,31 @@ async def obtener_pista(game_id: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.post("/revelar-jugador/{game_id}")
+async def revelar_jugador_aleatorio(game_id: str):
+    """
+    Reveal a random player that meets club and position requirements.
+    Only available in EASY mode.
+    
+    Returns:
+    - Jugador revelado (apellido, nombre, posición, foto)
+    - Posiciones actualizadas
+    - Nuevo club
+    - Estado del juego
+    """
+    try:
+        result = game_generator_service.revelar_jugador_aleatorio(game_id)
+        
+        if "error" in result:
+            raise HTTPException(status_code=400, detail=result["error"])
+        
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.post("/confirmar-posicion", response_model=GameResult)
 async def confirmar_posicion(seleccion: PosicionSeleccionada):
     """Confirm position choice for a multi-position player"""

@@ -1,8 +1,18 @@
 import { useState, useEffect } from 'react'
 import { gamesAPI } from '../services/api'
+import DifficultySelector from './DifficultySelector'
 import '../styles/EquipoGame.css'
 
 function EquipoGame({ gameType, title }) {
+  // Dificultad
+  const [mostrarSelectorDificultad, setMostrarSelectorDificultad] = useState(true)
+  const [dificultad, setDificultad] = useState(null)
+  const [pistasUsadas, setPistasUsadas] = useState(0)
+  const [revelacionesUsadas, setRevelacionesUsadas] = useState(0)
+  const [tiempoRestante, setTiempoRestante] = useState(60)
+  const [timerActivo, setTimerActivo] = useState(false)
+  
+  // Game state
   const [gameData, setGameData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -10,12 +20,12 @@ function EquipoGame({ gameType, title }) {
   const [clubActual, setClubActual] = useState(null)
   const [posiciones, setPosiciones] = useState([])
   const [entrenadorRevelado, setEntrenadorRevelado] = useState(false)
-  const [entrenadorNombre, setEntrenadorNombre] = useState(null) // Nombre del DT adivinado
-  const [entrenadorImageUrl, setEntrenadorImageUrl] = useState(null) // Foto del DT
+  const [entrenadorNombre, setEntrenadorNombre] = useState(null)
+  const [entrenadorImageUrl, setEntrenadorImageUrl] = useState(null)
   const [mensaje, setMensaje] = useState('')
   const [gameOver, setGameOver] = useState(false)
   const [mostrarPista, setMostrarPista] = useState(false)
-  const [pistasReales, setPistasReales] = useState(null) // Pistas del backend
+  const [pistasReales, setPistasReales] = useState(null)
   const [mostrarSelectorPosicion, setMostrarSelectorPosicion] = useState(false)
   const [posicionesDisponibles, setPosicionesDisponibles] = useState([])
   const [jugadorPendiente, setJugadorPendiente] = useState(null)
@@ -24,8 +34,39 @@ function EquipoGame({ gameType, title }) {
   const [apellidoBuscado, setApellidoBuscado] = useState('')
 
   useEffect(() => {
-    fetchGame()
-  }, [])
+    if (dificultad) {
+      fetchGame()
+    }
+  }, [dificultad])
+
+  // Timer para modo difícil
+  useEffect(() => {
+    if (dificultad === 'dificil' && timerActivo && tiempoRestante > 0 && !gameOver) {
+      const interval = setInterval(() => {
+        setTiempoRestante(prev => {
+          if (prev <= 1) {
+            clearInterval(interval)
+            setGameOver(true)
+            setMensaje('⏰ ¡Se acabó el tiempo! Perdiste.')
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
+      
+      return () => clearInterval(interval)
+    }
+  }, [dificultad, timerActivo, tiempoRestante, gameOver])
+
+  const handleSelectDifficulty = (diffSelected) => {
+    setDificultad(diffSelected)
+    setMostrarSelectorDificultad(false)
+    
+    // Si es difícil, iniciar timer cuando cargue el juego
+    if (diffSelected === 'dificil') {
+      setTimerActivo(true)
+    }
+  }
 
   const fetchGame = async () => {
     try {
@@ -259,6 +300,13 @@ function EquipoGame({ gameType, title }) {
   }
 
   const handlePista = async () => {
+    // Verificar si quedan pistas disponibles
+    if (pistasUsadas >= 3) {
+      setMensaje('❌ Ya usaste las 3 pistas disponibles')
+      setTimeout(() => setMensaje(''), 3000)
+      return
+    }
+    
     if (!mostrarPista) {
       // Si no está mostrando la pista, obtenerla del backend
       try {
@@ -271,6 +319,7 @@ function EquipoGame({ gameType, title }) {
         
         setPistasReales(result.pistas)
         setMostrarPista(true)
+        setPistasUsadas(prev => prev + 1) // Incrementar contador
       } catch (error) {
         console.error('Error obteniendo pista:', error)
         setMensaje('❌ Error al obtener pista')
@@ -290,6 +339,57 @@ function EquipoGame({ gameType, title }) {
     setMensaje('Te rendiste. Aquí está el equipo completo.')
     setMostrarPista(false)
     setMostrarSelectorPosicion(false) // Cerrar selector si está abierto
+  }
+
+  const handleRevelarJugador = async () => {
+    // Solo disponible en modo fácil
+    if (dificultad !== 'facil') {
+      return
+    }
+    
+    // Verificar si quedan revelaciones disponibles
+    if (revelacionesUsadas >= 3) {
+      setMensaje('❌ Ya usaste las 3 revelaciones disponibles')
+      setTimeout(() => setMensaje(''), 3000)
+      return
+    }
+    
+    try {
+      const result = await gamesAPI.revelarJugador(gameData.game_id)
+      
+      if (result.error) {
+        setMensaje(`❌ ${result.error}`)
+        setTimeout(() => setMensaje(''), 3000)
+        return
+      }
+      
+      // Actualizar posiciones con el jugador revelado
+      setPosiciones(result.posiciones)
+      
+      // Actualizar club actual
+      if (result.nuevo_club) {
+        setClubActual(result.nuevo_club)
+      }
+      
+      // Incrementar contador de revelaciones
+      setRevelacionesUsadas(prev => prev + 1)
+      
+      // Mostrar mensaje
+      setMensaje(result.mensaje)
+      
+      // Si el juego terminó
+      if (result.game_over) {
+        setGameOver(true)
+      }
+      
+      // Limpiar mensaje después de 3 segundos
+      setTimeout(() => setMensaje(''), 3000)
+      
+    } catch (error) {
+      console.error('Error revelando jugador:', error)
+      setMensaje('❌ Error al revelar jugador')
+      setTimeout(() => setMensaje(''), 3000)
+    }
   }
 
   const organizarFormacion = () => {
@@ -351,6 +451,11 @@ function EquipoGame({ gameType, title }) {
     )
   }
 
+  // Mostrar selector de dificultad antes de cargar el juego
+  if (mostrarSelectorDificultad) {
+    return <DifficultySelector onSelectDifficulty={handleSelectDifficulty} />
+  }
+
   if (loading) {
     return (
       <div className="equipo-game-container">
@@ -408,6 +513,16 @@ function EquipoGame({ gameType, title }) {
                   <span className="progreso-texto">TÉCNICO</span>
                 </div>
               </div>
+              
+              {/* Timer (modo difícil) */}
+              {dificultad === 'dificil' && (
+                <div className="timer-container">
+                  <div className={`timer ${tiempoRestante <= 10 ? 'timer-urgente' : ''}`}>
+                    <span className="timer-icon">⏱️</span>
+                    <span className="timer-numero">{tiempoRestante}s</span>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -449,11 +564,20 @@ function EquipoGame({ gameType, title }) {
               <div className="botones">
                 <button 
                   onClick={handlePista}
-                  disabled={gameOver} 
+                  disabled={gameOver || pistasUsadas >= 3} 
                   className="btn-pista"
                 >
-                  💡 PISTA
+                  💡 PISTA ({3 - pistasUsadas})
                 </button>
+                {dificultad === 'facil' && (
+                  <button 
+                    onClick={handleRevelarJugador}
+                    disabled={gameOver || revelacionesUsadas >= 3}
+                    className="btn-revelar"
+                  >
+                    ✨ REVELAR ({3 - revelacionesUsadas})
+                  </button>
+                )}
                 <button 
                   onClick={handleRendirse}
                   disabled={gameOver} 

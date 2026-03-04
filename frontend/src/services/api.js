@@ -63,6 +63,12 @@ export const gamesAPI = {
     return response.data;
   },
 
+  // Reveal random player (EASY mode only)
+  revelarJugador: async (gameId) => {
+    const response = await api.post(`/games/revelar-jugador/${gameId}`);
+    return response.data;
+  },
+
   // Get list of available games
   listGames: async () => {
     const response = await api.get('/games/list');
