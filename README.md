@@ -118,9 +118,14 @@ Identifica jugadores dirigidos por un técnico.
 ### 🇦🇷 Equipo Nacional / 🌍 Europeo / 🌎 Latinoamericano
 Arma el equipo titular adivinando jugadores por clubes.
 - 11 jugadores + DT
-- Formaciones dinámicas (4-3-3, 4-4-2, 3-5-2, etc.)
-- Sistema de pistas
+- **3 Modos de Dificultad:**
+  - **🌴 Potrero:** 3 pistas + 3 revelaciones de jugador + sin límite
+  - **🏆 Clásico:** 3 pistas + sin límite de tiempo
+  - **💪 Hazaña:** 3 pistas + 60 segundos ⏱️
+- Formaciones dinámicas (4-3-3, 4-4-2, 3-5-2, 4-3-2-1)
+- Sistema de pistas inteligentes (letra, posición, club)
 - Selector de posición para jugadores polivalentes
+- Revelación automática de jugadores (modo Potrero)
 
 ---
 
@@ -128,15 +133,22 @@ Arma el equipo titular adivinando jugadores por clubes.
 
 | Tipo | Cantidad | Ubicación |
 |------|----------|-----------|
-| Jugadores | ~1,500 | `scraping/data/output/rosario_central_jugadores.json` |
+| Jugadores | ~1,600 | `scraping/data/output/rosario_central_jugadores.json` |
 | Técnicos | ~65 | `scraping/data/output/rosario_central_tecnicos.json` |
 | Relaciones | 65 técnicos | `scraping/data/output/rosario_central_tecnicos_jugadores.json` |
 | Goles | Miles | `scraping/data/output/rosario_central_goles_detallados.json` |
+| **Índice Optimizado** | 856 clubes | `scraping/data/output/club_posicion_index.json` |
 | Logos Clubes | ~300 | `scraping/data/images/clubes/` |
-| Fotos Jugadores | ~1,500 | `scraping/data/images/jugadores/` |
+| Fotos Jugadores | ~1,600 | `scraping/data/images/jugadores/` |
 | Fotos Técnicos | ~65 | `scraping/data/images/tecnicos/` |
+| Imágenes Personalizadas | 6 | `scraping/data/images/otras/` |
 
 **Generar datos nuevos:** `cd scraping && python scripts/run_pipeline.py`
+
+### 🚀 Optimizaciones
+- **Índice club-posición:** Búsqueda O(1) vs O(N*M)
+- **Imágenes optimizadas:** <400KB cada una
+- **Lazy loading:** Imágenes cargadas bajo demanda
 
 ---
 
@@ -285,11 +297,15 @@ lsof -ti :3000 | xargs kill -9  # Frontend
 
 ## 📊 Estadísticas
 
-- **Líneas de código:** ~4,500
-- **Archivos creados:** ~40
-- **Datos recopilados:** 451 jugadores, 65 técnicos, 1,184 imágenes
-- **Tiempo de desarrollo:** 1 sesión
-- **Performance:** Backend <100ms, Frontend 60fps
+- **Líneas de código:** ~6,000
+- **Archivos creados:** ~45
+- **Datos recopilados:** ~1,600 jugadores, 65 técnicos, 856 clubes indexados
+- **Imágenes:** ~2,000 (jugadores, técnicos, clubes, personalizadas)
+- **Performance:** 
+  - Backend: <50ms por request
+  - Frontend: 60fps constante
+  - Imágenes: <400KB optimizadas
+  - Transiciones: 150-200ms
 
 ---
 
@@ -320,6 +336,7 @@ Uso educativo. Datos de Transfermarkt (respetar ToS).
 
 ---
 
-**Versión:** 2.0.0  
-**Última actualización:** 2026-03-03  
-**Diseño:** Inspirado en FutFactos.com
+**Versión:** 2.5.0  
+**Última actualización:** 2026-03-04  
+**Diseño:** Inspirado en FutFactos.com  
+**Idioma:** Español argentino (voseo)

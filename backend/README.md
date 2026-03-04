@@ -8,13 +8,18 @@ API REST con FastAPI para servir juegos de trivia de fútbol.
 
 ## 🎯 Características
 
-- ✅ 9 endpoints RESTful (6 juegos + 3 servicios)
+- ✅ **12 endpoints RESTful** (6 juegos + 6 servicios)
 - ✅ Generación determinística de juegos (mismo juego/día para todos)
 - ✅ 6 juegos implementados (Trayectoria + Órbita + Equipo)
+- ✅ **3 Modos de dificultad** (Potrero, Clásico, Hazaña)
+- ✅ **Sistema de pistas inteligentes** (letra, posición, club)
+- ✅ **Revelación automática de jugadores** (modo Potrero)
 - ✅ Sistema de formaciones dinámicas (4-3-3, 4-4-2, 3-5-2, 4-3-2-1)
-- ✅ Selector de posición para jugadores polivalentes
+- ✅ Selector de posición/jugador para múltiples opciones
+- ✅ **Índice optimizado** club-posición (búsqueda O(1))
 - ✅ Verificación con fuzzy matching + normalización de texto
-- ✅ Servicio de imágenes estáticas (jugadores, técnicos, clubes)
+- ✅ Servicio de imágenes estáticas (jugadores, técnicos, clubes, personalizadas)
+- ✅ **Salto automático de clubes** sin jugadores disponibles
 - ✅ Documentación automática (Swagger)
 - ✅ CORS configurado
 
@@ -72,7 +77,10 @@ GET  /api/v1/games/equipo-latinoamericano     # Arma equipo con latinoamericanos
 
 # Servicios
 POST /api/v1/games/verify                     # Verificar respuesta
-POST /api/v1/games/confirmar-posicion         # Confirmar posición de jugador (NUEVO)
+POST /api/v1/games/confirmar-posicion         # Confirmar posición (jugador polivalente)
+POST /api/v1/games/confirmar-jugador          # Confirmar jugador (múltiples coincidencias)
+GET  /api/v1/games/pista/{game_id}            # Obtener pista inteligente
+POST /api/v1/games/revelar-jugador/{game_id}  # Revelar jugador aleatorio (modo Potrero)
 GET  /api/v1/games/list                       # Listar juegos disponibles
 ```
 
@@ -82,6 +90,7 @@ GET  /api/v1/games/list                       # Listar juegos disponibles
 GET /api/v1/static/jugadores/{nombre}.jpg      # Foto de jugador
 GET /api/v1/static/tecnicos/{nombre}.jpg       # Foto de técnico
 GET /api/v1/static/clubes/{pais}/{nombre}.png  # Logo de club (organizado por país)
+GET /api/v1/static/otras/{nombre}              # Imágenes personalizadas (Rubén, Di María, etc.)
 ```
 
 ---
@@ -132,6 +141,42 @@ curl -X POST http://localhost:8000/api/v1/games/verify \
 }
 ```
 
+### Obtener pista inteligente
+
+```bash
+curl http://localhost:8000/api/v1/games/pista/equipo_nacional_20260304
+```
+
+**Response:**
+```json
+{
+  "letra_apellido": "R",
+  "posicion_principal": "DEL",
+  "otro_club": "Dynamo Kyiv"
+}
+```
+
+### Revelar jugador aleatorio
+
+```bash
+curl -X POST http://localhost:8000/api/v1/games/revelar-jugador/equipo_nacional_20260304
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "jugador_revelado": {
+    "nombre": "Marco",
+    "apellido": "Ruben",
+    "posicion": "DEL",
+    "image_url": "/api/v1/static/jugadores/marco_ruben.jpg"
+  },
+  "posicion_asignada": "DEL",
+  "nuevo_club": {...}
+}
+```
+
 ---
 
 ## 🏗️ Estructura
@@ -167,6 +212,21 @@ BACKEND_CORS_ORIGINS = ["http://localhost:3000"]
 # Paths a datos (generados por scraping)
 JUGADORES_JSON_PATH = "../scraping/data/output/rosario_central_jugadores.json"
 TECNICOS_JSON_PATH = "../scraping/data/output/rosario_central_tecnicos.json"
+CLUB_POSICION_INDEX_PATH = "../scraping/data/output/club_posicion_index.json"  # NUEVO
+```
+
+**Índice Optimizado:**
+
+El archivo `club_posicion_index.json` organiza jugadores por club y posición para búsquedas O(1):
+
+```json
+{
+  "Rosario Central": {
+    "DEL": [{"nombre": "Marco", "apellido": "Ruben", ...}],
+    "MC": [...]
+  },
+  "River Plate": {...}
+}
 ```
 
 ---
@@ -239,4 +299,5 @@ fly deploy
 
 **FastAPI:** 0.109.0  
 **Python:** 3.9+  
-**Última actualización:** 2026-03-03
+**Última actualización:** 2026-03-04  
+**Endpoints:** 12 (6 juegos + 6 servicios)

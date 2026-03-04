@@ -1,6 +1,6 @@
 # 🔧 Scraping - Rosario Central
 
-Pipeline automatizado con 5 scrapers para obtener datos de jugadores, técnicos y clubes desde Transfermarkt.
+Pipeline automatizado con 6 scrapers + índice optimizado para obtener datos de jugadores, técnicos y clubes desde Transfermarkt.
 
 > **[← Volver al README principal](../README.md)**
 
@@ -13,9 +13,10 @@ Pipeline automatizado con 5 scrapers para obtener datos de jugadores, técnicos 
 - [Scrapers Disponibles](#-scrapers-disponibles)
   - [1. Jugadores](#1-jugadores)
   - [2. Técnicos](#2-técnicos)
-  - [3. Logos de Clubes](#3-logos-de-clubes-nuevo)
+  - [3. Logos de Clubes](#3-logos-de-clubes)
   - [4. Goles Detallados](#4-goles-detallados-opcional)
   - [5. Técnicos-Jugadores](#5-técnicos-jugadores-opcional)
+  - [6. Índice Club-Posición](#6-índice-club-posición-nuevo)
 - [Estructura de Datos](#-estructura-de-datos)
 - [Configuración](#-configuración)
 
@@ -50,18 +51,20 @@ python scripts/run_pipeline.py
 ```
 
 **Opciones:**
-1. **Pipeline completo** - Jugadores + Técnicos + Logos + Opcionales (~45-60 min)
-2. **Solo esencial** - Jugadores + Técnicos + Logos (~35-45 min)
+1. **Pipeline completo** - Jugadores + Técnicos + Logos + Índice + Opcionales (~45-60 min)
+2. **Solo esencial** - Jugadores + Técnicos + Logos + Índice (~35-45 min)
 3. **Solo jugadores** (~30-45 min)
 4. **Solo técnicos** (~3-5 min)
 5. **Solo logos** (~5-10 min)
+6. **Solo índice** (~10-30 seg)
 
 **Características:**
-- ✅ Ejecución paralela (jugadores + técnicos simultáneamente)
-- ✅ Respeta dependencias (logos espera a jugadores/técnicos)
-- ✅ Auto-confirmación (sin intervención manual)
-- ✅ Resumen detallado con tiempos
-- ✅ Scraping incremental (continúa desde donde quedó)
+- ✅ **Ejecución paralela** (jugadores + técnicos simultáneamente)
+- ✅ **Respeta dependencias** (logos espera a jugadores/técnicos, índice al final)
+- ✅ **Auto-confirmación** (sin intervención manual)
+- ✅ **Índice optimizado** (búsqueda O(1) por club y posición)
+- ✅ **Resumen detallado** con tiempos
+- ✅ **Scraping incremental** (continúa desde donde quedó)
 
 ---
 
@@ -253,6 +256,51 @@ python scripts/run_tecnicos_jugadores.py
 
 ---
 
+### 6. Índice Club-Posición (NUEVO)
+
+**Genera:** Índice optimizado para búsquedas rápidas de jugadores por club y posición.
+
+**Ejecutar:**
+```bash
+python scripts/generar_indice_club_posicion.py
+```
+
+**Output:** `data/output/club_posicion_index.json`
+
+**Características:**
+- ✅ **Búsqueda O(1)** vs O(N*M) en datos originales
+- ✅ ~856 clubes indexados
+- ✅ ~1,600 jugadores distribuidos por club y posición
+- ✅ Usado para pistas inteligentes y revelación de jugadores
+- ✅ **Tiempo:** 10-30 segundos
+
+**Estructura:**
+```json
+{
+  "Rosario Central": {
+    "DEL": [
+      {
+        "nombre": "Marco",
+        "apellido": "Ruben",
+        "posicion_principal": "DEL",
+        "clubes_historia": [...],
+        "image_profile": "data/images/jugadores/marco_ruben.jpg"
+      }
+    ],
+    "MC": [...],
+    "DC": [...]
+  },
+  "Boca Juniors": {...},
+  "River Plate": {...}
+}
+```
+
+**Integración:**
+- **Backend:** Usa este índice para `obtenerPista()` y `revelarJugadorAleatorio()`
+- **Pipeline:** Se ejecuta automáticamente después de jugadores/técnicos
+
+---
+
 ## 📊 Estructura de Datos
 
 ### Output Files
@@ -260,18 +308,26 @@ python scripts/run_tecnicos_jugadores.py
 ```
 data/
 ├── output/
-│   ├── rosario_central_jugadores.json           # ~1,500 jugadores
+│   ├── rosario_central_jugadores.json           # ~1,600 jugadores
 │   ├── rosario_central_tecnicos.json            # ~65 técnicos
+│   ├── club_posicion_index.json                 # Índice optimizado (NUEVO)
 │   ├── rosario_central_tecnicos_jugadores.json  # Relaciones (opcional)
 │   └── rosario_central_goles_detallados.json    # Goles (opcional)
 └── images/
-    ├── jugadores/   # ~1,500 fotos
+    ├── jugadores/   # ~1,600 fotos
     ├── tecnicos/    # ~65 fotos
-    └── clubes/      # ~300 logos (NUEVO)
-        ├── argentina/
-        ├── italia/
-        ├── españa/
-        └── ...
+    ├── clubes/      # ~300 logos
+    │   ├── argentina/
+    │   ├── italia/
+    │   ├── españa/
+    │   └── ...
+    └── otras/       # Imágenes personalizadas (NUEVO)
+        ├── ruben.jpg (84KB)
+        ├── di_maria.jpg (60KB)
+        ├── bauza.webp (27KB)
+        ├── palma.webp (32KB)
+        ├── miguel.png (339KB)
+        └── petaco.avif (118KB)
 ```
 
 ### Relaciones
@@ -322,21 +378,25 @@ DELAY_ENTRE_PAGINAS = (1, 2)
 |---------|----------|-------------------|
 | **Pipeline Completo** | Todo | **~45-60 min** |
 | **Pipeline Esencial** | Sin opcionales | **~35-45 min** |
-| Jugadores | ~1,500 | ~30-45 min |
+| Jugadores | ~1,600 | ~30-45 min |
 | Técnicos | ~65 | ~3-5 min |
 | Logos de Clubes | ~300 | ~5-10 min |
+| **Índice Club-Posición** | 856 clubes | **~10-30 seg** |
 | Goles Detallados (opcional) | ~200 | ~7-10 min |
 | Técnicos-Jugadores (opcional) | 65 | ~5-8 min |
 
 **Optimizaciones:**
 - ✅ **Orquestación inteligente** (pipeline automatizado)
 - ✅ **Ejecución paralela** (jugadores + técnicos simultáneos)
-- ✅ **URLs directas** (logos sin búsqueda ambigua)
+- ✅ **Índice optimizado** (búsqueda O(1) vs O(N*M))
+- ✅ **URLs directas** (logos desde historial, sin búsqueda)
+- ✅ **Normalización consistente** (nombres = archivos)
 - ✅ Paralelización (4-5 workers por scraper)
 - ✅ Session pooling (keep-alive)
 - ✅ Caché HTTP
 - ✅ Scraping incremental (skip ya procesados)
 - ✅ Retry con backoff exponencial
+- ✅ Limpieza automática (números de camiseta, caracteres especiales)
 
 ---
 
@@ -387,7 +447,8 @@ scraper.scrape(paralelo=False)  # Más lento pero más seguro
 
 ---
 
-**Versión:** 3.0  
-**Performance:** 4-5x más rápido que v1, con pipeline automatizado  
-**Total datos:** ~2,000 imágenes + 4 JSON files  
-**Última actualización:** 2026-03-03
+**Versión:** 3.5  
+**Performance:** 4-5x más rápido que v1, con pipeline automatizado + índice optimizado  
+**Total datos:** ~2,000 imágenes + 5 JSON files (incluyendo índice)  
+**Scrapers:** 6 scrapers + 1 procesador de índice  
+**Última actualización:** 2026-03-04
