@@ -8,6 +8,7 @@ function HomePage() {
       title: 'Equipo Nacional',
       description: 'Adiviná los 11 jugadores que pasaron por clubes argentinos',
       icon: '🇦🇷',
+      image: 'http://localhost:8000/api/v1/static/otras/ruben.jpg',
       path: '/equipo-nacional',
       color: '#76b9ff'
     },
@@ -16,6 +17,7 @@ function HomePage() {
       title: 'Equipo Europeo',
       description: 'Adiviná los 11 jugadores que pasaron por clubes europeos',
       icon: '🇪🇺',
+      image: 'http://localhost:8000/api/v1/static/otras/di_maria.jpg',
       path: '/equipo-europeo',
       color: '#4a90e2'
     },
@@ -24,6 +26,7 @@ function HomePage() {
       title: 'Equipo Latinoamericano',
       description: 'Adiviná los 11 jugadores que pasaron por clubes latinoamericanos',
       icon: '🌎',
+      image: 'http://localhost:8000/api/v1/static/otras/bauza.webp',
       path: '/equipo-latinoamericano',
       color: '#003f7f'
     }
@@ -57,7 +60,18 @@ function HomePage() {
             className="game-card"
             style={{ borderTop: `5px solid ${game.color}` }}
           >
-            <div className="game-icon">{game.icon}</div>
+            <div className="game-icon">
+              {game.image ? (
+                <img 
+                  src={game.image} 
+                  alt={game.title} 
+                  className={`game-icon-image game-icon-${game.id}`}
+                  loading="eager"
+                />
+              ) : (
+                game.icon
+              )}
+            </div>
             <h2 className="game-title">{game.title}</h2>
             <p className="game-description">{game.description}</p>
             <div className="game-footer">

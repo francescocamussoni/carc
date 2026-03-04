@@ -57,7 +57,13 @@ function DifficultySelector({ onSelectDifficulty }) {
               style={{ '--diff-color': diff.color }}
             >
               <div className="difficulty-icon">
-                <img src={diff.image} alt={diff.name} className="difficulty-image" />
+                <img 
+                  src={diff.image} 
+                  alt={diff.name} 
+                  className="difficulty-image"
+                  loading="eager"
+                  decoding="async"
+                />
               </div>
               <h2 className="difficulty-name">{diff.name}</h2>
               

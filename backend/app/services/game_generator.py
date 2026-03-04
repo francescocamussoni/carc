@@ -961,10 +961,9 @@ class GameGeneratorService:
         Pasos:
         1. Obtener club actual
         2. Obtener posiciones disponibles (no reveladas)
-        3. Elegir una posición al azar
-        4. Buscar jugadores en el índice: club + posición
-        5. Elegir jugador al azar
-        6. Revelar
+        3. Intentar buscar jugadores para distintas posiciones hasta encontrar uno
+        4. Si no hay jugadores, saltar al siguiente club (máx 3 intentos)
+        5. Elegir jugador al azar y revelar
         """
         game_state = self._games_cache.get(game_id)
         if not game_state:
@@ -988,11 +987,7 @@ class GameGeneratorService:
         if not posiciones_vacias:
             return {"error": "No hay posiciones disponibles"}
         
-        # PASO 3: Elegir posición al azar
-        idx_seleccionado, posicion_seleccionada = random.choice(posiciones_vacias)
-        posicion_juego = posicion_seleccionada.get('posicion')  # Ej: 'DC', 'MI', 'EI'
-        
-        # PASO 4: Buscar jugadores en el índice
+        # PASO 3: Buscar jugadores para distintas posiciones hasta encontrar
         indice = self.data_loader.load_club_posicion_index()
         if not indice:
             return {"error": "Índice no disponible"}
@@ -1000,32 +995,59 @@ class GameGeneratorService:
         # Normalizar club para búsqueda
         club_normalizado = self._normalize_text(club_actual)
         
-        # Buscar el club en el índice
+        # Mezclar posiciones para intentar en orden aleatorio
+        random.shuffle(posiciones_vacias)
+        
+        idx_seleccionado = None
+        posicion_seleccionada = None
+        posicion_juego = None
         jugadores_disponibles = []
-        for club_key, posiciones_data in indice.items():
-            if self._normalize_text(club_key) == club_normalizado:
-                # Club encontrado
-                # El índice YA tiene las posiciones normalizadas (DC, EI, MD, etc.)
-                if posicion_juego in posiciones_data:
-                    jugadores_list = posiciones_data[posicion_juego]
-                    
-                    # Filtrar jugadores ya revelados
-                    apellidos_revelados = {p.get('jugador_apellido') for p in posiciones if isinstance(p, dict) and p.get('revelado')}
-                    
-                    for j in jugadores_list:
-                        if isinstance(j, dict):
-                            apellido = j.get('apellido')
-                            if apellido and apellido not in apellidos_revelados:
-                                jugadores_disponibles.append(j)
+        
+        # Intentar con cada posición vacía hasta encontrar jugadores
+        for idx, pos in posiciones_vacias:
+            pos_tipo = pos.get('posicion')
+            
+            # Buscar el club en el índice
+            for club_key, posiciones_data in indice.items():
+                if self._normalize_text(club_key) == club_normalizado:
+                    # Club encontrado
+                    if pos_tipo in posiciones_data:
+                        jugadores_list = posiciones_data[pos_tipo]
+                        
+                        # Filtrar jugadores ya revelados
+                        apellidos_revelados = {p.get('jugador_apellido') for p in posiciones if isinstance(p, dict) and p.get('revelado')}
+                        
+                        for j in jugadores_list:
+                            if isinstance(j, dict):
+                                apellido = j.get('apellido')
+                                if apellido and apellido not in apellidos_revelados:
+                                    jugadores_disponibles.append(j)
+                    break
+            
+            # Si encontramos jugadores, usar esta posición
+            if jugadores_disponibles:
+                idx_seleccionado = idx
+                posicion_seleccionada = pos
+                posicion_juego = pos_tipo
                 break
         
+        # Si no hay jugadores para este club, saltar al siguiente
         if not jugadores_disponibles:
-            return {"error": f"No hay jugadores de '{club_actual}' para posición '{posicion_juego}'"}
+            game_state['clubes_index'] += 1
+            # Intentar recursivamente con el siguiente club (máximo 3 intentos)
+            if game_state['clubes_index'] < len(clubes_list) and game_state.get('_revelar_intentos', 0) < 3:
+                game_state['_revelar_intentos'] = game_state.get('_revelar_intentos', 0) + 1
+                result = self.revelar_jugador_aleatorio(game_id)
+                game_state['_revelar_intentos'] = 0  # Reset
+                return result
+            else:
+                game_state['_revelar_intentos'] = 0
+                return {"error": f"No se encontraron jugadores disponibles después de varios intentos"}
         
-        # PASO 5: Elegir jugador al azar
+        # PASO 4: Elegir jugador al azar
         jugador = random.choice(jugadores_disponibles)
         
-        # PASO 6: Revelar el jugador
+        # PASO 5: Revelar el jugador
         # Actualizar game_state usando el índice que guardamos
         game_state['posiciones'][idx_seleccionado]['revelado'] = True
         game_state['posiciones'][idx_seleccionado]['jugador_apellido'] = jugador.get('apellido', '')

@@ -58,7 +58,7 @@
   border-radius: 15px;
   padding: clamp(1rem, 2vw, 1.5rem);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,6 +66,7 @@
   position: relative;
   overflow: hidden;
   height: 100%;
+  will-change: transform;
 }
 
 .difficulty-card::before {
@@ -110,12 +111,12 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease;
+  will-change: transform;
 }
 
 .difficulty-card.hovered .difficulty-image {
-  transform: scale(1.08);
-  filter: brightness(1.15) drop-shadow(0 0 20px rgba(255, 209, 0, 0.6));
+  transform: scale(1.05);
 }
 
 .difficulty-name {
@@ -179,20 +180,20 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   letter-spacing: 1px;
   z-index: 1;
   box-shadow: 0 4px 15px rgba(255, 209, 0, 0.3);
+  will-change: transform;
 }
 
 .difficulty-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 25px rgba(255, 209, 0, 0.5);
-  background: #ffd700;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 209, 0, 0.4);
 }
 
 .difficulty-btn:active {
-  transform: translateY(-1px);
+  transform: translateY(0);
 }
 
 /* Animaciones */
