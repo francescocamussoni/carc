@@ -399,9 +399,27 @@ function EquipoGame({ gameType, title }) {
     
     const portero = posiciones.filter(p => p.posicion === 'PO')
     const defensores = posiciones.filter(p => ['DC', 'ED', 'EI'].includes(p.posicion))
-    const mediocampistas = posiciones.filter(p => ['MC', 'MD', 'MI'].includes(p.posicion))
-    const mediocampistasOfensivos = posiciones.filter(p => p.posicion === 'MO')
     const delanteros = posiciones.filter(p => p.posicion === 'DEL')
+    
+    // Organizar mediocampistas según el esquema
+    let mediocampistas = []
+    let mediocampistasOfensivos = []
+    
+    const esquema = gameData?.formacion || '4-3-3'
+    const lineas = esquema.split('-').length
+    
+    if (lineas === 4) {
+      // Esquemas con 4 líneas (ej: 4-2-3-1, 3-4-1-2)
+      // Línea 2: solo MC (pivotes)
+      // Línea 3: MO, MI, MD (mediapuntas)
+      mediocampistas = posiciones.filter(p => p.posicion === 'MC')
+      mediocampistasOfensivos = posiciones.filter(p => ['MO', 'MI', 'MD'].includes(p.posicion))
+    } else {
+      // Esquemas con 3 líneas (ej: 4-3-3, 4-4-2, 3-5-2)
+      // Línea 2: MC, MI, MD todos juntos
+      mediocampistas = posiciones.filter(p => ['MC', 'MI', 'MD'].includes(p.posicion))
+      mediocampistasOfensivos = posiciones.filter(p => p.posicion === 'MO')
+    }
 
     return {
       portero,
@@ -424,18 +442,17 @@ function EquipoGame({ gameType, title }) {
         <div className="jugador-circle">
           {revelado ? (
             <div className="jugador-revelado">
-              {jugador.image_url ? (
+              {jugador.image_url && (
                 <img 
-                  src={`http://localhost:8000${jugador.image_url}`} 
+                  src={jugador.image_url} 
                   alt={jugador.jugador_apellido}
                   className="jugador-foto"
                   onError={(e) => {
                     e.target.style.display = 'none'
-                    e.target.nextSibling.style.display = 'block'
                   }}
                 />
-              ) : null}
-              <div className="jugador-nombre" style={{display: jugador.image_url ? 'none' : 'block'}}>
+              )}
+              <div className="jugador-nombre">
                 {jugador.jugador_apellido || '?'}
               </div>
               <div className="posicion-small">{jugador.posicion}</div>
@@ -604,7 +621,7 @@ function EquipoGame({ gameType, title }) {
               )}
 
               {mensaje && (
-                <div className={`mensaje ${mensaje.includes('✅') ? 'success' : 'error'}`}>
+                <div className={`mensaje ${mensaje.includes('✅') || mensaje.includes('✨') ? 'success' : 'error'}`}>
                   {mensaje}
                 </div>
               )}
@@ -695,7 +712,7 @@ function EquipoGame({ gameType, title }) {
                     {entrenadorImageUrl ? (
                       <div className="entrenador-circle">
                         <img 
-                          src={`http://localhost:8000${entrenadorImageUrl}`} 
+                          src={entrenadorImageUrl} 
                           alt={entrenadorNombre || gameData.entrenador_apellido}
                           className="entrenador-foto"
                           onError={(e) => {

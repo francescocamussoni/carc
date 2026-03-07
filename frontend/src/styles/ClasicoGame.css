@@ -1,0 +1,312 @@
+.clasico-game {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: var(--font-family);
+}
+
+.clasico-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  border-radius: 15px;
+  color: white;
+}
+
+.clasico-header h1 {
+  margin: 0 0 15px 0;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.match-info h2 {
+  margin: 10px 0;
+  font-size: 1.8rem;
+}
+
+.match-info .fecha,
+.match-info .competicion {
+  margin: 5px 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.error {
+  color: var(--error-red);
+}
+
+.game-over {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.game-over h2 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+}
+
+.clasico-content {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Progreso Panel */
+.progreso-panel {
+  background: #f5f7fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.progreso-panel h3 {
+  margin: 0 0 15px 0;
+  color: var(--primary-blue);
+}
+
+.progreso-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.progreso-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.progreso-item span {
+  color: var(--text-secondary);
+}
+
+.progreso-item strong {
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+/* Campo táctico */
+.campo-tactico {
+  margin-bottom: 30px;
+}
+
+.campo-info {
+  background: linear-gradient(135deg, #e8f4fd, #f0f8ff);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.campo-info p {
+  margin: 8px 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.campo-info strong {
+  color: var(--primary-blue);
+}
+
+/* Jugadores y goleadores adivinados */
+.jugadores-adivinados,
+.goleadores-adivinados {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f0f8ff;
+  border-radius: 10px;
+}
+
+.jugadores-adivinados h4,
+.goleadores-adivinados h4 {
+  margin: 0 0 10px 0;
+  color: var(--primary-blue);
+}
+
+.jugadores-list,
+.goleadores-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.jugador-item,
+.goleador-item {
+  background: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  color: var(--primary-blue);
+}
+
+/* Form */
+.guess-form {
+  margin-top: 20px;
+}
+
+.answer-type-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f5f7fa;
+  border-radius: 10px;
+}
+
+.answer-type-selector label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.answer-type-selector label:hover {
+  color: var(--primary-blue);
+}
+
+.answer-type-selector input[type="radio"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.guess-input {
+  flex: 1;
+  padding: 15px;
+  font-size: 1.1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  transition: border-color 0.3s;
+}
+
+.guess-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+.submit-btn,
+.hint-btn {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+}
+
+.hint-btn {
+  background: linear-gradient(135deg, #FFB84D, #FF9500);
+  color: white;
+  width: 100%;
+}
+
+.hint-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 184, 77, 0.3);
+}
+
+.hint-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Message */
+.message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message.info {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* Stats */
+.stats {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f5f7fa;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .clasico-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .match-info h2 {
+    font-size: 1.4rem;
+  }
+  
+  .progreso-items {
+    grid-template-columns: 1fr;
+  }
+  
+  .answer-type-selector {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .input-group {
+    flex-direction: column;
+  }
+}

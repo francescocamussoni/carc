@@ -16,6 +16,7 @@ class DataLoaderService:
         self._tecnicos_data: Optional[Dict[str, Any]] = None
         self._tecnicos_jugadores_data: Optional[Dict[str, Any]] = None
         self._club_posicion_index: Optional[Dict[str, Any]] = None
+        self._clasicos_data: Optional[Dict[str, Any]] = None
     
     def load_jugadores(self) -> Dict[str, Any]:
         """Load players data"""
@@ -61,6 +62,34 @@ class DataLoaderService:
                 self._tecnicos_jugadores_data = json.load(f)
         
         return self._tecnicos_jugadores_data
+    
+    def load_clasicos(self) -> Dict[str, Any]:
+        """Load classic matches data (Rosario Central vs Newell's)"""
+        if self._clasicos_data is None:
+            path = Path(settings.CLASICOS_GAME_FILE)
+            print(f"Loading clasicos from: {path}")
+            
+            if not path.exists():
+                print(f"Warning: Clasicos file not found at {path}")
+                return {"partidos": []}
+            
+            with open(path, 'r', encoding='utf-8') as f:
+                self._clasicos_data = json.load(f)
+        
+        return self._clasicos_data
+    
+    def get_all_clasicos(self) -> List[Dict[str, Any]]:
+        """Get all classic matches as list"""
+        data = self.load_clasicos()
+        return data.get("partidos", [])
+    
+    def get_clasico_by_id(self, partido_id: str) -> Optional[Dict[str, Any]]:
+        """Get a specific classic match by its ID"""
+        clasicos = self.get_all_clasicos()
+        for partido in clasicos:
+            if partido.get("partido_id") == partido_id:
+                return partido
+        return None
     
     def get_all_jugadores(self) -> List[Dict[str, Any]]:
         """Get all players as list"""

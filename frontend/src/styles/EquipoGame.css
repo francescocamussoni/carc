@@ -163,11 +163,104 @@
   letter-spacing: 0.5px;
 }
 
+/* Layout compacto horizontal (1 fila, 4 columnas) para Clásico del Día */
+.progreso-compacto {
+  display: flex;
+  justify-content: space-between;
+  gap: clamp(0.3rem, 1vw, 0.8rem);
+  width: 100%;
+}
+
+.progreso-compacto .progreso-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  flex: 1;
+  min-width: 0; /* Permite que el texto se ajuste */
+}
+
+.progreso-compacto .progreso-numero {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  white-space: nowrap;
+}
+
+.progreso-compacto .progreso-texto {
+  font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
 .controles-section {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   justify-content: flex-start;
+}
+
+/* Formulario de input vertical (para Clásico) */
+.guess-form-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin: 0;
+}
+
+.guess-input-vertical {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.guess-input-vertical:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.guess-input-vertical::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-primary-full {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--central-yellow);
+  color: #0a1628;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(255, 209, 0, 0.3);
+}
+
+.btn-primary-full:hover {
+  background: #ffcd00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 209, 0, 0.5);
 }
 
 /* ========================================
@@ -242,8 +335,8 @@
 }
 
 .jugador-circle {
-  width: clamp(60px, 5vw, 90px); /* Se adapta al ancho de pantalla */
-  height: clamp(60px, 5vw, 90px);
+  width: clamp(80px, 6vw, 110px); /* Círculos más grandes */
+  height: clamp(80px, 6vw, 110px);
   border-radius: 50%;
   border: 2.5px solid rgba(255, 209, 0, 0.4);
   background: rgba(0, 61, 165, 0.3);
@@ -278,14 +371,28 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .jugador-nombre {
-  font-size: clamp(0.65rem, 1vw, 0.85rem); /* Responsive */
+  font-size: clamp(0.5rem, 0.8vw, 0.65rem); /* Letra más pequeña */
   font-weight: 700;
-  color: var(--text-primary);
+  color: #ffffff;
   text-align: center;
   text-transform: uppercase;
+  position: absolute;
+  bottom: 2%; /* Más abajo para no tapar la cara */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  background: rgba(30, 41, 59, 0.92);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.35rem;
+  white-space: nowrap;
+  max-width: 85%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.5px;
   padding: 0 0.2rem;
   z-index: 1;
@@ -293,15 +400,15 @@
 
 .posicion-small {
   position: absolute;
-  bottom: 0.15rem;
-  right: 0.15rem;
+  top: 0.25rem;
+  right: 0.25rem;
   font-size: 0.6rem;
   font-weight: 700;
   color: var(--central-yellow);
   background: rgba(0, 26, 61, 0.95);
   padding: 0.1rem 0.3rem;
   border-radius: 3px;
-  z-index: 2;
+  z-index: 3;
 }
 
 .jugador-oculto {
@@ -317,13 +424,14 @@
 .posicion-label {
   position: absolute;
   top: 0.25rem;
-  left: 0.25rem;
+  right: 0.25rem;
   font-size: 0.65rem;
   font-weight: 700;
   color: var(--central-yellow);
   background: rgba(0, 26, 61, 0.95);
   padding: 0.15rem 0.4rem;
   border-radius: 3px;
+  z-index: 3;
 }
 
 .interrogacion {
@@ -363,8 +471,8 @@
 
 /* ✅ Contenedor circular del entrenador - MISMO TAMAÑO que jugadores */
 .entrenador-circle {
-  width: clamp(60px, 5vw, 90px); /* Mismo tamaño que .jugador-circle */
-  height: clamp(60px, 5vw, 90px);
+  width: clamp(80px, 6vw, 110px); /* Mismo tamaño que .jugador-circle */
+  height: clamp(80px, 6vw, 110px);
   border-radius: 50%;
   border: 2.5px solid rgba(255, 209, 0, 0.4);
   background: rgba(0, 61, 165, 0.3);
@@ -524,22 +632,22 @@
   padding: clamp(0.6rem, 1vh, 0.8rem) 0.5rem;
   font-size: clamp(0.65rem, 1.1vw, 0.85rem);
   font-weight: 700;
-  background: linear-gradient(135deg, #9b59b6, #8e44ad);
-  color: #ffffff;
-  border: 2px solid #9b59b6;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 2px solid #10b981;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(155, 89, 182, 0.3);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
 }
 
 .btn-revelar:hover:not(:disabled) {
-  background: linear-gradient(135deg, #8e44ad, #7d3c98);
+  background: rgba(16, 185, 129, 0.3);
   transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(155, 89, 182, 0.5);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.5);
 }
 
 .btn-revelar:disabled {
@@ -874,6 +982,76 @@
   color: var(--error-light);
 }
 
+/* Estilos para mensaje-feedback (usado en ClasicoGame y otros) */
+.mensaje-feedback {
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+.mensaje-exito {
+  background: rgba(16, 185, 129, 0.2);
+  border: 2px solid #10b981;
+  color: #34d399;
+}
+
+.mensaje-error {
+  background: rgba(244, 67, 54, 0.2);
+  border: 2px solid #f44336;
+  color: #ff8a80;
+}
+
+.mensaje-warning {
+  background: rgba(255, 193, 7, 0.2);
+  border: 2px solid #ffc107;
+  color: #ffd54f;
+}
+
+.mensaje-info {
+  background: rgba(16, 185, 129, 0.2);
+  border: 2px solid #10b981;
+  color: #34d399;
+}
+
+/* Panel de Pista */
+.pista-panel {
+  margin-top: 0.6rem;
+  padding: 0.7rem 0.8rem;
+  background: rgba(33, 150, 243, 0.15);
+  border: 1px solid rgba(33, 150, 243, 0.4);
+  border-radius: 8px;
+}
+
+.pista-titulo {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--info);
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.pista-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pista-contenido p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pista-contenido strong {
+  color: var(--info);
+  font-weight: 700;
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -941,17 +1119,17 @@
   }
   
   .jugador-circle {
-    width: 60px;
-    height: 60px;
+    width: 75px;
+    height: 75px;
   }
   
   .entrenador-circle {
-    width: 60px;
-    height: 60px;
+    width: 75px;
+    height: 75px;
   }
   
   .jugador-nombre {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
   }
   
   .interrogacion {
@@ -986,17 +1164,17 @@
   }
   
   .jugador-circle {
-    width: 50px;
-    height: 50px;
+    width: 65px;
+    height: 65px;
   }
   
   .entrenador-circle {
-    width: 50px;
-    height: 50px;
+    width: 65px;
+    height: 65px;
   }
   
   .jugador-nombre {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
   }
   
   .interrogacion {
@@ -1019,4 +1197,395 @@
   .progreso-numero {
     font-size: 2rem;
   }
+}
+
+/* ========================================
+   CLÁSICO GAME - FORMACIÓN GRID
+   ======================================== */
+
+.clasico-game .formacion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.clasico-game .posicion-card {
+  background: var(--bg-card);
+  border: 2px solid rgba(255, 209, 0, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.clasico-game .posicion-card.revelado {
+  border-color: var(--central-yellow);
+  background: rgba(255, 209, 0, 0.1);
+}
+
+.clasico-game .posicion-card.oculto {
+  opacity: 0.7;
+}
+
+.clasico-game .posicion-numero {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--central-yellow);
+  background: rgba(255, 209, 0, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clasico-game .posicion-info {
+  text-align: center;
+  width: 100%;
+}
+
+.clasico-game .posicion-nombre {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.clasico-game .posicion-label {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.clasico-game .posicion-goles {
+  font-size: 0.9rem;
+  color: var(--success-light);
+  font-weight: 600;
+}
+
+.clasico-game .match-info {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.clasico-game .match-info h2 {
+  font-size: 1.5rem;
+  color: var(--central-yellow);
+  margin: 0.5rem 0;
+}
+
+.clasico-game .match-info p {
+  color: var(--text-tertiary);
+  margin: 0.25rem 0;
+}
+
+.clasico-game .match-info .esquema {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.clasico-game .entrenador-container {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(255, 209, 0, 0.2);
+}
+
+.clasico-game .entrenador-slot {
+  background: var(--bg-card);
+  border: 2px solid rgba(255, 209, 0, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.clasico-game .entrenador-slot.revelado {
+  border-color: var(--central-yellow);
+  background: rgba(255, 209, 0, 0.1);
+}
+
+.clasico-game .entrenador-label {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.clasico-game .entrenador-nombre {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Estilos para el entrenador en el clásico */
+.entrenador-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 209, 0, 0.1);
+  border: 2px solid var(--central-yellow);
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  min-width: 150px;
+}
+
+.entrenador-badge {
+  background: var(--central-yellow);
+  color: var(--bg-primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+
+.clasico-game .progress-section {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 2px solid rgba(255, 209, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.clasico-game .progress-section h3 {
+  margin: 0 0 1rem 0;
+  color: var(--central-yellow);
+  font-size: 1.1rem;
+}
+
+.clasico-game .entrenador-status,
+.clasico-game .resultado-status,
+.clasico-game .arbitro-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 209, 0, 0.1);
+}
+
+.clasico-game .entrenador-status:last-child,
+.clasico-game .resultado-status:last-child,
+.clasico-game .arbitro-status:last-child {
+  border-bottom: none;
+}
+
+.clasico-game .resultado-section {
+  margin-top: 1rem;
+}
+
+.clasico-game .toggle-resultado-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--central-yellow);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clasico-game .toggle-resultado-btn:hover {
+  background: var(--central-yellow-hover);
+  transform: translateY(-2px);
+}
+
+.clasico-game .resultado-input-form {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.clasico-game .resultado-input {
+  flex: 1;
+  padding: 0.75rem;
+  background: var(--bg-card);
+  border: 2px solid rgba(255, 209, 0, 0.2);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.clasico-game .verificar-resultado-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--success-light);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clasico-game .verificar-resultado-btn:hover {
+  background: var(--success-dark);
+  transform: translateY(-2px);
+}
+
+/* === INFO EXTRA (Resultado y Árbitro para Clásico) === */
+.info-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0 0 0;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.info-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.info-value {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* === ACCIÓN EXTRA (Botón Adivinar Resultado) === */
+.accion-extra {
+  margin-top: 0.5rem;
+}
+
+.btn-secondary-full {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.btn-secondary-full:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.input-extra-form {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.input-extra {
+  flex: 1;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: var(--color-text);
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.input-extra:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.input-extra::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-verificar {
+  padding: 0.6rem 1rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.btn-verificar:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* === ACCIONES RÁPIDAS (Pista y Revelar) === */
+.acciones-rapidas {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.btn-accion {
+  flex: 1;
+  padding: 0.7rem 0.5rem;
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--color-text);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.btn-accion:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: #3b82f6;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn-accion:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-accion.btn-revelar {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.btn-accion.btn-revelar:hover:not(:disabled) {
+  background: rgba(16, 185, 129, 0.3);
+  border-color: #10b981;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
 }

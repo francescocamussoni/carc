@@ -49,6 +49,7 @@ class PipelineScraper:
             'equipos': 'run_equipos.py',
             'goles': 'run_goles_detallados.py',
             'tecnicos_jugadores': 'run_tecnicos_jugadores.py',
+            'clasico': 'run_clasico.py',
             'indice': 'generar_indice_club_posicion.py'
         }
         
@@ -74,9 +75,10 @@ class PipelineScraper:
         print(Color.OKBLUE + "  NIVEL 3 (Opcional - Paralelo):" + Color.ENDC)
         print("    4️⃣  Goles detallados")
         print("    5️⃣  Jugadores por técnico")
+        print("    6️⃣  Partidos clásicos vs Newell's (NUEVO)")
         print()
         print(Color.OKBLUE + "  NIVEL 4 (Post-procesamiento):" + Color.ENDC)
-        print("    6️⃣  Índice club-posición (optimización)")
+        print("    7️⃣  Índice club-posición (optimización)")
         print()
     
     def _ejecutar_script(self, nombre: str, script: str, auto_confirmar: bool = True) -> Tuple[bool, Optional[float]]:
@@ -195,17 +197,17 @@ class PipelineScraper:
         
         return exito
     
-    def ejecutar_nivel_3_paralelo(self) -> Tuple[bool, bool]:
+    def ejecutar_nivel_3_paralelo(self) -> Tuple[bool, bool, bool]:
         """
-        Ejecuta goles detallados y técnicos-jugadores en paralelo
+        Ejecuta goles detallados, técnicos-jugadores y partidos clásicos en paralelo
         
         Returns:
-            Tupla (exito_goles, exito_tecnicos_jugadores)
+            Tupla (exito_goles, exito_tecnicos_jugadores, exito_clasico)
         """
         print(f"\n{Color.BOLD}{Color.OKBLUE}🔄 NIVEL 3 (Opcional): Ejecutando datos detallados en paralelo...{Color.ENDC}\n")
         
-        with ThreadPoolExecutor(max_workers=2) as executor:
-            # Enviar ambas tareas
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            # Enviar las tres tareas
             future_goles = executor.submit(
                 self._ejecutar_script, 
                 "Goles Detallados", 
@@ -216,17 +218,25 @@ class PipelineScraper:
                 "Técnicos-Jugadores", 
                 self.scripts['tecnicos_jugadores']
             )
+            future_clasico = executor.submit(
+                self._ejecutar_script,
+                "Partidos Clásicos vs Newell's",
+                self.scripts['clasico']
+            )
             
             # Esperar resultados
             exito_goles, tiempo_goles = future_goles.result()
             exito_tec_jug, tiempo_tec_jug = future_tec_jug.result()
+            exito_clasico, tiempo_clasico = future_clasico.result()
             
             self.resultados['goles'] = exito_goles
             self.resultados['tecnicos_jugadores'] = exito_tec_jug
+            self.resultados['clasico'] = exito_clasico
             self.tiempos['goles'] = tiempo_goles
             self.tiempos['tecnicos_jugadores'] = tiempo_tec_jug
+            self.tiempos['clasico'] = tiempo_clasico
             
-            return (exito_goles, exito_tec_jug)
+            return (exito_goles, exito_tec_jug, exito_clasico)
     
     def print_resumen(self, inicio_total: datetime):
         """Imprime resumen de ejecución"""
@@ -328,9 +338,10 @@ def main():
         print("  3. Solo jugadores")
         print("  4. Solo técnicos")
         print("  5. Solo logos (requiere datos existentes)")
+        print("  6. Solo partidos clásicos vs Newell's (NUEVO)")
         print()
         
-        opcion = input("Selecciona una opción (1-5) [1]: ").strip() or "1"
+        opcion = input("Selecciona una opción (1-6) [1]: ").strip() or "1"
         print()
         
         inicio = datetime.now()
@@ -362,6 +373,13 @@ def main():
             exito, tiempo = pipeline._ejecutar_script("Logos de Clubes", pipeline.scripts['equipos'], auto_confirmar=False)
             pipeline.resultados['equipos'] = exito
             pipeline.tiempos['equipos'] = tiempo
+            pipeline.print_resumen(inicio)
+        
+        elif opcion == "6":
+            # Solo partidos clásicos
+            exito, tiempo = pipeline._ejecutar_script("Partidos Clásicos vs Newell's", pipeline.scripts['clasico'], auto_confirmar=False)
+            pipeline.resultados['clasico'] = exito
+            pipeline.tiempos['clasico'] = tiempo
             pipeline.print_resumen(inicio)
         
         else:

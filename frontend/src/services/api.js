@@ -74,6 +74,39 @@ export const gamesAPI = {
     const response = await api.get('/games/list');
     return response.data;
   },
+
+  // Clásico del Día
+  getClasicoDelDia: async () => {
+    const response = await api.get('/games/clasico-del-dia');
+    return response.data;
+  },
+
+  verifyClasicoAnswer: async (guess) => {
+    const response = await api.post('/games/clasico/verify', {
+      game_id: guess.game_id,
+      game_type: guess.game_type,
+      respuesta: guess.respuesta
+    });
+    return response.data;
+  },
+
+  getClasicoHint: async (gameId) => {
+    const response = await api.get(`/games/clasico/pista/${gameId}`);
+    return response.data;
+  },
+
+  revelarJugadorClasicoAPI: async (gameId) => {
+    const response = await api.post(`/games/clasico/revelar-jugador/${gameId}`);
+    return response.data;
+  },
+
+  verifyClasicoResultado: async (gameId, resultado) => {
+    const response = await api.post('/games/clasico/verificar-resultado', {
+      game_id: gameId,
+      resultado: resultado,
+    });
+    return response.data;
+  },
 };
 
 // Helper to get image URL

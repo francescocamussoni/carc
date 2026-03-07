@@ -41,6 +41,11 @@ class ImageService:
             if not url_imagen or url_imagen == self.settings.TRANSFERMARKT_BASE_URL:
                 return None
             
+            # PRIMERO: Verificar si ya existe la imagen con CUALQUIER extensión
+            ruta_existente = self.obtener_ruta_imagen(nombre_jugador)
+            if ruta_existente:
+                return ruta_existente
+            
             # Limpiar nombre para archivo
             nombre_archivo = TextUtils.limpiar_nombre_archivo(nombre_jugador)
             
@@ -50,10 +55,6 @@ class ImageService:
             # Ruta completa y relativa
             ruta_completa = self.settings.JUGADORES_IMAGES_DIR / f"{nombre_archivo}{extension}"
             ruta_relativa = f"data/images/jugadores/{nombre_archivo}{extension}"
-            
-            # Si ya existe la imagen, no descargar de nuevo
-            if ruta_completa.exists():
-                return ruta_relativa
             
             # Descargar imagen
             response = self.http_client.get(url_imagen)
@@ -85,6 +86,24 @@ class ImageService:
                 extension = '.' + ext_match.group(1)
         return extension
     
+    def obtener_ruta_imagen(self, nombre_jugador: str) -> Optional[str]:
+        """
+        Obtiene la ruta de la imagen si existe (con cualquier extensión)
+        
+        Args:
+            nombre_jugador: Nombre del jugador
+        
+        Returns:
+            Ruta relativa de la imagen o None si no existe
+        """
+        nombre_archivo = TextUtils.limpiar_nombre_archivo(nombre_jugador)
+        # Buscar con cualquier extensión
+        for ext in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+            ruta_completa = self.settings.JUGADORES_IMAGES_DIR / f"{nombre_archivo}{ext}"
+            if ruta_completa.exists():
+                return f"data/images/jugadores/{nombre_archivo}{ext}"
+        return None
+    
     def imagen_existe(self, nombre_jugador: str) -> bool:
         """
         Verifica si ya existe una imagen para el jugador
@@ -95,9 +114,4 @@ class ImageService:
         Returns:
             True si existe, False si no
         """
-        nombre_archivo = TextUtils.limpiar_nombre_archivo(nombre_jugador)
-        # Buscar con cualquier extensión
-        for ext in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
-            if (self.settings.JUGADORES_IMAGES_DIR / f"{nombre_archivo}{ext}").exists():
-                return True
-        return False
+        return self.obtener_ruta_imagen(nombre_jugador) is not None

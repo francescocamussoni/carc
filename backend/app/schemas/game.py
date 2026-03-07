@@ -89,6 +89,9 @@ class GameResult(BaseModel):
     posiciones_disponibles: Optional[List[str]] = None  # Lista de posiciones disponibles
     requiere_seleccion_jugador: bool = False  # ✅ NUEVO: Si hay múltiples jugadores con el mismo apellido
     jugadores_disponibles: Optional[List[str]] = None  # ✅ NUEVO: Lista de jugadores disponibles
+    entrenador_revelado: Optional[Dict[str, Any]] = None  # Para clásico
+    arbitro_revelado: Optional[Dict[str, Any]] = None  # Para clásico
+    resultado_revelado: Optional[Dict[str, Any]] = None  # Para clásico
 
 
 class PosicionSeleccionada(BaseModel):

@@ -189,27 +189,6 @@ class GameGeneratorService:
         
         return image_path
     
-    def _convert_image_path_to_url(self, local_path: Optional[str]) -> Optional[str]:
-        """
-        Convert a local image path to an API URL
-        
-        Args:
-            local_path: Local path like 'data/images/jugadores/nombre.jpg'
-            
-        Returns:
-            API URL like '/api/v1/static/jugadores/nombre.jpg' or None
-        """
-        if not local_path:
-            return None
-        
-        # Extract relative path from local path
-        # data/images/jugadores/nombre.jpg -> jugadores/nombre.jpg
-        if 'data/images/' in local_path:
-            relative_path = local_path.split('data/images/')[-1]
-            return f"/api/v1/static/{relative_path}"
-        
-        return None
-    
     def _get_jugador_image_url(self, jugador: Dict) -> Optional[str]:
         """
         Get player image URL
@@ -1377,7 +1356,7 @@ class GameGeneratorService:
             # Try without club requirement
             jugadores_no_revelados = [p for p in posiciones if not p["revelado"]]
             if not jugadores_no_revelados:
-                return {
+        return {
                     "error": "No hay jugadores sin revelar"
                 }
         
@@ -1436,7 +1415,7 @@ class GameGeneratorService:
                 entrenador["revelado"] = True
                 internal["revelaciones_usadas"] += 1
                 
-                return {
+            return {
                     "success": True,
                     "tipo": "entrenador",
                     "entrenador_revelado": entrenador,

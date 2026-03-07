@@ -56,7 +56,8 @@ python scripts/run_pipeline.py
 3. **Solo jugadores** (~30-45 min)
 4. **Solo técnicos** (~3-5 min)
 5. **Solo logos** (~5-10 min)
-6. **Solo índice** (~10-30 seg)
+6. **Solo partidos clásicos** (~5-15 min) 🆕
+7. **Solo índice** (~10-30 seg)
 
 **Características:**
 - ✅ **Ejecución paralela** (jugadores + técnicos simultáneamente)
@@ -256,7 +257,88 @@ python scripts/run_tecnicos_jugadores.py
 
 ---
 
-### 6. Índice Club-Posición (NUEVO)
+### 6. Partidos Clásicos vs Newell's 🆕
+
+**Obtiene:** Formaciones completas, goles y árbitros de todos los partidos clásicos Rosario Central vs Newell's Old Boys.
+
+**Ejecutar:**
+```bash
+python scripts/run_clasico.py                # Todos los partidos
+python scripts/run_clasico.py --limite 10    # Solo 10 partidos
+python scripts/run_clasico.py --test         # Solo 3 partidos (test)
+```
+
+**Output:** 
+- `data/output/rosario_central_clasicos.json` (datos completos)
+- `data/output/rosario_central_clasicos_game.json` (optimizado para juego)
+
+**Incluye:**
+- ✅ Fecha, competición, resultado
+- ✅ Formación completa de Rosario Central (11 titulares)
+- ✅ Entrenador con foto
+- ✅ Jugadores con número, nombre, posición y foto
+- ✅ Goles de Rosario Central (jugador, minuto)
+- ✅ Árbitro del partido
+- ✅ Estadio y espectadores
+
+**Características:**
+- 🎯 **Optimizado para nuevo juego**: Adivinar formación del clásico
+- 📊 ~63 partidos históricos disponibles
+- ⚡ ~5-15 minutos de scraping
+- 🔗 Integración con datos de jugadores existentes
+
+**Ejemplo (versión optimizada para juego):**
+```json
+{
+  "partidos": [
+    {
+      "partido_id": "4529533",
+      "fecha": "2025-02-15",
+      "competicion": "Torneo Inicial",
+      "local": "Newell's Old Boys",
+      "visitante": "Rosario Central",
+      "resultado": "1:2",
+      "rosario_central_local": false,
+      "esquema": "4-2-3-1",
+      "entrenador": {
+        "apellido": "Almirón",
+        "nombre_completo": "Jorge Almirón",
+        "foto_url": "..."
+      },
+      "jugadores": [
+        {
+          "numero": 29,
+          "apellido": "Ruben",
+          "nombre_completo": "Marco Ruben",
+          "posicion": "DEL",
+          "foto_url": "...",
+          "goles": 1
+        }
+      ],
+      "goles_rosario_central": [
+        {
+          "jugador_apellido": "Ruben",
+          "minuto": "67"
+        }
+      ],
+      "arbitro": {
+        "apellido": "Perez",
+        "nombre_completo": "Fernando Perez"
+      }
+    }
+  ]
+}
+```
+
+**Para el nuevo juego:**
+- Usuario adivina los 11 titulares + entrenador por apellido
+- Sistema busca pistas en `rosario_central_jugadores.json`
+- Validación de goleadores contra goles registrados
+- Muestra resultado final del partido
+
+---
+
+### 7. Índice Club-Posición
 
 **Genera:** Índice optimizado para búsquedas rápidas de jugadores por club y posición.
 
@@ -310,9 +392,11 @@ data/
 ├── output/
 │   ├── rosario_central_jugadores.json           # ~1,600 jugadores
 │   ├── rosario_central_tecnicos.json            # ~65 técnicos
-│   ├── club_posicion_index.json                 # Índice optimizado (NUEVO)
+│   ├── club_posicion_index.json                 # Índice optimizado
 │   ├── rosario_central_tecnicos_jugadores.json  # Relaciones (opcional)
-│   └── rosario_central_goles_detallados.json    # Goles (opcional)
+│   ├── rosario_central_goles_detallados.json    # Goles (opcional)
+│   ├── rosario_central_clasicos.json            # Partidos clásicos (NUEVO) 🆕
+│   └── rosario_central_clasicos_game.json       # Optimizado para juego (NUEVO) 🆕
 └── images/
     ├── jugadores/   # ~1,600 fotos
     ├── tecnicos/    # ~65 fotos
@@ -384,6 +468,7 @@ DELAY_ENTRE_PAGINAS = (1, 2)
 | **Índice Club-Posición** | 856 clubes | **~10-30 seg** |
 | Goles Detallados (opcional) | ~200 | ~7-10 min |
 | Técnicos-Jugadores (opcional) | 65 | ~5-8 min |
+| **Partidos Clásicos (NUEVO)** | ~63 | **~5-15 min** |
 
 **Optimizaciones:**
 - ✅ **Orquestación inteligente** (pipeline automatizado)

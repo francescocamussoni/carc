@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import EquipoNacional from './pages/EquipoNacional'
 import EquipoEuropeo from './pages/EquipoEuropeo'
 import EquipoLatinoamericano from './pages/EquipoLatinoamericano'
+import ClasicoDelDia from './pages/ClasicoDelDia'
 import './styles/App.css'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
               <Link to="/equipo-nacional" className="nav-link">Equipo Nacional</Link>
               <Link to="/equipo-europeo" className="nav-link">Equipo Europeo</Link>
               <Link to="/equipo-latinoamericano" className="nav-link">Equipo Latinoamericano</Link>
+              <Link to="/clasico-del-dia" className="nav-link">🔵⚪ Clásico</Link>
             </div>
           </div>
         </nav>
@@ -39,6 +41,7 @@ function App() {
             <Route path="/equipo-nacional" element={<EquipoNacional />} />
             <Route path="/equipo-europeo" element={<EquipoEuropeo />} />
             <Route path="/equipo-latinoamericano" element={<EquipoLatinoamericano />} />
+            <Route path="/clasico-del-dia" element={<ClasicoDelDia />} />
           </Routes>
         </main>
 

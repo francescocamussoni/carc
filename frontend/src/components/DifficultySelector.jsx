@@ -1,8 +1,13 @@
 import { useState } from 'react'
 import '../styles/DifficultySelector.css'
 
-function DifficultySelector({ onSelectDifficulty }) {
+function DifficultySelector({ onSelect, onSelectDifficulty, gameTitle }) {
   const [hoveredDiff, setHoveredDiff] = useState(null)
+  
+  // Use onSelect if provided, otherwise use onSelectDifficulty (backwards compatibility)
+  const handleSelect = onSelect || onSelectDifficulty
+  
+  console.log('DifficultySelector rendered, handler:', handleSelect ? 'exists' : 'missing')
 
   const difficulties = [
     {
@@ -43,7 +48,7 @@ function DifficultySelector({ onSelectDifficulty }) {
       <div className="difficulty-modal">
         <div className="difficulty-header">
           <h1>⚽ SELECCIONÁ DIFICULTAD</h1>
-          <p>Elegí cómo querés jugar hoy</p>
+          <p>{gameTitle || 'Elegí cómo querés jugar hoy'}</p>
         </div>
 
         <div className="difficulty-options">
@@ -53,7 +58,10 @@ function DifficultySelector({ onSelectDifficulty }) {
               className={`difficulty-card ${hoveredDiff === diff.id ? 'hovered' : ''}`}
               onMouseEnter={() => setHoveredDiff(diff.id)}
               onMouseLeave={() => setHoveredDiff(null)}
-              onClick={() => onSelectDifficulty(diff.id)}
+              onClick={() => {
+                console.log('Card clicked:', diff.id)
+                handleSelect(diff.id)
+              }}
               style={{ '--diff-color': diff.color }}
             >
               <div className="difficulty-icon">
@@ -80,7 +88,8 @@ function DifficultySelector({ onSelectDifficulty }) {
                 className="difficulty-btn"
                 onClick={(e) => {
                   e.stopPropagation()
-                  onSelectDifficulty(diff.id)
+                  console.log('Button clicked:', diff.id)
+                  handleSelect(diff.id)
                 }}
               >
                 JUGAR
