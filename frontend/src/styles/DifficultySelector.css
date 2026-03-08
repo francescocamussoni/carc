@@ -4,16 +4,17 @@
 
 .difficulty-overlay {
   position: fixed;
-  top: 0;
+  top: 70px; /* Dejar espacio para el navbar */
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 70px); /* Restar altura del navbar */
   background: rgba(4, 23, 66, 0.98); /* Dark blue semi-transparente */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 100; /* Menor que el navbar (z-index: var(--z-sticky)) */
   animation: fadeIn 0.3s ease-out;
+  overflow-y: auto;
 }
 
 .difficulty-modal {
@@ -23,6 +24,36 @@
   overflow-y: auto;
   padding: clamp(1.5rem, 3vw, 2rem);
   animation: slideUp 0.4s ease-out;
+  position: relative;
+}
+
+/* Botón de cerrar */
+.difficulty-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 209, 0, 0.3);
+  border-radius: 50%;
+  color: var(--central-yellow);
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  line-height: 1;
+}
+
+.difficulty-close:hover {
+  background: rgba(255, 209, 0, 0.2);
+  border-color: var(--central-yellow);
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 209, 0, 0.4);
 }
 
 .difficulty-header {
@@ -226,6 +257,12 @@
 }
 
 @media (max-width: 768px) {
+  .difficulty-overlay {
+    top: 0; /* En móviles el navbar es más alto pero adaptable */
+    height: 100vh;
+    padding-top: 120px; /* Espacio para navbar móvil */
+  }
+
   .difficulty-options {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -235,6 +272,14 @@
     padding: 1.2rem;
   }
   
+  .difficulty-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 35px;
+    height: 35px;
+    font-size: 1.3rem;
+  }
+  
   .difficulty-icon {
     width: 100px;
     height: 100px;
@@ -242,8 +287,18 @@
 }
 
 @media (max-width: 480px) {
+  .difficulty-overlay {
+    padding-top: 100px; /* Menos espacio para móviles muy pequeños */
+  }
+
   .difficulty-header h1 {
     font-size: 1.5rem;
+  }
+  
+  .difficulty-close {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
   }
 
   .difficulty-icon {

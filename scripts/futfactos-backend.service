@@ -1,0 +1,31 @@
+[Unit]
+Description=FutFactos Rosario Central - Backend API
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/futfactos/backend
+Environment="PATH=/opt/futfactos/backend/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONPATH=/opt/futfactos"
+Environment="PYTHONUNBUFFERED=1"
+
+ExecStart=/opt/futfactos/backend/.venv/bin/python3 run.py
+
+# Restart configuration
+Restart=always
+RestartSec=10
+StartLimitInterval=0
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=futfactos-backend
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

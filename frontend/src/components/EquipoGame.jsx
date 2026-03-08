@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react'
-import { gamesAPI } from '../services/api'
+import { useNavigate } from 'react-router-dom'
+import { gamesAPI, BACKEND_URL, CLOUDFRONT_URL, IS_PRODUCTION, getImageUrl } from '../services/api'
 import DifficultySelector from './DifficultySelector'
+
+const BASE_URL = IS_PRODUCTION ? CLOUDFRONT_URL : BACKEND_URL
+const IMAGES_PATH = IS_PRODUCTION ? '/images' : '/api/v1/static'
 import '../styles/EquipoGame.css'
 
 function EquipoGame({ gameType, title }) {
+  const navigate = useNavigate()
+  
   // Dificultad
   const [mostrarSelectorDificultad, setMostrarSelectorDificultad] = useState(true)
   const [dificultad, setDificultad] = useState(null)
@@ -66,6 +72,10 @@ function EquipoGame({ gameType, title }) {
     if (diffSelected === 'dificil') {
       setTimerActivo(true)
     }
+  }
+
+  const handleCloseDifficultySelector = () => {
+    navigate('/')
   }
 
   const fetchGame = async () => {
@@ -165,7 +175,7 @@ function EquipoGame({ gameType, title }) {
           if (result.jugador_revelado?.tipo === 'entrenador') {
             setEntrenadorRevelado(true)
             setEntrenadorNombre(result.jugador_revelado.nombre) // Guardar nombre del DT
-            setEntrenadorImageUrl(result.jugador_revelado.image_url) // Guardar foto del DT
+            setEntrenadorImageUrl(getImageUrl(result.jugador_revelado.image_url)) // Guardar foto del DT
           }
 
           // Check victory
@@ -444,7 +454,7 @@ function EquipoGame({ gameType, title }) {
             <div className="jugador-revelado">
               {jugador.image_url && (
                 <img 
-                  src={jugador.image_url} 
+                  src={getImageUrl(jugador.image_url)} 
                   alt={jugador.jugador_apellido}
                   className="jugador-foto"
                   onError={(e) => {
@@ -470,7 +480,13 @@ function EquipoGame({ gameType, title }) {
 
   // Mostrar selector de dificultad antes de cargar el juego
   if (mostrarSelectorDificultad) {
-    return <DifficultySelector onSelectDifficulty={handleSelectDifficulty} />
+    return (
+      <DifficultySelector 
+        onSelectDifficulty={handleSelectDifficulty} 
+        onClose={handleCloseDifficultySelector}
+        gameTitle={title}
+      />
+    )
   }
 
   if (loading) {
@@ -505,7 +521,7 @@ function EquipoGame({ gameType, title }) {
               <div className="club-icon-large">
                 {clubActual.logo_url ? (
                   <img 
-                    src={`http://localhost:8000${clubActual.logo_url}`} 
+                    src={`${BASE_URL}${clubActual.logo_url.replace('/api/v1/static', IMAGES_PATH)}`} 
                     alt={clubActual.nombre}
                     className="club-logo"
                   />
@@ -548,7 +564,7 @@ function EquipoGame({ gameType, title }) {
             <div className="victoria-panel">
               <div className="victoria-escudo-panel">
                 <img 
-                  src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png"
+                  src={`${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`}
                   alt="Rosario Central"
                   className="escudo-victoria-panel"
                 />

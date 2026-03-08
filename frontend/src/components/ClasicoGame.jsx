@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react'
-import { gamesAPI } from '../services/api'
+import { useNavigate } from 'react-router-dom'
+import { gamesAPI, BACKEND_URL, CLOUDFRONT_URL, IS_PRODUCTION, getImageUrl } from '../services/api'
 import DifficultySelector from './DifficultySelector'
+
+const BASE_URL = IS_PRODUCTION ? CLOUDFRONT_URL : BACKEND_URL
+const IMAGES_PATH = IS_PRODUCTION ? '/images' : '/api/v1/static'
 import '../styles/EquipoGame.css'
 
 function ClasicoGame() {
+  const navigate = useNavigate()
+  
   // Dificultad
   const [mostrarSelectorDificultad, setMostrarSelectorDificultad] = useState(true)
   const [dificultad, setDificultad] = useState(null)
@@ -32,7 +38,7 @@ function ClasicoGame() {
 
   useEffect(() => {
     if (dificultad) {
-      fetchGame()
+    fetchGame()
     }
   }, [dificultad])
 
@@ -62,6 +68,10 @@ function ClasicoGame() {
     if (diffSelected === 'dificil') {
       setTimerActivo(true)
     }
+  }
+
+  const handleCloseDifficultySelector = () => {
+    navigate('/')
   }
 
   const fetchGame = async () => {
@@ -301,14 +311,14 @@ function ClasicoGame() {
             <div className="jugador-revelado">
               {jugador.image_url && (
                 <img 
-                  src={jugador.image_url} 
+                  src={getImageUrl(jugador.image_url)} 
                   alt={jugador.jugador_apellido}
                   className="jugador-foto"
                   onLoad={(e) => {
                     console.log(`✅ Imagen cargada: ${jugador.jugador_apellido}`)
                   }}
                   onError={(e) => {
-                    console.error(`❌ Error cargando imagen: ${jugador.jugador_apellido}, URL: ${jugador.image_url}`)
+                    console.error(`❌ Error cargando imagen: ${jugador.jugador_apellido}, URL: ${getImageUrl(jugador.image_url)}`)
                     e.target.style.display = 'none'
                   }}
                 />
@@ -330,7 +340,13 @@ function ClasicoGame() {
   }
 
   if (mostrarSelectorDificultad) {
-    return <DifficultySelector onSelectDifficulty={handleSelectDifficulty} />
+    return (
+      <DifficultySelector 
+        onSelectDifficulty={handleSelectDifficulty} 
+        onClose={handleCloseDifficultySelector}
+        gameTitle="Clásico del Día"
+      />
+    )
   }
 
   if (loading) {
@@ -364,7 +380,7 @@ function ClasicoGame() {
             <div className="club-section">
               <div className="club-icon-large">
                 <img 
-                  src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png" 
+                  src={`${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`} 
                   alt="Rosario Central"
                   className="club-logo"
                 />
@@ -388,8 +404,8 @@ function ClasicoGame() {
                 <div className="progreso-item">
                   <span className="progreso-numero">{resultado?.revelado ? '✅' : '❌'}</span>
                   <span className="progreso-texto">RESULTADO</span>
-                </div>
-                <div className="progreso-item">
+              </div>
+              <div className="progreso-item">
                   <span className="progreso-numero">{arbitro?.revelado ? '✅' : '❌'}</span>
                   <span className="progreso-texto">ÁRBITRO</span>
                 </div>
@@ -412,7 +428,7 @@ function ClasicoGame() {
             <div className="victoria-panel">
               <div className="victoria-escudo-panel">
                 <img 
-                  src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png"
+                  src={`${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`}
                   alt="Rosario Central"
                   className="escudo-victoria-panel"
                 />
@@ -477,8 +493,8 @@ function ClasicoGame() {
                       </button>
                     </div>
                   )}
-                </div>
-              )}
+          </div>
+        )}
 
               {/* Pistas y Revelación */}
               {!gameOver && (
@@ -499,8 +515,8 @@ function ClasicoGame() {
                     >
                       ✨ REVELAR ({revelacionesUsadas}/3)
                     </button>
-                  )}
-                </div>
+            )}
+          </div>
               )}
 
               {/* Pista Display */}
@@ -513,9 +529,9 @@ function ClasicoGame() {
                     {pistasReales.otro_club && (
                       <p><strong>Otro club:</strong> {pistasReales.otro_club}</p>
                     )}
-                  </div>
-                </div>
-              )}
+              </div>
+            </div>
+          )}
 
               {/* Mensaje */}
               {mensaje && (
@@ -526,7 +542,7 @@ function ClasicoGame() {
                   mensaje.startsWith('🎉') ? 'mensaje-exito' : 'mensaje-info'
                 }`}>
                   {mensaje}
-                </div>
+                  </div>
               )}
             </div>
           )}
@@ -576,7 +592,7 @@ function ClasicoGame() {
                     {entrenador?.image_url ? (
                       <div className="entrenador-circle">
                         <img 
-                          src={entrenador.image_url} 
+                          src={getImageUrl(entrenador.image_url)} 
                           alt={entrenador.apellido}
                           className="entrenador-foto"
                           onError={(e) => {

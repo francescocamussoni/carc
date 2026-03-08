@@ -284,8 +284,10 @@ python scripts/run_clasico.py --test         # Solo 3 partidos (test)
 **Características:**
 - 🎯 **Optimizado para nuevo juego**: Adivinar formación del clásico
 - 📊 ~63 partidos históricos disponibles
-- ⚡ ~5-15 minutos de scraping
+- ⚡ ~5-15 minutos de scraping (paralelo con ThreadPoolExecutor)
 - 🔗 Integración con datos de jugadores existentes
+- 📸 **Imágenes locales**: Descarga y guarda fotos de jugadores/entrenadores
+- 🎨 **Formaciones reales**: Extrae esquema táctico desde Transfermarkt
 
 **Ejemplo (versión optimizada para juego):**
 ```json
@@ -335,6 +337,8 @@ python scripts/run_clasico.py --test         # Solo 3 partidos (test)
 - Sistema busca pistas en `rosario_central_jugadores.json`
 - Validación de goleadores contra goles registrados
 - Muestra resultado final del partido
+- **Imágenes locales** desde `data/images/jugadores/` y `data/images/tecnicos/`
+- Script `generar_clasicos_optimizado.py` enriquece datos con `image_profile` del JSON de jugadores
 
 ---
 
@@ -468,14 +472,16 @@ DELAY_ENTRE_PAGINAS = (1, 2)
 | **Índice Club-Posición** | 856 clubes | **~10-30 seg** |
 | Goles Detallados (opcional) | ~200 | ~7-10 min |
 | Técnicos-Jugadores (opcional) | 65 | ~5-8 min |
-| **Partidos Clásicos (NUEVO)** | ~63 | **~5-15 min** |
+| **Partidos Clásicos** 🆕 | ~63 | **~5-15 min** (paralelo) |
 
 **Optimizaciones:**
 - ✅ **Orquestación inteligente** (pipeline automatizado)
-- ✅ **Ejecución paralela** (jugadores + técnicos simultáneos)
+- ✅ **Ejecución paralela** (jugadores + técnicos + clásicos simultáneos) 🆕
+- ✅ **ThreadPoolExecutor** para scraping de clásicos (MAX_WORKERS configurable) 🆕
 - ✅ **Índice optimizado** (búsqueda O(1) vs O(N*M))
 - ✅ **URLs directas** (logos desde historial, sin búsqueda)
 - ✅ **Normalización consistente** (nombres = archivos)
+- ✅ **Caché de imágenes** (skip ya descargadas, verifica múltiples extensiones) 🆕
 - ✅ Paralelización (4-5 workers por scraper)
 - ✅ Session pooling (keep-alive)
 - ✅ Caché HTTP
@@ -526,14 +532,16 @@ scraper.scrape(paralelo=False)  # Más lento pero más seguro
 
 ## 📖 Documentación Adicional
 
+- **[README Principal](../README.md)** - Overview del proyecto
 - **[Backend API](../backend/README.md)** - Consume estos datos
 - **[Frontend](../frontend/README.md)** - Muestra los juegos
-- **[README Principal](../README.md)** - Overview del proyecto
+- **[Deployment AWS](../DEPLOYMENT.md)** - Infraestructura y CI/CD 🆕
 
 ---
 
-**Versión:** 3.5  
-**Performance:** 4-5x más rápido que v1, con pipeline automatizado + índice optimizado  
-**Total datos:** ~2,000 imágenes + 5 JSON files (incluyendo índice)  
-**Scrapers:** 6 scrapers + 1 procesador de índice  
-**Última actualización:** 2026-03-04
+**Versión:** 4.0  
+**Performance:** 4-5x más rápido que v1, con pipeline automatizado + índice optimizado + scraping paralelo  
+**Total datos:** ~2,000 imágenes + 7 JSON files (incluyendo índice y clásicos)  
+**Scrapers:** 7 scrapers + 1 procesador de índice + 1 generador de clásicos optimizados  
+**Última actualización:** 2026-03-07  
+**Nuevo:** Scraper de clásicos paralelo con imágenes locales

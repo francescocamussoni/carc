@@ -1,6 +1,12 @@
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+// Backend base URL without /api/v1 for static files
+export const BACKEND_URL = API_BASE_URL.replace('/api/v1', '');
+// CloudFront URL for production (HTTPS) - rosariocentral.io
+export const CLOUDFRONT_URL = 'https://rosariocentral.io';
+// Check if we're in production (HTTPS)
+export const IS_PRODUCTION = window.location.protocol === 'https:';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -113,7 +119,16 @@ export const gamesAPI = {
 export const getImageUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http')) return path;
-  return `http://localhost:8000${path}`;
+  
+  // Si estamos en HTTPS (producción), usar CloudFront para las imágenes
+  if (IS_PRODUCTION) {
+    // Convertir /api/v1/static/jugadores/X.jpg -> /images/jugadores/X.jpg
+    const imagePath = path.replace('/api/v1/static/', '/images/');
+    return `${CLOUDFRONT_URL}${imagePath}`;
+  }
+  
+  // En desarrollo (HTTP), usar el backend directamente
+  return `${BACKEND_URL}${path}`;
 };
 
 export default api;

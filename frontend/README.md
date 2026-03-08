@@ -8,7 +8,7 @@ Aplicación React con 6 juegos de trivia de fútbol, diseño inspirado en FutFac
 
 ## 🎯 Características
 
-- ✅ 6 juegos interactivos (Trayectoria + Órbita + Equipo)
+- ✅ **7 juegos interactivos** (Trayectoria + Órbita + Clásico + 3 Equipos) 🆕
 - ✅ **3 Modos de dificultad** (Potrero, Clásico, Hazaña)
 - ✅ **Sistema de pistas inteligentes** (letra, posición, club)
 - ✅ **Revelación automática** de jugadores (modo Potrero)
@@ -16,7 +16,8 @@ Aplicación React con 6 juegos de trivia de fútbol, diseño inspirado en FutFac
 - ✅ **Diseño FutFactos** (fondo azul oscuro #041742, amarillo #f3b229)
 - ✅ **Responsive dinámico** con `clamp()` (mobile/tablet/desktop)
 - ✅ **Imágenes personalizadas** (Rubén, Di María, Bauza)
-- ✅ Sistema de formaciones dinámicas (4-3-3, 4-4-2, 3-5-2, 4-3-2-1)
+- ✅ **Sistema de formaciones dinámicas** (4-3-3, 4-2-3-1, 3-5-2, 3-4-1-2, etc.) 🆕
+- ✅ **Juego del Clásico** con formaciones reales vs Newell's 🆕
 - ✅ Selector de posición/jugador para múltiples opciones
 - ✅ Sistema de vidas, timer y pistas
 - ✅ **Animaciones optimizadas** (150-200ms, GPU-accelerated)
@@ -71,7 +72,26 @@ Identifica jugadores dirigidos por un técnico.
 - Progreso: X/Y adivinados
 - 3 modos: más minutos/goles/apariciones
 
-### 4. 🇦🇷 Equipo Nacional
+### 4. 🔵⚪ Clásico del Día (NUEVO) 🆕
+**Página:** `/clasico-del-dia`
+
+Adivina la formación titular de un clásico histórico vs Newell's.
+- **Selector de Dificultad:**
+  - 🌴 **Potrero**: 3 pistas + 3 revelaciones + sin límite
+  - 🏆 **Clásico**: 3 pistas + sin límite
+  - 💪 **Hazaña**: 3 pistas + timer 60s
+- **11 jugadores titulares + DT**
+- **Formaciones reales de Transfermarkt** (4-3-3, 4-2-3-1, 3-5-2, 3-4-1-2, etc.)
+- **Layout mejorado:**
+  - Panel superior: Progreso (jugadores, técnico), resultado, árbitro
+  - Panel lateral: Info del clásico + controles
+  - Panel central: Esquema táctico + entrenador
+- **Pistas inteligentes:** Primera letra + otro club donde jugó
+- **Revelar jugadores:** Muestra foto, nombre y posición
+- **Validar resultado:** Adivina el marcador final
+- ~63 clásicos históricos disponibles
+
+### 5. 🇦🇷 Equipo Nacional
 **Página:** `/equipo-nacional`
 
 Arma el equipo titular con jugadores argentinos.
@@ -85,7 +105,7 @@ Arma el equipo titular con jugadores argentinos.
 - Selector de posición/jugador
 - Layout 2 columnas (club+controles | campo táctico)
 
-### 5. 🌍 Equipo Europeo
+### 6. 🌍 Equipo Europeo
 **Página:** `/equipo-europeo`
 
 Arma el equipo titular con jugadores europeos.
@@ -93,7 +113,7 @@ Arma el equipo titular con jugadores europeos.
 - Clubes europeos (Juventus, Bayern, etc.)
 - Imágenes personalizadas (Di María)
 
-### 6. 🌎 Equipo Latinoamericano
+### 7. 🌎 Equipo Latinoamericano
 **Página:** `/equipo-latinoamericano`
 
 Arma el equipo titular con jugadores latinoamericanos.
@@ -108,19 +128,21 @@ Arma el equipo titular con jugadores latinoamericanos.
 ```
 frontend/
 ├── src/
-│   ├── pages/              # 7 páginas
+│   ├── pages/              # 8 páginas
 │   │   ├── HomePage.jsx
 │   │   ├── TrayectoriaNacional.jsx
 │   │   ├── TrayectoriaInternacional.jsx
 │   │   ├── OrbitaDelDia.jsx
-│   │   ├── EquipoNacional.jsx      # Wrapper (NUEVO)
-│   │   ├── EquipoEuropeo.jsx       # Wrapper
-│   │   └── EquipoLatinoamericano.jsx  # Wrapper
+│   │   ├── ClasicoDelDia.jsx       # Wrapper para Clásico (NUEVO) 🆕
+│   │   ├── EquipoNacional.jsx      # Wrapper para Equipo Nacional
+│   │   ├── EquipoEuropeo.jsx       # Wrapper para Equipo Europeo
+│   │   └── EquipoLatinoamericano.jsx  # Wrapper para Equipo Latinoamericano
 │   ├── components/         # Componentes reutilizables
-│   │   ├── EquipoGame.jsx  # Lógica genérica de juegos de equipo
-│   │   └── DifficultySelector.jsx  # Selector de dificultad (NUEVO)
+│   │   ├── EquipoGame.jsx  # Lógica genérica de juegos de equipo/clásico
+│   │   ├── ClasicoGame.jsx # Lógica específica del Clásico (NUEVO) 🆕
+│   │   └── DifficultySelector.jsx  # Selector de dificultad
 │   ├── services/
-│   │   └── api.js          # Axios client
+│   │   └── api.js          # Axios client (endpoints del clásico incluidos)
 │   ├── styles/             # CSS por página
 │   │   ├── variables.css   # Sistema de diseño FutFactos
 │   │   ├── index.css       # Globales
@@ -128,9 +150,9 @@ frontend/
 │   │   ├── HomePage.css    # Tarjetas de juegos (diseño FutFactos)
 │   │   ├── TrayectoriaGame.css
 │   │   ├── OrbitaGame.css
-│   │   ├── EquipoGame.css  # Juegos de equipo
-│   │   └── DifficultySelector.css  # Selector de dificultad (NUEVO)
-│   ├── App.jsx             # Router
+│   │   ├── EquipoGame.css  # Juegos de equipo + clásico (compartido)
+│   │   └── DifficultySelector.css  # Selector de dificultad
+│   ├── App.jsx             # Router (incluye /clasico-del-dia)
 │   └── main.jsx            # Entry point
 ├── package.json
 └── vite.config.js
@@ -192,8 +214,9 @@ Cada tipo de juego tiene su propia imagen:
 ```javascript
 import { gamesAPI } from './services/api'
 
-// Obtener juego
+// Obtener juegos
 const game = await gamesAPI.getEquipoNacional()
+const clasico = await gamesAPI.getClasicoDelDia()  // NUEVO 🆕
 
 // Verificar respuesta
 const result = await gamesAPI.verifyGuess(
@@ -203,19 +226,33 @@ const result = await gamesAPI.verifyGuess(
 )
 console.log(result.correcto) // true/false
 
+// Verificar jugador del clásico (NUEVO) 🆕
+const result = await gamesAPI.verifyClasicoAnswer(gameId, 'Ruben')
+
+// Verificar resultado del clásico (NUEVO) 🆕
+const result = await gamesAPI.verifyClasicoResultado(gameId, '2-1')
+
 // Confirmar posición (jugador polivalente)
 const result = await gamesAPI.confirmarPosicion(gameId, 'DEL')
 
 // Confirmar jugador (múltiples coincidencias)
 const result = await gamesAPI.confirmarJugador(gameId, 'marco_ruben')
 
-// Obtener pista (NUEVO)
+// Obtener pista
 const pista = await gamesAPI.obtenerPista(gameId)
 // { letra_apellido: "R", posicion_principal: "DEL", otro_club: "Dynamo Kyiv" }
 
-// Revelar jugador aleatorio (NUEVO)
+// Obtener pista del clásico (NUEVO) 🆕
+const pista = await gamesAPI.obtenerPistaClasicoJugador(gameId)
+// { letra_apellido: "R", otro_club: "Boca Juniors" }
+
+// Revelar jugador aleatorio
 const result = await gamesAPI.revelarJugadorAleatorio(gameId)
 // { jugador_revelado: {...}, posicion_asignada: "DEL", nuevo_club: {...} }
+
+// Revelar jugador del clásico (NUEVO) 🆕
+const result = await gamesAPI.revelarJugadorClasicoAleatorio(gameId)
+// { jugador_revelado: {...}, posicion_asignada: "DEL" }
 ```
 
 ---
@@ -223,7 +260,7 @@ const result = await gamesAPI.revelarJugadorAleatorio(gameId)
 ## 🏗️ Componentes Principales
 
 ### HomePage
-Landing page con 6 tarjetas de juegos (diseño FutFactos).
+Landing page con 7 tarjetas de juegos (diseño FutFactos).
 
 ### TrayectoriaNacional / TrayectoriaInternacional
 ```jsx
@@ -242,6 +279,37 @@ const [elementosRevelados, setElementosRevelados] = useState([])
 const [victoria, setVictoria] = useState(false)
 ```
 
+### ClasicoGame (Componente Específico) 🆕
+```jsx
+// Usado por: ClasicoDelDia
+const [gameData, setGameData] = useState(null)
+const [difficulty, setDifficulty] = useState(null)
+
+// Formación del clásico (11 jugadores + entrenador)
+const [formacionData, setFormacionData] = useState({
+  porteros: [], defensas: [], mediocampos: [], 
+  mediocampistasOfensivos: [], delanteros: [], entrenador: null
+})
+
+// Estado del juego
+const [jugadoresAdivinados, setJugadoresAdivinados] = useState(0)
+const [tecnicoAdivinado, setTecnicoAdivinado] = useState(false)
+const [resultadoVerificado, setResultadoVerificado] = useState(false)
+const [gameOver, setGameOver] = useState(false)
+
+// Controles
+const [respuesta, setRespuesta] = useState('')
+const [resultado, setResultado] = useState('')
+const [pistasRestantes, setPistasRestantes] = useState(3)
+const [revelacionesRestantes, setRevelacionesRestantes] = useState(3)
+const [timer, setTimer] = useState(60)
+const [timerActive, setTimerActive] = useState(false)
+
+// Feedback
+const [mensajeFeedback, setMensajeFeedback] = useState('')
+const [pista, setPista] = useState(null)
+```
+
 ### EquipoGame (Componente Genérico)
 ```jsx
 // Usado por: EquipoNacional, EquipoEuropeo, EquipoLatinoamericano
@@ -250,7 +318,7 @@ const [formacionData, setFormacionData] = useState({
   mediocampistasOfensivos: [], delanteros: [], entrenador: null
 })
 
-// Dificultad (NUEVO)
+// Dificultad
 const [difficulty, setDifficulty] = useState(null)
 const [pistasRestantes, setPistasRestantes] = useState(3)
 const [revelacionesRestantes, setRevelacionesRestantes] = useState(3)
@@ -263,7 +331,7 @@ const [mostrarSelectorJugador, setMostrarSelectorJugador] = useState(false)
 const [posicionesDisponibles, setPosicionesDisponibles] = useState([])
 const [jugadoresDisponibles, setJugadoresDisponibles] = useState([])
 
-// Pista (NUEVO)
+// Pista
 const [pista, setPista] = useState(null)
 ```
 
@@ -411,6 +479,7 @@ npm run build
 - **[README Principal](../README.md)** - Overview del proyecto
 - **[Backend API](../backend/README.md)** - API que consume
 - **[Scraping](../scraping/README.md)** - Datos que muestra
+- **[Deployment AWS](../DEPLOYMENT.md)** - Infraestructura y CI/CD 🆕
 
 ---
 
@@ -419,5 +488,6 @@ npm run build
 **Node:** 18+  
 **Diseño:** FutFactos-inspired  
 **Idioma:** Español argentino (voseo)  
-**Última actualización:** 2026-03-04  
+**Última actualización:** 2026-03-07  
+**Juegos:** 7 completos (incluyendo Clásico del Día)  
 **Performance:** 60fps con animaciones optimizadas

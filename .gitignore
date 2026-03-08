@@ -55,3 +55,17 @@ temp/
 .coverage
 htmlcov/
 .pytest_cache/
+
+# Deployment
+*.tar.gz
+*.zip
+backend-deploy.tar.gz
+scraping-deploy.tar.gz
+terraform/outputs.json
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform.lock.hcl
+
+# AWS
+.aws/

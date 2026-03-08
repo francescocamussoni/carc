@@ -5,19 +5,21 @@ Plataforma completa de trivias de fútbol basada en datos reales de Rosario Cent
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109-green.svg)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-18-61dafb.svg)](https://reactjs.org/)
+[![AWS](https://img.shields.io/badge/AWS-Ready-orange.svg)](https://aws.amazon.com/)
 
 ---
 
 ## 🎯 ¿Qué es esto?
 
-Una aplicación web **full-stack** tipo [FutFactos.com](http://futfactos.com/) con 6 juegos de trivia:
+Una aplicación web **full-stack** tipo [FutFactos.com](http://futfactos.com/) con **7 juegos de trivia**:
 
 1. **🇦🇷 Trayectoria Nacional** - Adivina el jugador por clubes argentinos
 2. **🌎 Trayectoria Internacional** - Adivina el jugador por clubes extranjeros  
 3. **⚽ Órbita del Día** - Identifica jugadores dirigidos por un técnico
-4. **🇦🇷 Equipo Nacional** - Arma el equipo titular con jugadores argentinos
-5. **🌍 Equipo Europeo** - Arma el equipo titular con jugadores europeos
-6. **🌎 Equipo Latinoamericano** - Arma el equipo titular con jugadores latinoamericanos
+4. **🔵⚪ Clásico del Día** - Adivina la formación titular de clásicos históricos vs Newell's 🆕
+5. **🇦🇷 Equipo Nacional** - Arma el equipo titular con jugadores argentinos
+6. **🌍 Equipo Europeo** - Arma el equipo titular con jugadores europeos
+7. **🌎 Equipo Latinoamericano** - Arma el equipo titular con jugadores latinoamericanos
 
 ---
 
@@ -35,9 +37,11 @@ carc/
 
 ### 📚 Documentación por Módulo
 
-- **[Backend API](backend/README.md)** - FastAPI con 9 endpoints, 6 juegos
+- **[Backend API](backend/README.md)** - FastAPI con 15 endpoints, 7 juegos
 - **[Frontend](frontend/README.md)** - React + Vite, diseño FutFactos
-- **[Scraping](scraping/README.md)** - Pipeline automatizado con 5 scrapers
+- **[Scraping](scraping/README.md)** - Pipeline automatizado con 7 scrapers
+- **[Deployment AWS](DEPLOYMENT.md)** - Guía completa de deployment (Quick Start + paso a paso) 🆕
+- **[Infraestructura](terraform/README.md)** - Módulos de Terraform, variables, outputs 🆕
 
 ---
 
@@ -115,6 +119,20 @@ Identifica jugadores dirigidos por un técnico.
 - Múltiples jugadores para adivinar
 - 3 modos: más minutos/goles/apariciones
 
+### 🔵⚪ Clásico del Día 🆕
+Adivina la formación titular de un clásico histórico vs Newell's.
+- **11 jugadores titulares + DT**
+- **3 Modos de Dificultad:**
+  - **🌴 Potrero:** 3 pistas + 3 revelaciones + sin límite
+  - **🏆 Clásico:** 3 pistas + sin límite
+  - **💪 Hazaña:** 3 pistas + 60 segundos ⏱️
+- **Formaciones reales de Transfermarkt** (4-3-3, 4-2-3-1, 3-5-2, etc.)
+- **Datos del partido:** Fecha, competición, resultado, árbitro
+- **Sistema de pistas:** Primera letra del apellido + otro club donde jugó
+- **Revelación de jugadores** con fotos y posiciones correctas
+- **Validación del resultado** del partido
+- ~63 clásicos históricos disponibles
+
 ### 🇦🇷 Equipo Nacional / 🌍 Europeo / 🌎 Latinoamericano
 Arma el equipo titular adivinando jugadores por clubes.
 - 11 jugadores + DT
@@ -137,6 +155,7 @@ Arma el equipo titular adivinando jugadores por clubes.
 | Técnicos | ~65 | `scraping/data/output/rosario_central_tecnicos.json` |
 | Relaciones | 65 técnicos | `scraping/data/output/rosario_central_tecnicos_jugadores.json` |
 | Goles | Miles | `scraping/data/output/rosario_central_goles_detallados.json` |
+| **Clásicos vs Newell's** 🆕 | ~63 partidos | `scraping/data/output/rosario_central_clasicos_game.json` |
 | **Índice Optimizado** | 856 clubes | `scraping/data/output/club_posicion_index.json` |
 | Logos Clubes | ~300 | `scraping/data/images/clubes/` |
 | Fotos Jugadores | ~1,600 | `scraping/data/images/jugadores/` |
@@ -230,14 +249,46 @@ python scripts/run_equipos.py    # Logos de clubes
 
 ## 🚢 Deploy
 
-### Backend
+### ☁️ AWS (Recomendado - Ultra Low-Cost) 🆕
+
+**Infraestructura completa con Terraform + CI/CD:**
+
+```bash
+# Ver guía completa
+cat DEPLOYMENT.md  # Incluye Quick Start (5 pasos) + guía completa
+
+# Setup inicial
+cd terraform
+terraform init
+terraform plan
+terraform apply
+
+# O usar script helper
+./deploy.sh
+```
+
+**Arquitectura:**
+- **Frontend:** S3 + CloudFront (CDN global)
+- **Backend:** EC2 t4g.micro (Free Tier)
+- **CI/CD:** GitHub Actions (auto-deploy en push a `main`)
+- **Costo estimado:** $0-3/mes (Free Tier elegible)
+
+**Documentación completa:**
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Quick Start (5 pasos) + Arquitectura + CI/CD
+- **[terraform/README.md](terraform/README.md)** - Módulos, variables, outputs
+
+---
+
+### 🔧 Alternativas
+
+#### Backend
 ```bash
 # Railway, Fly.io, o similar
 cd backend
 railway up  # o fly deploy
 ```
 
-### Frontend
+#### Frontend
 ```bash
 # Vercel, Netlify
 cd frontend
@@ -288,24 +339,36 @@ lsof -ti :3000 | xargs kill -9  # Frontend
 
 | Módulo | README | Descripción |
 |--------|--------|-------------|
-| **Proyecto** | [README.md](README.md) | Este archivo |
-| **Backend** | [backend/README.md](backend/README.md) | API REST, endpoints, schemas |
-| **Frontend** | [frontend/README.md](frontend/README.md) | React app, componentes, estilos |
-| **Scraping** | [scraping/README.md](scraping/README.md) | 4 scrapers, datos, performance |
+| **Proyecto** | [README.md](README.md) | Este archivo - Overview general |
+| **Backend** | [backend/README.md](backend/README.md) | API REST, 15 endpoints, 7 juegos, Docker |
+| **Frontend** | [frontend/README.md](frontend/README.md) | React app, 7 juegos, componentes, estilos |
+| **Scraping** | [scraping/README.md](scraping/README.md) | 7 scrapers, pipeline, datos, performance |
+| **Deployment AWS** 🆕 | [DEPLOYMENT.md](DEPLOYMENT.md) | Quick Start + guía completa, CI/CD, costos |
+| **Infraestructura** 🆕 | [terraform/README.md](terraform/README.md) | Módulos Terraform, variables, outputs |
+| **Quickstart** | [QUICKSTART.md](QUICKSTART.md) | Inicio rápido para desarrollo local |
 
 ---
 
 ## 📊 Estadísticas
 
-- **Líneas de código:** ~6,000
-- **Archivos creados:** ~45
-- **Datos recopilados:** ~1,600 jugadores, 65 técnicos, 856 clubes indexados
+- **Líneas de código:** ~8,500+
+- **Archivos creados:** ~60+
+- **Juegos:** 7 (Nacional, Internacional, Órbita, Clásico, 3 Equipos)
+- **Datos recopilados:** 
+  - ~1,600 jugadores
+  - 65 técnicos
+  - 63 partidos clásicos históricos 🆕
+  - 856 clubes indexados
 - **Imágenes:** ~2,000 (jugadores, técnicos, clubes, personalizadas)
 - **Performance:** 
   - Backend: <50ms por request
   - Frontend: 60fps constante
   - Imágenes: <400KB optimizadas
   - Transiciones: 150-200ms
+- **Infraestructura:**
+  - Terraform modules: 3 (networking, frontend, backend)
+  - CI/CD: GitHub Actions
+  - AWS Free Tier compatible
 
 ---
 
@@ -336,7 +399,9 @@ Uso educativo. Datos de Transfermarkt (respetar ToS).
 
 ---
 
-**Versión:** 2.5.0  
-**Última actualización:** 2026-03-04  
+**Versión:** 3.0.0  
+**Última actualización:** 2026-03-07  
 **Diseño:** Inspirado en FutFactos.com  
-**Idioma:** Español argentino (voseo)
+**Idioma:** Español argentino (voseo)  
+**Deployment:** AWS-ready con Terraform + CI/CD  
+**Juegos:** 7 completos (incluyendo Clásico del Día)

@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import '../styles/DifficultySelector.css'
+import { BACKEND_URL, CLOUDFRONT_URL, IS_PRODUCTION } from '../services/api'
 
-function DifficultySelector({ onSelect, onSelectDifficulty, gameTitle }) {
+const BASE_URL = IS_PRODUCTION ? CLOUDFRONT_URL : BACKEND_URL
+const IMAGES_PATH = IS_PRODUCTION ? '/images' : '/api/v1/static'
+
+function DifficultySelector({ onSelect, onSelectDifficulty, gameTitle, onClose }) {
   const [hoveredDiff, setHoveredDiff] = useState(null)
   
   // Use onSelect if provided, otherwise use onSelectDifficulty (backwards compatibility)
@@ -13,7 +17,7 @@ function DifficultySelector({ onSelect, onSelectDifficulty, gameTitle }) {
     {
       id: 'facil',
       name: 'POTRERO',
-      image: 'http://localhost:8000/api/v1/static/otras/palma.webp',
+      image: `${BASE_URL}${IMAGES_PATH}/otras/palma.webp`,
       color: '#2ecc71',
       features: [
         '3 pistas disponibles',
@@ -24,7 +28,7 @@ function DifficultySelector({ onSelect, onSelectDifficulty, gameTitle }) {
     {
       id: 'intermedio',
       name: 'CLÁSICO',
-      image: 'http://localhost:8000/api/v1/static/otras/miguel.png',
+      image: `${BASE_URL}${IMAGES_PATH}/otras/miguel.png`,
       color: '#f39c12',
       features: [
         '3 pistas disponibles',
@@ -34,7 +38,7 @@ function DifficultySelector({ onSelect, onSelectDifficulty, gameTitle }) {
     {
       id: 'dificil',
       name: 'HAZAÑA',
-      image: 'http://localhost:8000/api/v1/static/otras/petaco.avif',
+      image: `${BASE_URL}${IMAGES_PATH}/otras/petaco.avif`,
       color: '#e74c3c',
       features: [
         '3 pistas disponibles',
@@ -46,6 +50,11 @@ function DifficultySelector({ onSelect, onSelectDifficulty, gameTitle }) {
   return (
     <div className="difficulty-overlay">
       <div className="difficulty-modal">
+        {onClose && (
+          <button className="difficulty-close" onClick={onClose} aria-label="Cerrar">
+            ✕
+          </button>
+        )}
         <div className="difficulty-header">
           <h1>⚽ SELECCIONÁ DIFICULTAD</h1>
           <p>{gameTitle || 'Elegí cómo querés jugar hoy'}</p>

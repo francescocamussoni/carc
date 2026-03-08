@@ -8,13 +8,14 @@ API REST con FastAPI para servir juegos de trivia de fútbol.
 
 ## 🎯 Características
 
-- ✅ **12 endpoints RESTful** (6 juegos + 6 servicios)
+- ✅ **15 endpoints RESTful** (7 juegos + 8 servicios)
 - ✅ Generación determinística de juegos (mismo juego/día para todos)
-- ✅ 6 juegos implementados (Trayectoria + Órbita + Equipo)
+- ✅ **7 juegos implementados** (Trayectoria + Órbita + Clásico + 3 Equipos) 🆕
 - ✅ **3 Modos de dificultad** (Potrero, Clásico, Hazaña)
 - ✅ **Sistema de pistas inteligentes** (letra, posición, club)
 - ✅ **Revelación automática de jugadores** (modo Potrero)
-- ✅ Sistema de formaciones dinámicas (4-3-3, 4-4-2, 3-5-2, 4-3-2-1)
+- ✅ **Sistema de formaciones dinámicas** (4-3-3, 4-2-3-1, 3-5-2, 3-4-1-2, etc.)
+- ✅ **Juego del Clásico** con formaciones reales de Transfermarkt 🆕
 - ✅ Selector de posición/jugador para múltiples opciones
 - ✅ **Índice optimizado** club-posición (búsqueda O(1))
 - ✅ Verificación con fuzzy matching + normalización de texto
@@ -22,6 +23,7 @@ API REST con FastAPI para servir juegos de trivia de fútbol.
 - ✅ **Salto automático de clubes** sin jugadores disponibles
 - ✅ Documentación automática (Swagger)
 - ✅ CORS configurado
+- ✅ **Docker-ready** para deployment 🆕
 
 ---
 
@@ -70,13 +72,20 @@ GET  /api/v1/games/trayectoria-internacional  # Adivina por clubes extranjeros
 # Juego Órbita
 GET  /api/v1/games/orbita                     # Jugadores dirigidos por técnico
 
-# Juegos de Equipo (NUEVO)
+# Juego del Clásico (NUEVO) 🆕
+GET  /api/v1/games/clasico                    # Clásico del día vs Newell's
+POST /api/v1/games/clasico/verificar          # Verificar jugador del clásico
+POST /api/v1/games/clasico/verificar-resultado # Verificar resultado del partido
+GET  /api/v1/games/clasico/pista/{game_id}    # Pista para jugador del clásico
+POST /api/v1/games/clasico/revelar/{game_id}  # Revelar jugador del clásico
+
+# Juegos de Equipo
 GET  /api/v1/games/equipo-nacional            # Arma equipo con argentinos
 GET  /api/v1/games/equipo-europeo             # Arma equipo con europeos  
 GET  /api/v1/games/equipo-latinoamericano     # Arma equipo con latinoamericanos
 
-# Servicios
-POST /api/v1/games/verify                     # Verificar respuesta
+# Servicios Generales
+POST /api/v1/games/verify                     # Verificar respuesta (juegos generales)
 POST /api/v1/games/confirmar-posicion         # Confirmar posición (jugador polivalente)
 POST /api/v1/games/confirmar-jugador          # Confirmar jugador (múltiples coincidencias)
 GET  /api/v1/games/pista/{game_id}            # Obtener pista inteligente
@@ -271,6 +280,37 @@ correct = "Marco Ruben"
 
 ## 🚢 Deploy
 
+### 🐳 Docker (Recomendado) 🆕
+
+```bash
+# Build imagen
+docker build -t futfactos-backend .
+
+# Run container
+docker run -p 8000:8000 \
+  -v $(pwd)/../scraping/data:/app/scraping/data \
+  futfactos-backend
+
+# O usar docker-compose (ver DEPLOYMENT.md)
+```
+
+**Dockerfile incluido** con:
+- Multi-stage build (optimizado)
+- Python 3.9 slim
+- Health checks
+- Non-root user
+- Volumes para datos estáticos
+
+### ☁️ AWS (Con CI/CD)
+
+Ver **[DEPLOYMENT.md](../DEPLOYMENT.md)** para deployment completo con Terraform + GitHub Actions.
+
+**Incluye:**
+- EC2 t4g.micro (ARM, Free Tier)
+- Docker en EC2
+- Auto-deploy en push a `main`
+- Ultra low-cost ($0-3/mes)
+
 ### Railway
 
 ```bash
@@ -294,10 +334,13 @@ fly deploy
 - **[README Principal](../README.md)** - Overview del proyecto
 - **[Frontend](../frontend/README.md)** - Consume esta API
 - **[Scraping](../scraping/README.md)** - Genera los datos
+- **[Deployment AWS](../DEPLOYMENT.md)** - Infraestructura y CI/CD 🆕
 
 ---
 
 **FastAPI:** 0.109.0  
 **Python:** 3.9+  
-**Última actualización:** 2026-03-04  
-**Endpoints:** 12 (6 juegos + 6 servicios)
+**Docker:** Multi-stage build incluido  
+**Última actualización:** 2026-03-07  
+**Endpoints:** 15 (7 juegos + 8 servicios)  
+**Juegos:** 7 (Nacional, Internacional, Órbita, Clásico, 3 Equipos)

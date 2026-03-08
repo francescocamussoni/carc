@@ -21,7 +21,9 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:5173",
-        "http://localhost:8080"
+        "http://localhost:8080",
+        "http://futfactos-rc-frontend-prod.s3-website-sa-east-1.amazonaws.com",
+        "*"  # Allow all origins (for development/testing)
     ]
     
     # Database

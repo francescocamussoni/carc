@@ -4,7 +4,11 @@ import EquipoNacional from './pages/EquipoNacional'
 import EquipoEuropeo from './pages/EquipoEuropeo'
 import EquipoLatinoamericano from './pages/EquipoLatinoamericano'
 import ClasicoDelDia from './pages/ClasicoDelDia'
+import { BACKEND_URL, CLOUDFRONT_URL, IS_PRODUCTION } from './services/api'
 import './styles/App.css'
+
+const BASE_URL = IS_PRODUCTION ? CLOUDFRONT_URL : BACKEND_URL
+const IMAGES_PATH = IS_PRODUCTION ? '/images' : '/api/v1/static'
 
 function App() {
   return (
@@ -15,12 +19,12 @@ function App() {
             <Link to="/" className="nav-logo">
               <div className="logo-container">
                 <img 
-                  src="http://localhost:8000/api/v1/static/clubes/argentina/rosario_central.png" 
+                  src={`${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`}
                   alt="Rosario Central" 
                   className="logo-shield"
                 />
                 <div>
-                  <h1>carc.io</h1>
+                  <h1>rosariocentral.io</h1>
                   <span className="nav-subtitle">Rosario Central</span>
                 </div>
               </div>
@@ -30,7 +34,7 @@ function App() {
               <Link to="/equipo-nacional" className="nav-link">Equipo Nacional</Link>
               <Link to="/equipo-europeo" className="nav-link">Equipo Europeo</Link>
               <Link to="/equipo-latinoamericano" className="nav-link">Equipo Latinoamericano</Link>
-              <Link to="/clasico-del-dia" className="nav-link">🔵⚪ Clásico</Link>
+              <Link to="/clasico-del-dia" className="nav-link">Clásico</Link>
             </div>
           </div>
         </nav>
@@ -46,7 +50,7 @@ function App() {
         </main>
 
         <footer className="footer">
-          <p>© 2026 carc.io - Rosario Central</p>
+          <p>© 2026 rosariocentral.io - Rosario Central</p>
           <p>Datos obtenidos de Transfermarkt</p>
         </footer>
       </div>
