@@ -723,8 +723,8 @@ class ClasicoScraper:
                 self.logger.warning("No se pudo extraer el entrenador")
                 return None
             
-            # 7. ASIGNAR POSICIONES según el esquema
-            jugadores_titulares = self._assign_positions_by_formation(esquema, jugadores_titulares)
+            # 7. ✅ Las posiciones ya fueron extraídas correctamente de Transfermarkt
+            # NO necesitamos inferirlas por el esquema, ya que _normalize_position las procesó correctamente
             
             return FormacionEquipo(
                 esquema=esquema,
@@ -747,29 +747,47 @@ class ClasicoScraper:
             "POR" -> "PO"
             "Portero" -> "PO"
             "Defensa central" -> "DC"
+            "Lateral izquierdo" -> "EI"
+            "Lateral derecho" -> "ED"
             "Delantero" -> "DEL"
         """
         pos = posicion_texto.upper().strip()
         
-        # Mapeo de posiciones
+        # ✅ Primero verificar casos específicos que pueden tener ambigüedad
+        # Delantero debe ir primero (antes que "CENTRO" para evitar "Delantero centro" -> "MC")
+        if 'DELANTERO' in pos:
+            return 'DEL'
+        
+        # Lateral izquierdo/derecho
+        if 'LATERAL IZQUIERDO' in pos or 'IZQUIERDO' in pos:
+            return 'EI'
+        if 'LATERAL DERECHO' in pos or 'DERECHO' in pos:
+            return 'ED'
+        
+        # Mapeo de posiciones generales
         mapeo = {
             'POR': 'PO',
             'PORTERO': 'PO',
+            'DEFENSA CENTRAL': 'DC',
+            'CENTRAL': 'DC',
             'DEF': 'DC',
             'DEFENSA': 'DC',
-            'LATERAL': 'ED',
+            'LATERAL': 'ED',  # Fallback genérico
             'CEN': 'MC',
             'CENTRO': 'MC',
             'MEDIO': 'MC',
+            'CENTROCAMPISTA': 'MC',
             'MC': 'MC',
             'MCO': 'MO',
+            'MEDIAPUNTA': 'MO',
             'LI': 'MI',
-            'PIV': 'MC',
-            'PIVOTE': 'MC',
+            'PIV': 'PI',  # ✅ Pivote
+            'PIVOTE': 'PI',  # ✅ Pivote
             'EI': 'EI',
             'ED': 'ED',
             'DEL': 'DEL',
-            'DELANTERO': 'DEL'
+            'DELANTERO': 'DEL',
+            'EXTREMO': 'MD'  # Extremo genérico
         }
         
         # Buscar coincidencia parcial

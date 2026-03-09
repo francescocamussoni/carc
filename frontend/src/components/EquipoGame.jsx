@@ -13,6 +13,7 @@ function EquipoGame({ gameType, title }) {
   // Dificultad
   const [mostrarSelectorDificultad, setMostrarSelectorDificultad] = useState(true)
   const [dificultad, setDificultad] = useState(null)
+  const [clubesPorPosicion, setClubesPorPosicion] = useState({}) // Guardar club de la pista por posición
   const [pistasUsadas, setPistasUsadas] = useState(0)
   const [revelacionesUsadas, setRevelacionesUsadas] = useState(0)
   const [tiempoRestante, setTiempoRestante] = useState(60)
@@ -38,6 +39,7 @@ function EquipoGame({ gameType, title }) {
   const [mostrarSelectorJugador, setMostrarSelectorJugador] = useState(false)
   const [jugadoresDisponibles, setJugadoresDisponibles] = useState([])
   const [apellidoBuscado, setApellidoBuscado] = useState('')
+  const [clubEntrenador, setClubEntrenador] = useState(null) // 🔒 Guardar el club con el que se reveló el entrenador
 
   useEffect(() => {
     if (dificultad) {
@@ -155,12 +157,14 @@ function EquipoGame({ gameType, title }) {
               p => p.posicion === result.posicion_asignada && !p.revelado
             )
             if (idx !== -1) {
+              const apellido = result.jugador_revelado.apellido || result.jugador_revelado.nombre.split(' ').pop()
               newPosiciones[idx] = {
                 ...newPosiciones[idx],
                 revelado: true,
                 jugador_nombre: result.jugador_revelado.nombre,
-                jugador_apellido: result.jugador_revelado.apellido || result.jugador_revelado.nombre.split(' ').pop(),
-                image_url: result.jugador_revelado.image_url
+                jugador_apellido: apellido,
+                image_url: result.jugador_revelado.image_url,
+                club_revelado: clubActual  // 🔒 Guardar el club actual directamente en la posición
               }
               setPosiciones(newPosiciones)
             }
@@ -176,6 +180,11 @@ function EquipoGame({ gameType, title }) {
             setEntrenadorRevelado(true)
             setEntrenadorNombre(result.jugador_revelado.nombre) // Guardar nombre del DT
             setEntrenadorImageUrl(getImageUrl(result.jugador_revelado.image_url)) // Guardar foto del DT
+            
+            // 🔒 Guardar el club actual para el entrenador
+            if (clubActual) {
+              setClubEntrenador(clubActual)
+            }
           }
 
           // Check victory
@@ -222,12 +231,14 @@ function EquipoGame({ gameType, title }) {
               p => p.posicion === result.posicion_asignada && !p.revelado
             )
             if (idx !== -1) {
+              const apellido = result.jugador_revelado.apellido || result.jugador_revelado.nombre.split(' ').pop()
               newPosiciones[idx] = {
                 ...newPosiciones[idx],
                 revelado: true,
                 jugador_nombre: result.jugador_revelado.nombre,
-                jugador_apellido: result.jugador_revelado.apellido || result.jugador_revelado.nombre.split(' ').pop(),
-                image_url: result.jugador_revelado.image_url
+                jugador_apellido: apellido,
+                image_url: result.jugador_revelado.image_url,
+                club_revelado: clubActual  // 🔒 Guardar el club actual directamente en la posición
               }
               setPosiciones(newPosiciones)
             }
@@ -273,12 +284,14 @@ function EquipoGame({ gameType, title }) {
             p => p.posicion === result.posicion_asignada && !p.revelado
           )
           if (idx !== -1) {
+            const apellido = result.jugador_revelado.apellido || result.jugador_revelado.nombre.split(' ').pop()
             newPosiciones[idx] = {
               ...newPosiciones[idx],
               revelado: true,
               jugador_nombre: result.jugador_revelado.nombre,
-              jugador_apellido: result.jugador_revelado.apellido || result.jugador_revelado.nombre.split(' ').pop(),
-              image_url: result.jugador_revelado.image_url
+              jugador_apellido: apellido,
+              image_url: result.jugador_revelado.image_url,
+              club_revelado: clubActual  // 🔒 Guardar el club actual directamente en la posición
             }
             setPosiciones(newPosiciones)
           }
@@ -342,7 +355,16 @@ function EquipoGame({ gameType, title }) {
 
   const handleRendirse = () => {
     setGameOver(true)
-    const newPosiciones = posiciones.map(p => ({ ...p, revelado: true }))
+    // 🔒 Preservar club_revelado de los jugadores ya revelados
+    const newPosiciones = posiciones.map(p => {
+      if (p.revelado && p.club_revelado) {
+        // Ya estaba revelado, preservar su club
+        return { ...p, revelado: true }
+      } else {
+        // Nuevo revelado, sin club (mostrará Rosario Central como fallback)
+        return { ...p, revelado: true }
+      }
+    })
     setPosiciones(newPosiciones)
     setEntrenadorRevelado(true)
     setEntrenadorNombre(gameData.entrenador_nombre_completo) // Mostrar DT del juego
@@ -373,8 +395,31 @@ function EquipoGame({ gameType, title }) {
         return
       }
       
-      // Actualizar posiciones con el jugador revelado
-      setPosiciones(result.posiciones)
+      // 🔒 Actualizar posiciones preservando los club_revelado existentes y agregando al nuevo
+      setPosiciones(prevPosiciones => {
+        return result.posiciones.map(newPos => {
+          // Buscar si esta posición ya existía
+          const existingPos = prevPosiciones.find(p => p.posicion === newPos.posicion)
+          
+          // Si ya estaba revelada, preservar su club_revelado
+          if (existingPos?.revelado && existingPos.club_revelado) {
+            return {
+              ...newPos,
+              club_revelado: existingPos.club_revelado
+            }
+          }
+          
+          // Si es el jugador recién revelado, guardar el club actual
+          if (newPos.revelado && !existingPos?.revelado) {
+            return {
+              ...newPos,
+              club_revelado: clubActual
+            }
+          }
+          
+          return newPos
+        })
+      })
       
       // Actualizar club actual
       if (result.nuevo_club) {
@@ -400,6 +445,22 @@ function EquipoGame({ gameType, title }) {
       setMensaje('❌ Error al revelar jugador')
       setTimeout(() => setMensaje(''), 3000)
     }
+  }
+
+  // Helper function to get club logo path
+  const getClubLogoPath = (clubNombre) => {
+    if (!clubNombre) return null
+    
+    // Normalize club name to filename format
+    const normalized = clubNombre
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove accents
+      .replace(/\s+/g, '_') // Replace spaces with underscores
+      .replace(/[^a-z0-9_]/g, '') // Remove special characters
+    
+    // Try Argentina clubs first, then internacional
+    return `${BASE_URL}${IMAGES_PATH}/clubes/argentina/${normalized}.png`
   }
 
   const organizarFormacion = () => {
@@ -447,6 +508,18 @@ function EquipoGame({ gameType, title }) {
   const renderJugador = (jugador, index) => {
     const revelado = jugador.revelado || gameOver
     
+    // Get club logo - use the club that was saved when this player was revealed
+    let clubLogoPath = `${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`
+    let clubAlt = 'Rosario Central'
+    
+    if (revelado && jugador.club_revelado) {
+      // 🔒 Usar el club que fue guardado directamente en la posición cuando se reveló
+      if (jugador.club_revelado.logo_url) {
+        clubLogoPath = `${BASE_URL}${jugador.club_revelado.logo_url.replace('/api/v1/static', IMAGES_PATH)}`
+        clubAlt = jugador.club_revelado.nombre
+      }
+    }
+    
     return (
       <div key={index} className="jugador-posicion">
         <div className="jugador-circle">
@@ -462,6 +535,16 @@ function EquipoGame({ gameType, title }) {
                   }}
                 />
               )}
+              <div className="escudo-jugador">
+                <img 
+                  src={clubLogoPath}
+                  alt={clubAlt}
+                  onError={(e) => {
+                    // Fallback to Rosario Central if club logo fails
+                    e.target.src = `${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`
+                  }}
+                />
+              </div>
               <div className="jugador-nombre">
                 {jugador.jugador_apellido || '?'}
               </div>
@@ -507,7 +590,8 @@ function EquipoGame({ gameType, title }) {
 
   if (!gameData) return null
 
-  const formacionData = organizarFormacion()
+  // Ya no necesitamos organizarFormacion - usamos posiciones con coordenadas directamente
+  // const formacionData = organizarFormacion()
   const jugadoresRevelados = posiciones.filter(p => p.revelado).length
 
   return (
@@ -686,64 +770,71 @@ function EquipoGame({ gameType, title }) {
         {/* COLUMNA 2: CAMPO DE FÚTBOL (MÁS GRANDE) */}
         <div className="columna-centro">
           <div className="campo-futbol">
-            <div className="formacion-info">
-              <h3>ESQUEMA: {gameData.formacion}</h3>
-            </div>
-
-            {/* Portero */}
-            <div className="linea portero-linea">
-              {formacionData.portero.map((j, i) => renderJugador(j, `po-${i}`))}
-            </div>
-
-            {/* Defensores */}
-            <div className="linea defensores-linea">
-              {formacionData.defensores.izquierdo.map((j, i) => renderJugador(j, `ei-${i}`))}
-              {formacionData.defensores.central.map((j, i) => renderJugador(j, `dc-${i}`))}
-              {formacionData.defensores.derecho.map((j, i) => renderJugador(j, `ed-${i}`))}
-            </div>
-
-            {/* Mediocampistas */}
-            <div className="linea mediocampistas-linea">
-              {formacionData.mediocampistas.map((j, i) => renderJugador(j, `mc-${i}`))}
-            </div>
-
-            {/* Mediocampistas Ofensivos (4-3-2-1) */}
-            {formacionData.mediocampistasOfensivos.length > 0 && (
-              <div className="linea mediocampistas-ofensivos-linea">
-                {formacionData.mediocampistasOfensivos.map((j, i) => renderJugador(j, `mo-${i}`))}
+            <div className="campo-con-dt">
+              {/* FORMACIÓN CON POSICIONES ABSOLUTAS */}
+              <div className="formacion-container">
+                {posiciones.map((jugador, index) => (
+                  <div 
+                    key={index}
+                    className="jugador-posicion-absoluta"
+                    style={{
+                      left: `${jugador.x || 50}%`,
+                      top: `${jugador.y || 50}%`
+                    }}
+                  >
+                    {renderJugador(jugador, index)}
+                  </div>
+                ))}
               </div>
-            )}
 
-            {/* Delanteros */}
-            <div className="linea delanteros-linea">
-              {formacionData.delanteros.map((j, i) => renderJugador(j, `del-${i}`))}
-            </div>
+              {/* SEPARADOR */}
+              <div className="dt-separador"></div>
 
-            {/* Entrenador */}
-            <div className="entrenador-section">
-              <div className="entrenador-box">
-                <div className="posicion-label">DT</div>
-                {entrenadorRevelado || gameOver ? (
-                  <>
-                    {entrenadorImageUrl ? (
-                      <div className="entrenador-circle">
-                        <img 
-                          src={entrenadorImageUrl} 
-                          alt={entrenadorNombre || gameData.entrenador_apellido}
-                          className="entrenador-foto"
-                          onError={(e) => {
-                            e.target.style.display = 'none'
-                          }}
-                        />
-                      </div>
-                    ) : null}
-                    <div className="entrenador-nombre" style={{display: entrenadorImageUrl ? 'none' : 'block'}}>
-                      {entrenadorNombre || gameData.entrenador_apellido}
-                    </div>
-                  </>
-                ) : (
-                  <div className="entrenador-oculto">?</div>
-                )}
+              {/* ENTRENADOR AL COSTADO */}
+              <div className="dt-lateral">
+                {/* Esquema encima del técnico */}
+                <div className="formacion-info-lateral">
+                  <h4>ESQUEMA</h4>
+                  <p className="esquema-numero">{gameData.formacion}</p>
+                </div>
+                <div className="entrenador-section">
+                  <div className="entrenador-box">
+                    <div className="posicion-label">DT</div>
+                    {entrenadorRevelado || gameOver ? (
+                      <>
+                        {entrenadorImageUrl ? (
+                          <div className="entrenador-circle">
+                            <img 
+                              src={entrenadorImageUrl} 
+                              alt={entrenadorNombre || gameData.entrenador_apellido}
+                              className="entrenador-foto"
+                              onError={(e) => {
+                                e.target.style.display = 'none'
+                              }}
+                            />
+                            {/* Escudo del club */}
+                            {clubEntrenador && clubEntrenador.logo_url && (
+                              <div className="escudo-jugador">
+                                <img 
+                                  src={`${BASE_URL}${clubEntrenador.logo_url.replace('/api/v1/static', IMAGES_PATH)}`}
+                                  alt={clubEntrenador.nombre}
+                                  onError={(e) => {
+                                    e.target.src = `${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`
+                                  }}
+                                />
+                              </div>
+                            )}
+                          </div>
+                        ) : null}
+                        <div className="entrenador-nombre" style={{display: entrenadorImageUrl ? 'none' : 'block'}}>
+                          {entrenadorNombre || gameData.entrenador_apellido}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="entrenador-oculto">?</div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

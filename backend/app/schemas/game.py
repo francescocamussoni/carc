@@ -32,6 +32,9 @@ class PosicionVacia(BaseModel):
     revelado: bool = False
     jugador_nombre: Optional[str] = None
     jugador_apellido: Optional[str] = None
+    image_url: Optional[str] = None  # URL de la imagen del jugador
+    x: Optional[float] = None  # Coordenada X (0-100, porcentaje)
+    y: Optional[float] = None  # Coordenada Y (0-100, porcentaje)
 
 
 class ClubActual(BaseModel):

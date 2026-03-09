@@ -254,6 +254,22 @@ function ClasicoGame() {
     }
   }
 
+  // Helper function to get club logo path
+  const getClubLogoPath = (clubNombre) => {
+    if (!clubNombre) return null
+    
+    // Normalize club name to filename format
+    const normalized = clubNombre
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove accents
+      .replace(/\s+/g, '_') // Replace spaces with underscores
+      .replace(/[^a-z0-9_]/g, '') // Remove special characters
+    
+    // Try Argentina clubs first, then internacional
+    return `${BASE_URL}${IMAGES_PATH}/clubes/argentina/${normalized}.png`
+  }
+
   const organizarFormacion = () => {
     if (!posiciones || posiciones.length === 0) {
       return { portero: [], defensores: { central: [], derecho: [], izquierdo: [] }, mediocampistas: [], mediocampistasOfensivos: [], delanteros: [] }
@@ -304,6 +320,13 @@ function ClasicoGame() {
       console.log(`🖼️ Jugador revelado: ${jugador.jugador_apellido}, URL: ${jugador.image_url}`)
     }
     
+    // Get club logo - in Clásico games, all players played for Rosario Central
+    let clubLogoPath = `${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`
+    let clubAlt = 'Rosario Central'
+    
+    // En el juego Clásico, todos jugaron en Rosario Central en ese partido
+    // Por lo tanto, siempre mostramos el escudo de Rosario Central cuando se revelan
+    
     return (
       <div key={index} className="jugador-posicion">
         <div className="jugador-circle">
@@ -323,6 +346,16 @@ function ClasicoGame() {
                   }}
                 />
               )}
+              <div className="escudo-jugador">
+                <img 
+                  src={clubLogoPath}
+                  alt={clubAlt}
+                  onError={(e) => {
+                    // Fallback to Rosario Central if club logo fails
+                    e.target.src = `${BASE_URL}${IMAGES_PATH}/clubes/argentina/rosario_central.png`
+                  }}
+                />
+              </div>
               <div className="jugador-nombre">
                 {jugador.jugador_apellido || '?'}
               </div>
@@ -367,7 +400,8 @@ function ClasicoGame() {
 
   if (!gameData) return null
 
-  const formacionData = organizarFormacion()
+  // Ya no necesitamos organizarFormacion - usamos posiciones con coordenadas directamente
+  // const formacionData = organizarFormacion()
   const jugadoresRevelados = posiciones.filter(p => p.revelado).length
 
   return (
@@ -551,63 +585,59 @@ function ClasicoGame() {
         {/* COLUMNA 2: CAMPO TÁCTICO */}
         <div className="columna-centro">
           <div className="campo-futbol">
-            <div className="formacion-info">
-              <h3>ESQUEMA: {gameData.esquema}</h3>
-            </div>
-            {/* Portero */}
-            <div className="linea portero-linea">
-              {formacionData.portero.map((jugador, idx) => renderJugador(jugador, idx))}
-            </div>
-
-            {/* Defensores */}
-            <div className="linea defensores-linea">
-              {formacionData.defensores.izquierdo.map((jugador, idx) => renderJugador(jugador, `ei-${idx}`))}
-              {formacionData.defensores.central.map((jugador, idx) => renderJugador(jugador, `dc-${idx}`))}
-              {formacionData.defensores.derecho.map((jugador, idx) => renderJugador(jugador, `ed-${idx}`))}
-            </div>
-
-            {/* Mediocampistas */}
-            <div className="linea mediocampistas-linea">
-              {formacionData.mediocampistas.map((jugador, idx) => renderJugador(jugador, `mc-${idx}`))}
-            </div>
-
-            {/* Mediocampistas Ofensivos */}
-            {formacionData.mediocampistasOfensivos.length > 0 && (
-              <div className="linea mediocampistas-ofensivos-linea">
-                {formacionData.mediocampistasOfensivos.map((jugador, idx) => renderJugador(jugador, `mo-${idx}`))}
+            <div className="campo-con-dt">
+              {/* FORMACIÓN CON POSICIONES ABSOLUTAS */}
+              <div className="formacion-container">
+                {posiciones.map((jugador, index) => (
+                  <div 
+                    key={index}
+                    className="jugador-posicion-absoluta"
+                    style={{
+                      left: `${jugador.x || 50}%`,
+                      top: `${jugador.y || 50}%`
+                    }}
+                  >
+                    {renderJugador(jugador, index)}
+                  </div>
+                ))}
               </div>
-            )}
 
-            {/* Delanteros */}
-            <div className="linea delanteros-linea">
-              {formacionData.delanteros.map((jugador, idx) => renderJugador(jugador, `del-${idx}`))}
-            </div>
+              {/* SEPARADOR */}
+              <div className="dt-separador"></div>
 
-            {/* Entrenador */}
-            <div className="entrenador-section">
-              <div className="entrenador-box">
-                <div className="posicion-label">DT</div>
-                {entrenador?.revelado || gameOver ? (
-                  <>
-                    {entrenador?.image_url ? (
-                      <div className="entrenador-circle">
-                        <img 
-                          src={getImageUrl(entrenador.image_url)} 
-                          alt={entrenador.apellido}
-                          className="entrenador-foto"
-                          onError={(e) => {
-                            e.target.style.display = 'none'
-                          }}
-                        />
-                      </div>
-                    ) : null}
-                    <div className="entrenador-nombre" style={{display: entrenador?.image_url ? 'none' : 'block'}}>
-                      {entrenador?.apellido || '???'}
-                    </div>
-                  </>
-                ) : (
-                  <div className="entrenador-oculto">?</div>
-                )}
+              {/* ENTRENADOR AL COSTADO */}
+              <div className="dt-lateral">
+                {/* Esquema encima del técnico */}
+                <div className="formacion-info-lateral">
+                  <h4>ESQUEMA</h4>
+                  <p className="esquema-numero">{gameData.esquema}</p>
+                </div>
+                <div className="entrenador-section">
+                  <div className="entrenador-box">
+                    <div className="posicion-label">DT</div>
+                    {entrenador?.revelado || gameOver ? (
+                      <>
+                        {entrenador?.image_url ? (
+                          <div className="entrenador-circle">
+                            <img 
+                              src={getImageUrl(entrenador.image_url)} 
+                              alt={entrenador.apellido}
+                              className="entrenador-foto"
+                              onError={(e) => {
+                                e.target.style.display = 'none'
+                              }}
+                            />
+                          </div>
+                        ) : null}
+                        <div className="entrenador-nombre" style={{display: entrenador?.image_url ? 'none' : 'block'}}>
+                          {entrenador?.apellido || '???'}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="entrenador-oculto">?</div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -270,8 +270,14 @@ class GameGeneratorService:
         # Remove trailing underscores
         filename = filename.strip('_')
         
-        # Normalize country name for folder
-        pais_folder = pais.lower().replace(' ', '_').replace('.', '')
+        # Normalize country name for folder (same normalization as club name)
+        pais_folder = pais.lower()
+        # Remove accents from country name (España -> espana, Turquía -> turquia)
+        nfd_pais = unicodedata.normalize('NFD', pais_folder)
+        pais_folder = ''.join(char for char in nfd_pais if unicodedata.category(char) != 'Mn')
+        # Replace special characters with underscore
+        pais_folder = re.sub(r'[^a-z0-9]+', '_', pais_folder)
+        pais_folder = pais_folder.strip('_')
         
         # Try different extensions in country subfolder
         for ext in ['png', 'jpg', 'jpeg', 'svg']:
@@ -380,16 +386,15 @@ class GameGeneratorService:
         # Choose formation (ensuring no repetition within the day)
         formacion_nombre, posiciones_config = self._elegir_formacion(rng)
         
-        # Create empty positions based on formation config
+        # Create empty positions based on formation config (coordinate-based structure)
         posiciones = []
-        for pos_def in posiciones_config:
-            posicion = pos_def['posicion']
-            cantidad = pos_def['cantidad']
-            for _ in range(cantidad):
-                posiciones.append(PosicionVacia(
-                    posicion=posicion,
-                    revelado=False
-                ))
+        for pos_def in posiciones_config:  # Iterar sobre cada posición
+            posiciones.append(PosicionVacia(
+                posicion=pos_def['posicion'],
+                revelado=False,
+                x=pos_def['pos']['x'],  # Coordenada X
+                y=pos_def['pos']['y']   # Coordenada Y
+            ))
         
         # Generate club list (11 clubs, one per position)
         clubes_list = self._generar_lista_clubes(jugadores, posiciones, rng)
@@ -411,7 +416,8 @@ class GameGeneratorService:
             'posiciones_config': posiciones_config,
             'posiciones': [p.model_dump() for p in posiciones],
             'entrenador': entrenador,
-            'categoria': game_type.replace('equipo_', '')
+            'categoria': game_type.replace('equipo_', ''),
+            'jugadores_revelados': set()  # ✅ Track already revealed players
         }
         
         return EquipoDelDiaGame(
@@ -587,9 +593,19 @@ class GameGeneratorService:
         
         # ✅ NUEVO: Si hay múltiples jugadores con el mismo apellido, filtrar por posiciones disponibles
         posiciones = game_state['posiciones']
+        
+        # ✅ Get set of already revealed players (by normalized name)
+        if 'jugadores_revelados' not in game_state:
+            game_state['jugadores_revelados'] = set()
+        
         jugadores_con_posiciones = []
         
         for jugador in jugadores_encontrados:
+            # ✅ Check if this specific player was already revealed
+            jugador_nombre_normalizado = self._normalize_text(jugador['nombre'])
+            if jugador_nombre_normalizado in game_state['jugadores_revelados']:
+                continue  # Skip, this player was already revealed
+            
             posiciones_jugador = self._get_all_valid_positions(jugador)
             # Check if this player can occupy any available position
             puede_jugar = False
@@ -602,6 +618,16 @@ class GameGeneratorService:
                 jugadores_con_posiciones.append(jugador)
         
         if not jugadores_con_posiciones:
+            # ✅ Check if the player was found but already revealed
+            if jugadores_encontrados:
+                jugador_ejemplo = jugadores_encontrados[0]
+                jugador_nombre_norm = self._normalize_text(jugador_ejemplo['nombre'])
+                if jugador_nombre_norm in game_state['jugadores_revelados']:
+                    return {
+                        'correcto': False,
+                        'mensaje': f'{jugador_ejemplo["nombre"]} ya fue adivinado'
+                    }
+            
             return {
                 'correcto': False,
                 'mensaje': f'Ningún jugador con ese apellido puede ocupar las posiciones vacías'
@@ -682,6 +708,10 @@ class GameGeneratorService:
         posiciones[pos_index]['jugador_apellido'] = jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1])
         posiciones[pos_index]['image_url'] = self._get_jugador_image_url(jugador_encontrado)
         
+        # ✅ Mark this player as revealed
+        jugador_nombre_normalizado = self._normalize_text(jugador_encontrado['nombre'])
+        game_state['jugadores_revelados'].add(jugador_nombre_normalizado)
+        
         # Move to next club
         game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
         next_club = game_state['clubes_list'][game_state['clubes_index']]
@@ -747,6 +777,10 @@ class GameGeneratorService:
         posiciones[pos_index]['jugador_nombre'] = jugador_encontrado['nombre']
         posiciones[pos_index]['jugador_apellido'] = jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1])
         posiciones[pos_index]['image_url'] = self._get_jugador_image_url(jugador_encontrado)
+        
+        # ✅ Mark this player as revealed
+        jugador_nombre_normalizado = self._normalize_text(jugador_encontrado['nombre'])
+        game_state['jugadores_revelados'].add(jugador_nombre_normalizado)
         
         # Get current club
         club_index = game_state['clubes_index']
@@ -871,6 +905,10 @@ class GameGeneratorService:
         posiciones[pos_index]['jugador_nombre'] = jugador_encontrado['nombre']
         posiciones[pos_index]['jugador_apellido'] = jugador_encontrado.get('apellido', jugador_encontrado['nombre'].split()[-1])
         posiciones[pos_index]['image_url'] = self._get_jugador_image_url(jugador_encontrado)
+        
+        # ✅ Mark this player as revealed
+        jugador_nombre_normalizado = self._normalize_text(jugador_encontrado['nombre'])
+        game_state['jugadores_revelados'].add(jugador_nombre_normalizado)
         
         # Move to next club
         game_state['clubes_index'] = min(club_index + 1, len(game_state['clubes_list']) - 1)
@@ -1177,12 +1215,121 @@ class GameGeneratorService:
         seed = self._get_daily_seed("clasico")
         random.seed(seed)
         
-        # Select a random match for today
-        partido = random.choice(clasicos_completos)
+        # Shuffle matches for deterministic but random selection
+        random.shuffle(clasicos_completos)
         
-        # Build posiciones array from jugadores
+        # Try to find a compatible match (with retries for incompatible formations)
+        partido = None
+        esquema = None
+        formacion_config = None
+        
+        for intento, partido_candidato in enumerate(clasicos_completos):
+            esquema_candidato = partido_candidato["esquema"]
+            formacion_config_candidata = self.formaciones_data['formaciones'].get(esquema_candidato)
+            
+            if not formacion_config_candidata:
+                continue
+            
+            # Check if this match has all required positions
+            posiciones_requeridas = [pc["posicion"] for pc in formacion_config_candidata['posiciones']]
+            posiciones_jugadores = [j["posicion"] for j in partido_candidato["jugadores"]]
+            
+            # Verify that each required position has enough players
+            # ✅ Consider compatible positions (MC/PI, MD/ED, MI/EI)
+            compatible = True
+            checked_groups = set()  # Track which position groups we've already validated
+            
+            for pos_req in set(posiciones_requeridas):
+                count_requeridos = posiciones_requeridas.count(pos_req)
+                count_disponibles = posiciones_jugadores.count(pos_req)
+                
+                # Group compatible positions together
+                if pos_req in ["MC", "PI"]:
+                    if "MC/PI" not in checked_groups:
+                        checked_groups.add("MC/PI")
+                        count_mc_pi = posiciones_jugadores.count("MC") + posiciones_jugadores.count("PI")
+                        count_requeridos_mc_pi = posiciones_requeridas.count("MC") + posiciones_requeridas.count("PI")
+                        if count_requeridos_mc_pi > count_mc_pi:
+                            compatible = False
+                            break
+                    continue  # Skip individual check, already handled by group
+                
+                elif pos_req in ["MD", "ED"]:
+                    if "MD/ED" not in checked_groups:
+                        checked_groups.add("MD/ED")
+                        count_md_ed = posiciones_jugadores.count("MD") + posiciones_jugadores.count("ED")
+                        count_requeridos_md_ed = posiciones_requeridas.count("MD") + posiciones_requeridas.count("ED")
+                        if count_requeridos_md_ed > count_md_ed:
+                            compatible = False
+                            break
+                    continue  # Skip individual check, already handled by group
+                
+                elif pos_req in ["MI", "EI"]:
+                    if "MI/EI" not in checked_groups:
+                        checked_groups.add("MI/EI")
+                        count_mi_ei = posiciones_jugadores.count("MI") + posiciones_jugadores.count("EI")
+                        count_requeridos_mi_ei = posiciones_requeridas.count("MI") + posiciones_requeridas.count("EI")
+                        if count_requeridos_mi_ei > count_mi_ei:
+                            compatible = False
+                            break
+                    continue  # Skip individual check, already handled by group
+                
+                else:
+                    # For other positions, strict match
+                    if count_requeridos > count_disponibles:
+                        compatible = False
+                        break
+            
+            if compatible:
+                partido = partido_candidato
+                esquema = esquema_candidato
+                formacion_config = formacion_config_candidata
+                break
+        
+        if not partido:
+            raise ValueError("No se encontró ningún partido clásico con formación compatible")
+        
+        posiciones_coords = formacion_config['posiciones']
+        
+        # Map jugadores by position to respect formaciones.json order
+        # Create a list to track which jugadores have been used
+        jugadores_disponibles = partido["jugadores"].copy()
+        
+        # Build posiciones array following formaciones.json order
         posiciones = []
-        for jugador in partido["jugadores"]:
+        for pos_config in posiciones_coords:
+            posicion_esperada = pos_config["posicion"]
+            
+            # Find a jugador with this exact position that hasn't been used yet
+            # ✅ Fallback: Posiciones compatibles
+            posiciones_buscar = [posicion_esperada]
+            if posicion_esperada == "MC":
+                posiciones_buscar.append("PI")  # MC puede ser reemplazado por PI
+            elif posicion_esperada == "PI":
+                posiciones_buscar.append("MC")  # PI puede ser reemplazado por MC
+            elif posicion_esperada == "MD":
+                posiciones_buscar.append("ED")  # MD puede ser reemplazado por ED
+            elif posicion_esperada == "ED":
+                posiciones_buscar.append("MD")  # ED puede ser reemplazado por MD
+            elif posicion_esperada == "MI":
+                posiciones_buscar.append("EI")  # MI puede ser reemplazado por EI
+            elif posicion_esperada == "EI":
+                posiciones_buscar.append("MI")  # EI puede ser reemplazado por MI
+            
+            jugador = None
+            for pos_aceptable in posiciones_buscar:
+                for idx, jug in enumerate(jugadores_disponibles):
+                    if jug["posicion"] == pos_aceptable:
+                        jugador = jugadores_disponibles.pop(idx)
+                        break
+                if jugador:
+                    break
+            
+            if not jugador:
+                # This should never happen due to the validation above
+                self.logger.error(f"Error crítico: No se encontró jugador para posición {posicion_esperada}")
+                raise ValueError(f"Error interno: jugador no encontrado para {posicion_esperada}")
+            
             posiciones.append({
                 "posicion": jugador["posicion"],
                 "numero": jugador.get("numero", 0),
@@ -1192,7 +1339,9 @@ class GameGeneratorService:
                 "otros_clubes": jugador.get("otros_clubes", []),
                 "posiciones_disponibles": jugador.get("posiciones", []),
                 "image_url": self._convert_image_path_to_url(jugador.get("foto_url")),
-                "goles": jugador.get("goles", 0)
+                "goles": jugador.get("goles", 0),
+                "x": pos_config["pos"]["x"],  # ✅ Coordenada X correcta
+                "y": pos_config["pos"]["y"]   # ✅ Coordenada Y correcta
             })
         
         # Initialize game state
@@ -1224,16 +1373,18 @@ class GameGeneratorService:
                 "nombre_completo": partido["arbitro"]["nombre_completo"]
             },
             # Internal state for verification
+            # ✅ Map apellidos to their index in the REORDERED posiciones array
             "_internal": {
                 "jugadores_map": {
-                    self._normalize_text(j["apellido"]): idx 
-                    for idx, j in enumerate(partido["jugadores"])
+                    self._normalize_text(pos["jugador_apellido"]): idx 
+                    for idx, pos in enumerate(posiciones)
                 },
                 "entrenador_apellido_norm": self._normalize_text(partido["entrenador"]["apellido"]),
                 "arbitro_apellido_norm": self._normalize_text(partido["arbitro"]["apellido"]),
                 "resultado_norm": partido["resultado"].split("(")[0].strip(),
                 "pistas_usadas": 0,
-                "revelaciones_usadas": 0
+                "revelaciones_usadas": 0,
+                "jugadores_revelados": set()  # ✅ Track already revealed players
             }
         }
         
@@ -1325,6 +1476,10 @@ class GameGeneratorService:
             # Reveal player
             jugador_pos["revelado"] = True
             
+            # ✅ Mark this player as revealed
+            jugador_nombre_normalizado = self._normalize_text(jugador_pos['jugador_nombre_completo'])
+            internal['jugadores_revelados'].add(jugador_nombre_normalizado)
+            
             # Check if game is complete
             todos_revelados = all(p["revelado"] for p in posiciones)
             game_over = todos_revelados and entrenador["revelado"]
@@ -1405,6 +1560,7 @@ class GameGeneratorService:
             "letra_apellido": letra_apellido,
             "posicion_principal": posicion_principal,
             "otro_club": otro_club,
+            "jugador_apellido": jugador["jugador_apellido"],  # ✅ Agregar apellido completo para identificar al jugador
             "pistas_usadas": internal["pistas_usadas"]
         }
     
